@@ -24,7 +24,7 @@ namespace AchiveClubServer.Services
             bool _fileLoaded = false;
 
             IBrowserFile _file = file;
-            string _fileName = Guid.NewGuid() + ".webp";
+            string _fileName = Guid.NewGuid() + ".jpeg";
             string _fullDestFolder = Path.Combine(_environment.ContentRootPath, _destFolder, folder);
             string _path = Path.Combine(_fullDestFolder, _fileName);
             string _relativePath = $"StaticFiles/{folder}/" + _fileName;
@@ -51,7 +51,7 @@ namespace AchiveClubServer.Services
                             Size = new Size(600, 600),
                             Mode = ResizeMode.Crop
                         }));
-                        image.SaveAsWebp(Path.Combine(_path));
+                        image.SaveAsJpeg(Path.Combine(_path));
                     }
                 }
                 catch
