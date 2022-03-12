@@ -1,0 +1,118 @@
+﻿@page "/club/{clubidparam}"
+@layout MainLayout
+@inject ClubPageModelBuilder _modelBuilder
+@inject NavigationManager _navigation
+
+@if (_model != null)
+{
+    <header class="@GetClubClass()">
+        <div class="heading-wrapper">
+            <div id="profileSlogan">
+                <div id="arrowExit">
+                    <a href="topclubs"><img src="./image/left-chevron.png" alt=""></a>
+                </div>
+                <span id="club">Клуб</span>
+                <span><b>@_model.Club.Title</b></span>
+            </div>
+            <div class="clubPositionLogo">
+                <span id="clubPosition">#@(_model.RatingPosition+1)</span>
+                <img src="@_model.Club.LogoURL" alt="">
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="historyClub">
+            <h3>История клуба:</h3>
+            <p id="textHistoryClub">
+                @_model.Club.Description
+            </p>
+            <p id="adressHistoryClub">@_model.Club.Address</p>
+        </div>
+        <div class="topThreeUsers">
+            <div class="topThreeUsersHead">
+                <h3>Топ <b>@_model.Top3Users.Count</b> пользователей: </h3>
+            </div>
+            @foreach (var user in _model.Top3Users)
+            {
+                <div class="@GetUserClass(user)" @onclick=@(()=>RedirectToUserId(user.User.Id))>
+                    <div class="userImage">
+                        <img src="@user.User.Avatar" alt="">
+                    </div>
+                    <div class="userAboutWrapper">
+                        <div class="nameSurnameUser">
+                            <span>@user.User.FirstName @user.User.LastName</span>
+                        </div>
+                        <div class="xpCountUser">
+                            <span>@user.Score XP</span>
+                        </div>
+                    </div>
+                    <div class="ClubLogoAndPositionUser">
+                        <div class="topPositionUser">
+                            <span>#@(_model.Top3Users.IndexOf(user)+1)</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+}
+else
+{
+    <h1>Loading...</h1>
+}
+
+@code {
+    [Parameter]
+    public string ClubIdParam { get; set; }
+
+    private ClubPageModel _model;
+
+    protected override void OnInitialized()
+    {
+        UpdateClub();
+    }
+
+    private void UpdateClub()
+    {
+        int id = int.Parse(ClubIdParam);
+        _model = _modelBuilder.Build(id);
+        StateHasChanged();
+    }
+
+    private string GetUserClass(UserWithRatingAndScore user)
+    {
+        int number = _model.Top3Users.IndexOf(user);
+        switch (number)
+        {
+            case 0:
+                return "topOneUser";
+            case 1:
+                return "topTwoUser";
+            case 2:
+                return "topThreeUser";
+            default:
+                return "topUser";
+        }
+    }
+
+    private string GetClubClass()
+    {
+        int number = _model.RatingPosition;
+        switch (number)
+        {
+            case 0:
+                return "topOneClub";
+            case 1:
+                return "topTwoClub";
+            case 2:
+                return "topThreeClub";
+            default:
+                return "topClub";
+        }
+    }
+
+    private void RedirectToUserId(int id)
+    {
+        _navigation.NavigateTo($"/user/{id}");
+    }
+}

@@ -1,0 +1,72 @@
+﻿@page "/login"
+@inject UserLoginService _login
+@inject AdminLoginService _adminLogin
+@inject NavigationManager _navigation
+
+<!-----------------------------------nav----------------------------------------->
+<header>
+    <div class="header-wrapper">
+        <div class="img">
+            <img src="./image/gllg.png" alt="">
+        </div>
+        <div class="text-wrapper">
+            <h3>
+                <b>AchiveClub</b> for <m>It_Club</m>
+            </h3>
+        </div>
+    </div>
+</header>
+<!-----------------------------------main----------------------------------------->
+<main>
+    <div class="content-wrapper">
+        <div class="headingWrapper">
+            <h3>Войти в систему</h3>
+        </div>
+        <div class="emailForm">
+            <span>Email</span>
+            <input type="email" name="" id="emailInput" @bind-value="loginParams.Email">
+        </div>
+        <div class="passwordForm">
+            <span>Пароль</span>
+            <input type="password" name="" id="passwordInput" @bind-value="loginParams.Password">
+        </div>
+        <div class="submitButton">
+            <button type="submit" @onclick="LoginUser">Войти</button>
+        </div>
+        <div class="registerForm">
+            <hr />
+            <p @onclick="ToRegistration">Зарегистрироваться</p>
+        </div>
+        <p>@result</p>
+    </div>
+</main>
+
+@code
+{
+    private LoginParams loginParams = new LoginParams();
+    private string result;
+
+    public async Task LoginUser()
+    {
+        if (await _login.Login(loginParams) == true)
+        {
+            result = $"Вы вошли {_login.CurrentUser.FirstName} {_login.CurrentUser.LastName}";
+            _navigation.NavigateTo("/");
+        }
+        else if(_adminLogin.Login(loginParams))
+        {
+            result = $"Вы вошли {_adminLogin.CurrentAdmin.Name} как администратор!";
+            _navigation.NavigateTo("/admin");
+        }
+        else
+        {
+            result = "Введите верные данные для входа!";
+        }
+        Console.WriteLine(result);
+    }
+
+    public void ToRegistration()
+    {
+        _navigation.NavigateTo("/registration");
+    }
+}

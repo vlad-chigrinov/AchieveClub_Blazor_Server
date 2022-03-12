@@ -1,0 +1,264 @@
+﻿header {
+    background-color: #0D4E81;
+    border-radius: 0px 0px 50px 50px;
+}
+
+nav {
+    background: white;
+    position: fixed;
+    width: 480px;
+    top: 1010px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
+
+.userMenu {
+    display: flex;
+    justify-content: space-around;
+}
+
+.paragraph {
+    padding: 15px;
+}
+
+#userParagraph {
+    width: 50px;
+}
+
+.userProfile {
+    display: flex;
+}
+
+#userProfileImg {
+    width: 148px;
+    height: 148px;
+    margin: 28px 25px 25px 40px;
+    border-radius: 50%;
+}
+
+.userId {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 14px;
+    color: white;
+    align-items: center;
+    margin-top: 38px;
+}
+
+.heading-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+#profileSlogan {
+    display: flex;
+    width: 60%;
+    font-size: 20px;
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    color: white;
+    justify-content: flex-end;
+}
+
+.exitLink {
+    display: flex;
+    width: 40%;
+    margin: 0;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    align-items: self-end;
+}
+
+    .exitLink a {
+        font-size: 16px;
+        font-family: 'Play', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+    }
+
+#locate, #XPLevel, #allTasks, #completedTasks, #nameTask, #reward, #notCompletedTasks {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19px;
+    margin: 0;
+}
+
+#locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    color: #818181;
+    padding-top: 5px;
+}
+
+.generalInfo, .completed, .completedTask, .notCompleted, .notCompletedTask {
+    background: white;
+    margin: 30px;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.aboutTask {
+    width: 250px;
+}
+
+#completed, #notCompleted {
+    margin-bottom: 10px;
+}
+
+#completedTask, #notCompletedTask {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #7BC3FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}
+
+#notCompletedTask {
+    background: white;
+}
+
+#infoTask {
+    color: white;
+}
+
+#logoTask {
+    width: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#clubName {
+    color: #0D4E81;
+}
+
+
+#hr {
+    background: #818181;
+}
+
+#markUp, .markUpRed {
+    margin: 0;
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    border: 1px solid #0D4E81;
+    padding: 4px;
+    border-radius: 10px;
+    color: #0D4E81;
+}
+
+#markUpRed {
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+.mark {
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskXP {
+    padding-left: 10px;
+}
+
+.taskImg {
+    padding-right: 10px;
+}
+
+#markUp {
+    height: 20px;
+}
+
+.markUpRed {
+    height: 20px;
+}
+
+#completedTask {
+    background-color: gray;
+}
+
+#notCompletedTask {
+    background-color: gray;
+}
+
+.notInfoTask {
+    color: white;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.footerSections {
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    -webkit-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer img {
+    width: 50px;
+    margin: 10px 30px 5px 30px;
+    object-fit: cover;
+}
+
+.secondSection hr {
+    border-bottom: 5px solid #0D4E81;
+    border-radius: 10px 10px 0px 0px;
+    margin: 0;
+}
+
+.px {
+    width: 100%;
+    height: 75px;
+}
+
+@media(max-width:430px) {
+    #infoTask {
+        text-align: left;
+    }
+}
+@media (min-width:1100px) {
+    #infoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    .notInfoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    #nameTask {
+        text-align: left;
+    }
+
+    .aboutTask {
+        width: 100%;
+    }
+
+    .mark {
+        display: unset;
+    }
+
+    .taskXP {
+        width: 100px;
+        text-align: right;
+    }
+}

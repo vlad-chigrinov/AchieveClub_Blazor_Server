@@ -1,0 +1,308 @@
+﻿.topOneUser, .topTwoUser, .topThreeUser {
+    cursor: pointer;
+}
+
+header {
+    border-radius: 0px 0px 50px 50px;
+}
+
+.topOneClub {
+    background: linear-gradient(180deg, #EDCF33 75.31%, #DAAA30 94.58%);
+}
+
+.topTwoClub {
+    background: linear-gradient(180deg, #A7A7A7 0%, #D1D1CF 25.31%);
+}
+
+.topThreeClub {
+    background: linear-gradient(180deg, #E68F3F 73.23%, #BE7532 100%);
+}
+
+.topClub {
+    background: linear-gradient(180deg, #A7A7A7 0%, #D1D1CF 25.31%);
+}
+
+#arrowExit a img:hover {
+    cursor: pointer;
+}
+
+#userProfileImg {
+    width: 148px;
+    height: 148px;
+    padding: 28px 25px 25px 40px;
+}
+
+.heading-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+    flex-direction: column;
+}
+
+#profileSlogan {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 24px;
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    color: BLACK;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.px {
+    width: 100%;
+    height: 75px;
+}
+
+.footerSections {
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    -webkit-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer img {
+    width: 50px;
+    margin: 10px 30px 5px 30px;
+    object-fit: cover;
+}
+
+.secondSection hr {
+    border-bottom: 5px solid #0D4E81;
+    border-radius: 10px 10px 0px 0px;
+    margin: 0;
+}
+
+.topUsers {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.topOneUser {
+    background: linear-gradient(180deg, #EDCF33 78.44%, #DAAA30 100%);
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+}
+
+.topTwoUser {
+    background: linear-gradient(180deg, #A7A7A7 0%, #D1D1CF 25.31%);
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.topThreeUser {
+    background: linear-gradient(180deg, #E68F3F 73.23%, #BE7532 100%);
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.topUser {
+    background: #FFFFFF;
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.userImage img {
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userImageTop img {
+    width: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userAboutWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+    width: 50%;
+}
+
+.nameSurnameUser {
+    font-family: 'Play';
+    font-style: normal;
+    font-weight: normal;
+}
+
+.xpCountUser {
+    font-size: 13px;
+    color: white;
+}
+
+.xpCountDefaultUser {
+    font-size: 13px;
+    color: gray;
+}
+
+.clubUserLogo {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+}
+
+    .clubUserLogo img {
+        width: 45px;
+        object-fit: cover;
+    }
+
+.topPositionUser {
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    color: white;
+    align-items: center;
+}
+
+.topPositionUserDefault {
+    font-size: 22px;
+    font-weight: normal;
+    text-align: center;
+    display: flex;
+    color: black;
+    align-items: center;
+}
+
+.ClubLogoAndPositionUser {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.clubPositionLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+    .clubPositionLogo img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #FFFFFF;
+    }
+
+#clubPosition {
+    font-size: 100px;
+    padding-right: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+.historyClub {
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+    .historyClub h3 {
+        margin: 0;
+        padding-bottom: 5px;
+        font-weight: 400;
+    }
+
+    .historyClub p {
+        margin: 0;
+        padding-top: 5px;
+    }
+
+#arrowExit {
+    width: 40%;
+    position: absolute;
+    left: -15%;
+    top: 1%;
+}
+
+    #arrowExit img {
+        width: 40px;
+        object-fit: cover;
+    }
+
+#club {
+    text-align: center;
+}
+
+#textHistoryClub {
+    font-family: 'Play';
+    font-style: normal;
+    font-weight: normal;
+    text-align: justify;
+    color: #818181;
+    font-size: 14px;
+}
+
+#adressHistoryClub {
+    font-family: 'Play';
+    font-style: normal;
+    font-weight: normal;
+    text-align: justify;
+    color: #818181;
+    font-size: 14px;
+    padding-top: 15px;
+}
+
+.topThreeUsersHead {
+    background-color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.topThreeUsers {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+    .topThreeUsers h3 {
+        margin: 0;
+        padding-bottom: 5px;
+        font-weight: 400;
+    }
+
+@media(max-width:430px) {
+    #infoTask {
+        text-align: left;
+    }
+}
+
+@media (min-width:1100px) {
+    .ClubLogoAndPositionUser {
+        width: 50%;
+    }
+}

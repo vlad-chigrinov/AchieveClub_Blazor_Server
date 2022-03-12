@@ -1,0 +1,111 @@
+﻿header {
+    background-color: #0D4E81;
+    border-radius: 0px 0px 50px 50px;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100px;
+}
+
+.img img {
+    width: 60px;
+    background: white;
+    object-fit: cover;
+    margin-right: 15px;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    margin-top: 50px;
+}
+
+.content-wrapper * {
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.content-wrapper {
+    display: flex;
+    border: 1px solid white;
+    background: white;
+    border-radius: 10px;
+    justify-content: center;
+    text-align: left;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    padding: 5%;
+}
+
+.registerForm p {
+    cursor: pointer;
+}
+
+.registerForm hr {
+    margin: 0;
+    color: #8F8F8F;
+    width: 108%;
+}
+
+.emailForm input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #8F8F8F;
+}
+
+.emailForm {
+    color: #8F8F8F;
+    font-size: 14px;
+    width: 100%;
+}
+
+.passwordForm input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #8F8F8F;
+}
+
+.passwordForm {
+    font-size: 14px;
+    color: #8F8F8F;
+    width: 100%;
+}
+
+.headingWrapper {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.submitButton {
+    width: 98%;
+}
+
+    .submitButton button {
+        width: 100%;
+        background: #4E9BDA;
+        border-radius: 5px;
+        border: 1px solid #4E9BDA;
+        color: white;
+        font-family: 'Play', sans-serif;
+        height: 25px;
+        padding: 0;
+        cursor: pointer;
+    }
+
+.registerForm p {
+    text-decoration: none;
+    color: #8F8F8F;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}

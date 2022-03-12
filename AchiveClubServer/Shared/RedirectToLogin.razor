@@ -1,0 +1,59 @@
+﻿@inject NavigationManager _navigation
+@inject UserLoginService _login
+@inject AdminLoginService _adminLogin
+
+@if (_showChildContent)
+{
+    @ChildContent
+}
+else
+{
+    @if (_firstRender)
+    {
+        NavigateToLogin();
+    }
+}
+
+@code
+{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private bool _showChildContent = false;
+
+    private bool _firstRender = false;
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        firstRender = true;
+
+        string localPath = (new Uri(_navigation.Uri)).LocalPath;
+
+        if (_login.IsAuthorized || _adminLogin.IsAuthorized)
+        {
+            _showChildContent = true;
+        }
+        else
+        {
+            if (localPath == "/login" || localPath == "/registration" || localPath == "/admin")
+            {
+                _showChildContent = true;
+            }
+            else if (await _login.TryLoginFromLocalStorage())
+            {
+                _showChildContent = true;
+            }
+            else
+            {
+                _navigation.NavigateTo("/login");
+            }
+        }
+
+        StateHasChanged();
+    }
+
+    private void NavigateToLogin()
+    {
+        _navigation.NavigateTo("/login");
+    }
+}

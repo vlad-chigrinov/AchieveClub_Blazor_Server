@@ -1,0 +1,17 @@
+﻿<div class="adminKeyinput">
+    <input type="password" autocomplete="off" placeholder="...ключ преподавателя..." @bind-value="_message" />
+    <div class="buttons">
+        <button id="buttonSubmit" @onclick="SubmitForm">Подтвердить</button>
+    </div>
+</div>
+
+@code {
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
+
+    private string _message;
+
+    protected override void OnInitialized() => BlazoredModal.SetTitle("Передайте устройство тренеру для подтверждения выполнения!");
+
+    void SubmitForm() => BlazoredModal.CloseAsync(ModalResult.Ok(_message));
+}

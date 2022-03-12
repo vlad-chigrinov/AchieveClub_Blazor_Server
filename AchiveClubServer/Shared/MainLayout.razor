@@ -1,0 +1,43 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager _navigation
+
+@Body
+
+<div class="px"></div>
+<footer>
+    <div class="footerSections">
+        <div class="firstSection">
+            <a href="@_profilePath"><img src="StaticFiles/icons/user_profile.png" alt=""></a>
+            @if (LocalPath == _profilePath)
+            {
+                <hr />
+            }
+        </div>
+        <div class="secondSection">
+            <a href="@_topUsersPath"><img src="StaticFiles/icons/top_users.png" alt=""></a>
+            @if (LocalPath == _topUsersPath || LocalPath.Contains(_anotherUserPage))
+            {
+                <hr />
+            }
+        </div>
+        <div class="thirdSection">
+            <a href="@_topClubsPath"><img src="StaticFiles/icons/top_clubs.png" alt=""></a>
+            @if (LocalPath == _topClubsPath || LocalPath.Contains(_clubPage))
+            {
+                <hr />
+            }
+        </div>
+    </div>
+</footer>
+
+@code
+{
+    public string LocalPath => (new Uri(_navigation.Uri)).LocalPath;
+
+    private const string _profilePath = "/";
+    private const string _topUsersPath = "/topusers";
+    private const string _topClubsPath = "/topclubs";
+
+    private const string _anotherUserPage = "/user/";
+    private const string _clubPage = "/club/";
+}

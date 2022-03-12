@@ -1,0 +1,136 @@
+
+
+header {
+    background-color: #0D4E81;
+    border-radius: 0px 0px 50px 50px;
+}
+
+nav {
+    background: white;
+    position: fixed;
+    width: 480px;
+    top: 1010px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
+
+#infoTask {
+    color: white;
+}
+
+#logoTask {
+    width: 60px;
+}
+
+#clubName {
+    color: #0D4E81;
+}
+
+
+#hr {
+    background: #818181;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.footerSections {
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    -webkit-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+.firstSection img {
+    cursor: pointer;
+}
+
+.secondSection img {
+    cursor: pointer;
+}
+
+.thirdSection img {
+    cursor: pointer;
+}
+
+footer img {
+    width: 50px;
+    margin: 10px 30px 5px 30px;
+    object-fit: cover;
+}
+
+hr {
+    border-bottom: 5px solid #0D4E81;
+    border-radius: 10px 10px 0px 0px;
+    margin: 0;
+}
+
+.px {
+    width: 100%;
+    height: 75px;
+}
+
+@media(max-width:430px) {
+    #infoTask {
+        text-align: left;
+    }
+}
+
+@media (min-width:1100px) {
+    #infoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    .notInfoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    #nameTask {
+        text-align: left;
+    }
+
+    .aboutTask {
+        width: 100%;
+    }
+
+    .mark {
+        display: unset;
+    }
+
+    .taskXP {
+        width: 100px;
+        text-align: right;
+    }
+
+    .completedTask {
+        cursor: pointer;
+    }
+
+    .notCompletedTask {
+        cursor: pointer;
+    }
+
+    #profileSlogan {
+        width: 50%;
+    }
+
+    .exitLink {
+        width: 50%;
+    }
+}
+
+.hr-hidden hr {
+    display: none;
+}
+
+.hr-visible hr {
+    display: block;
+}

@@ -1,0 +1,163 @@
+﻿@page "/registration"
+@inject RegistrationService _registration
+@inject NavigationManager _navigation
+@inject ClubNamesService _clubNamesService
+@inject ImageLoader _imageLoader
+
+<!-----------------------------------nav----------------------------------------->
+<header>
+    <div class="header-wrapper">
+        <div class="img">
+            <img src="./image/gllg.png" alt="">
+        </div>
+        <div class="text-wrapper">
+            <h3>
+                <b>AchiveClub</b> for <m>It_Club</m>
+            </h3>
+        </div>
+    </div>
+</header>
+<!-----------------------------------main----------------------------------------->
+<main>
+    <div class="content-wrapper">
+        <div class="headingWrapper">
+            <h3>Зарегистрироваться</h3>
+        </div>
+        <div class="registerForm">
+            <p><a @onclick="ToLogin">Войти в систему</a></p>
+            <hr />
+        </div>
+        <div class="emailForm">
+            <span>Имя</span>
+            <input type="text" name="" @bind-value="_registrationParams.FirstName">
+        </div>
+        <div class="emailForm">
+            <span>Фамилия</span>
+            <input type="text" name="" @bind-value="_registrationParams.LastName">
+        </div>
+        <div class="emailForm">
+            <span>Email</span>
+            <input type="email" name="" @bind-value="_registrationParams.Email">
+        </div>
+        <div class="emailForm">
+            <span>Аватарка</span>
+            <InputFile OnChange="@LoadFiles" AdditionalAttributes=@_fileInputAttributes />
+            @if (_avatarImageProcessed)
+            {
+                <img src=@_registrationParams.Avatar style="border-radius:50%; width:200px; height:200px; margin: 0 auto" />
+            }
+        </div>
+        <div class="emailForm">
+            <span>Место обучения</span>
+            <select @bind="_registrationParams.ClubId">
+                @if (_clubNames != null)
+                {
+                    @foreach (var clubName in _clubNames)
+                    {
+                        <option value="@clubName.Id">@clubName.Title</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="passwordForm">
+            <span>Пароль</span>
+            <input type="password" name="" @bind-value="_registrationParams.Password">
+        </div>
+        <div class="passwordForm">
+            <span>Подтверждение пароля</span>
+            <input type="password" name="" @bind-value="_passwordSubmit">
+        </div>
+        <div class="submitButton">
+            <button type="submit" @onclick="Registrate">Регистрация</button>
+        </div>
+        <p style="color:red;">@_resultMessage</p>
+    </div>
+</main>
+
+@code
+{
+    private bool _avatarImageProcessed = false;
+
+    private string _resultMessage = "";
+    private string _passwordSubmit = "";
+
+    private Dictionary<string, object> _fileInputAttributes = new Dictionary<string, object> { ["accept"] = "image/jpeg,image/png,image/webp" };
+
+    private RegisterParams _registrationParams = new RegisterParams();
+
+    private List<ClubNameInfo> _clubNames;
+
+    protected override void OnInitialized()
+    {
+        GetClubNames();
+    }
+
+    private void GetClubNames()
+    {
+        _clubNames = _clubNamesService.GetAll();
+    }
+
+    private async Task Registrate()
+    {
+        if (string.IsNullOrWhiteSpace(_registrationParams.FirstName))
+        {
+            _resultMessage = "Введите имя!";
+        }
+        else if (string.IsNullOrWhiteSpace(_registrationParams.LastName))
+        {
+            _resultMessage = "Введите фамилию!";
+        }
+        else if (string.IsNullOrWhiteSpace(_registrationParams.Email) || _registrationParams.Email.Contains("@") == false)
+        {
+            _resultMessage = "Введите электронную почту!";
+        }
+        else if (string.IsNullOrWhiteSpace(_registrationParams.Avatar))
+        {
+            _resultMessage = "Загрузите свою аватарку!";
+        }
+        else if (_registrationParams.ClubId < 1)
+        {
+            _resultMessage = "Выберите клуб!";
+        }
+        else if (string.IsNullOrWhiteSpace(_registrationParams.Password))
+        {
+            _resultMessage = "Введите пароль!";
+        }
+        else if (_registrationParams.Password != _passwordSubmit)
+        {
+            _resultMessage = "Пароли не совпадают!";
+        }
+        else
+        {
+            if (await _registration.Registrate(_registrationParams))
+            {
+                _resultMessage = "Вы вошли! Перенаправление на вашу страницу...";
+                _navigation.NavigateTo("/");
+            }
+            else
+            {
+                _resultMessage = "Ошибка регистрации. Возможно пользователь с таким Email уже зарегистрирован!";
+            }
+        }
+
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        _avatarImageProcessed = false;
+        try
+        {
+            _registrationParams.Avatar = await _imageLoader.CreateImage(e.File, "avatars");
+            _avatarImageProcessed = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    private void ToLogin()
+    {
+        _navigation.NavigateTo("/login");
+    }
+}

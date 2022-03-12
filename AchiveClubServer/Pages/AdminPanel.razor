@@ -1,0 +1,468 @@
+﻿@page "/admin"
+
+@inject AdminLoginService _login
+
+@inject IAdminRepository _adminService
+@inject ISupervisorRepository _supervisorService
+@inject IAchieveRepository _achiveService
+@inject IClubRepository _clubService
+@inject IUserRepository _userService
+
+@inject ClubNamesService _clubNamesService
+
+@inject NavigationManager _nav
+
+@if (_login.CurrentAdmin != null)
+{
+    <h1>Admin: @_login.CurrentAdmin.Name</h1>
+}
+else
+{
+    _nav.NavigateTo("/login");
+}
+
+@if (_achieves != null)
+{
+    @if (_achieves.Any())
+    {
+        <h3>Достижения</h3>
+        @foreach (var achieve in _achieves)
+        {
+            <div class="rows">
+                <div class="columns">
+                    <p>#@(_achieves.IndexOf(achieve)+1)</p>
+                    <input placeholder="Название" type="text" @bind=achieve.Title width="450px" />
+                    <button @onclick="()=>EditAchive(achieve)">Сохранить</button>
+                    <button @onclick="()=>DeleteAchive(achieve)">Удалить</button>
+                </div>
+                <textarea placeholder="Описание" type="text" @bind=achieve.Description rows=2 />
+                <input placeholder="Количество опыта" type="text" @bind=achieve.XpString />
+                <input placeholder="URL иконки" type="text" @bind=achieve.LogoURL />
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Список достижений пуст!</h3>
+    }
+    <button @onclick=AddAchive>Добавить</button>
+    <button @onclick=EditAllAchievements>Сохранить все</button>
+    <hr />
+}
+else
+{
+    <h3>Загрузка достижений...</h3>
+}
+
+@if (_admins != null)
+{
+    <button @onclick=AddAdmin>Добавить</button>
+    @if (_admins.Any())
+    {
+        <h3>Администраторы</h3>
+        @foreach (var admin in _admins)
+        {
+            <div class="rows">
+                <div class="columns">
+                    <p>#@admin.Id</p>
+                    <input placeholder="Полное имя" type="text" @bind=admin.Name />
+                    <input placeholder="Пароль" type="text" @bind=admin.Password />
+                </div>
+                <div class="columns">
+                    <button @onclick="()=>EditAdmin(admin)">Сохранить</button>
+                    <button @onclick="()=>DeleteAdmin(admin)">Удалить</button>
+                </div>
+                <hr />
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Список администраторов пуст!</h3>
+    }
+}
+else
+{
+    <h3>Загрузка списка администраторов...</h3>
+}
+
+@if (_supervisers != null)
+{
+    @if (_supervisers.Any())
+    {
+        <h3>Тренера</h3>
+        @foreach (var superviser in _supervisers)
+        {
+            <div class="rows">
+                <div class="columns">
+                    <p>#@(_supervisers.IndexOf(superviser)+1)</p>
+                    <input placeholder="Имя" type="text" @bind=superviser.Name width="450px" />
+                    <button @onclick="()=>EditSupervisor(superviser)">Сохранить</button>
+                    <button @onclick="()=>DeleteSupervisor(superviser)">Удалить</button>
+                </div>
+                <input placeholder="Ключ" type="text" @bind=superviser.Key />
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Список тренеров пуст!</h3>
+    }
+    <button @onclick=AddSupervisor>Добавить</button>
+    <button @onclick=EditAllSupervisers>Сохранить все</button>
+    <hr />
+}
+else
+{
+    <h3>Загрузка тренеров...</h3>
+}
+
+@if (_clubs != null)
+{
+    <button @onclick=AddClub>Добавить</button>
+    @if (_admins.Any())
+    {
+        <h3>Клубы</h3>
+        @foreach (var club in _clubs)
+        {
+            <div class="rows">
+                <div class="columns">
+                    <p>#@club.Id</p>
+                    <input placeholder="Название" type="text" @bind=club.Title />
+                    <input placeholder="Описание" type="text" @bind=club.Description />
+                    <input placeholder="Адрес" type="text" @bind=club.Address />
+                    <input placeholder="Логотип" type="text" @bind=club.LogoURL />
+                </div>
+                <div class="columns">
+                    <button @onclick="()=>EditClub(club)">Сохранить</button>
+                    <button @onclick="()=>DeleteClub(club)">Удалить</button>
+                </div>
+                <hr />
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Список клубов пуст!</h3>
+    }
+}
+else
+{
+    <h3>Загрузка списка клубов...</h3>
+}
+
+@if (_users != null)
+{
+    <button @onclick=AddUser>Добавить</button>
+    @if (_users.Any())
+    {
+        <h3>Пользователи</h3>
+        @foreach (var user in _users)
+        {
+            <div class="rows">
+                <div class="columns">
+                    <p>#@user.Id</p>
+                    <input placeholder="Имя" type="text" @bind=user.FirstName />
+                    <input placeholder="Фамилия" type="text" @bind=user.LastName />
+                    <input placeholder="Email" type="text" @bind=user.Email />
+                    <input placeholder="Аватар" type="text" @bind=user.Avatar />
+                    <select @bind="user.ClubRefId">
+                        @if (_clubNames != null)
+                        {
+                            @foreach (var clubName in _clubNames)
+                            {
+                                <option value="@clubName.Id">@clubName.Title</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="columns">
+                    <button @onclick="()=>EditUser(user)">Сохранить</button>
+                    <button @onclick="()=>DeleteUser(user)">Удалить</button>
+                </div>
+                <hr />
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Список пользователей пуст!</h3>
+    }
+}
+else
+{
+    <h3>Загрузка списка пользователей...</h3>
+}
+
+
+@code
+{
+    private List<Achievement> _achieves;
+    private List<Admin> _admins;
+    private List<Supervisor> _supervisers;
+    private List<Data.DTO.Club> _clubs;
+    private List<User> _users;
+    private List<ClubNameInfo> _clubNames;
+
+    protected override void OnInitialized()
+    {
+        GetAchievements();
+        GetAdmins();
+        GetSupervisors();
+        GetClubs();
+        GetUsers();
+
+        GetClubNames();
+    }
+
+    private void GetClubNames()
+    {
+        _clubNames = _clubNamesService.GetAll();
+    }
+
+    #region AchiveCRUD
+
+    private void GetAchievements()
+    {
+        _achieves = _achiveService.GetAll();
+    }
+
+    private void AddAchive()
+    {
+        var newAchive = new Achievement
+            {
+                Title = "Название",
+                Description = "Описание",
+                Xp = 0,
+                LogoURL = "/image/temp.jpg" //нян-кэт
+            };
+        _achiveService.Insert(newAchive);
+
+        GetAchievements();
+    }
+
+    private void EditAllAchievements()
+    {
+        foreach (var achieve in _achieves)
+        {
+            EditAchive(achieve);
+        }
+    }
+
+    private void EditAchive(Achievement achive)
+    {
+        if (_achiveService.Update(achive))
+        {
+            UpdateAchievement(achive.Id);
+        }
+        else
+        {
+            GetAchievements();
+        }
+
+    }
+
+    private void UpdateAchievement(int id)
+    {
+        var updatebleAchieve = _achieves.Where(a => a.Id == id).FirstOrDefault();
+        if (updatebleAchieve != null)
+        {
+            updatebleAchieve = _achiveService.GetById(id);
+        }
+        else
+        {
+            GetAchievements();
+        }
+    }
+
+    private void DeleteAchive(Achievement achive)
+    {
+        _achiveService.Delete(achive.Id);
+
+        GetAchievements();
+    }
+    #endregion AchiveCRUD
+
+    #region AdminCRUD
+
+    private void GetAdmins()
+    {
+        _admins = _adminService.GetAll();
+    }
+
+    private void AddAdmin()
+    {
+        var newAdmin = new Admin
+            {
+                Name = "Полное имя",
+                Password = "Пароль"
+            };
+
+        _adminService.Insert(newAdmin);
+
+        GetAdmins();
+    }
+
+    private void EditAdmin(Admin admin)
+    {
+        _adminService.Update(admin);
+
+        GetAdmins();
+    }
+
+    private void DeleteAdmin(Admin admin)
+    {
+        _adminService.Delete(admin.Id);
+
+        GetAdmins();
+    }
+
+    #endregion AdminCRUD
+
+    #region SupervisorCRUD
+
+    private void GetSupervisors()
+    {
+        _supervisers = _supervisorService.GetAll();
+    }
+
+    private void AddSupervisor()
+    {
+        var newSupervisor = new Supervisor
+            {
+                Name = "Полное имя",
+                Key = "Ключ"
+            };
+
+        _supervisorService.Insert(newSupervisor);
+
+        GetSupervisors();
+    }
+
+    private void EditAllSupervisers()
+    {
+        foreach (var supervisor in _supervisers)
+        {
+            EditSupervisor(supervisor);
+        }
+    }
+
+    private void EditSupervisor(Supervisor supervisor)
+    {
+        if (_supervisorService.Update(supervisor))
+        {
+            UpdateSuperviser(supervisor.Id);
+        }
+        else
+        {
+            GetSupervisors();
+        }
+
+    }
+
+    private void UpdateSuperviser(int id)
+    {
+        var updatebleSupervisor = _supervisers.Where(a => a.Id == id).FirstOrDefault();
+        if (updatebleSupervisor != null)
+        {
+            updatebleSupervisor = _supervisorService.GetById(id);
+        }
+        else
+        {
+            GetSupervisors();
+        }
+    }
+
+    private void DeleteSupervisor(Supervisor supervisor)
+    {
+        _supervisorService.Delete(supervisor.Id);
+
+        GetSupervisors();
+    }
+
+    #endregion SupervisorCRUD
+
+    #region ClubsCRUD
+
+    private void GetClubs()
+    {
+        _clubs = _clubService.GetAll();
+    }
+
+    private void AddClub()
+    {
+        var newClub = new Data.DTO.Club
+            {
+                Title = "Клуб",
+                Description = "Описание клуба",
+                Address = "Адрес",
+                LogoURL = "image/clubs/logos/palace.png"
+            };
+
+        _clubService.Insert(newClub);
+
+        GetClubs();
+
+        GetClubNames();
+    }
+
+    private void EditClub(Data.DTO.Club club)
+    {
+        _clubService.Update(club);
+
+        GetClubs();
+
+        GetClubNames();
+    }
+
+    private void DeleteClub(Data.DTO.Club club)
+    {
+        _clubService.Delete(club.Id);
+
+        GetClubs();
+
+        GetClubNames();
+    }
+
+    #endregion ClubsCRUD
+
+    #region UsersCRUD
+
+    private void GetUsers()
+    {
+        _users = _userService.GetAll();
+    }
+
+    private void AddUser()
+    {
+        var newUser = new User
+            {
+                FirstName = "Имя",
+                LastName = "Фамилия",
+                Email = "Почта",
+                Avatar = "/image/avatars/8.jpg",
+                Password = "password",
+                ClubRefId = 1,
+            };
+
+        _userService.Insert(newUser);
+
+        GetUsers();
+    }
+
+    private void EditUser(User user)
+    {
+        _userService.Update(user);
+
+        GetUsers();
+    }
+
+    private void DeleteUser(User user)
+    {
+        _userService.Delete(user.Id);
+
+        GetUsers();
+    }
+
+    #endregion UsersCRUD
+}

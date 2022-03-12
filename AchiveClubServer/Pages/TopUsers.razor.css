@@ -1,0 +1,215 @@
+﻿header {
+    background-color: #0D4E81;
+    border-radius: 0px 0px 50px 50px;
+}
+
+.heading-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+#profileSlogan {
+    width: 100%;
+    font-size: 24px;
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    color: white;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.footerSections {
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: center;
+    -webkit-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer img {
+    width: 50px;
+    margin: 10px 30px 5px 30px;
+    object-fit: cover;
+}
+
+.secondSection hr {
+    border-bottom: 5px solid #0D4E81;
+    border-radius: 10px 10px 0px 0px;
+    margin: 0;
+}
+
+.topUsers {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.topOneUser {
+    background: linear-gradient(180deg, #EDCF33 78.44%, #DAAA30 100%);
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.topTwoUser {
+    background: linear-gradient(180deg, #A7A7A7 0%, #D1D1CF 25.31%);
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.topThreeUser {
+    background: linear-gradient(180deg, #E68F3F 73.23%, #BE7532 100%);
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.topUser {
+    background: #FFFFFF;
+    border-radius: 20px;
+    display: flex;
+    padding: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.userImage img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userAboutWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+    width: 40%;
+}
+
+.nameSurnameUser {
+    font-family: 'Play';
+    font-style: normal;
+    font-weight: normal;
+}
+
+.xpCountUser {
+    font-size: 13px;
+    color: white;
+}
+
+.xpCountDefaultUser {
+    font-size: 13px;
+    color: gray;
+}
+
+.clubUserLogo {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+}
+
+    .clubUserLogo img {
+        width: 45px;
+        object-fit: cover;
+    }
+
+.topPositionUser {
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    color:white;
+}
+
+.topPositionUserDefault {
+    font-size: 23px;
+    font-weight: normal;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.ClubLogoAndPositionUser {
+    width: 40%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.px {
+    width: 100%;
+    height: 75px;
+}
+
+@media(max-width:430px) {
+    #infoTask {
+        text-align: left;
+    }
+}
+
+@media (min-width:1100px) {
+    .ClubLogoAndPositionUser {
+        width: 50%;
+    }
+
+    .userAboutWrapper {
+        width: 50%;
+    }
+
+    #infoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    .notInfoTask {
+        width: 100%;
+        text-align: left;
+    }
+
+    #nameTask {
+        text-align: left;
+    }
+
+    .aboutTask {
+        width: 100%;
+    }
+
+    .mark {
+        display: unset;
+    }
+
+    .taskXP {
+        width: 100px;
+        text-align: right;
+    }
+
+    .completedTask {
+        cursor: pointer;
+    }
+
+    .notCompletedTask {
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,42 @@
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #8F8F8F;
+}
+
+.adminKeyinput {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.buttons {
+    flex-direction: row;
+    width: 100%;
+    margin-top: 15px;
+}
+
+#buttonSubmit {
+    width: 100%;
+    margin-right: 2%;
+    background: #4E9BDA;
+    border-radius: 5px;
+    border: 1px solid #4E9BDA;
+    color: white;
+    font-family: 'Play', sans-serif;
+    height: 25px;
+    padding: 0;
+    cursor: pointer;
+}
+
+/*#buttonCancel {
+    width: 47%;
+    margin-left: 2.5%;
+    background: #4E9BDA;
+    border-radius: 5px;
+    border: 1px solid #4E9BDA;
+    color: white;
+    font-family: 'Play', sans-serif;
+    height: 25px;
+    padding: 0;
+}*/

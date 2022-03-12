@@ -1,0 +1,88 @@
+﻿@page "/topusers"
+@layout MainLayout
+@inject UserRatingService _ratingService
+@inject IClubRepository _clubRepository
+@inject NavigationManager _navigation
+
+<header>
+    <div class="heading-wrapper">
+        <div id="profileSlogan">
+            <span>Топ <b>100</b> пользователей</span>
+        </div>
+    </div>
+</header>
+<!-----------------------------------header----------------------------------------->
+<main>
+    <div class="topUsers">
+        @if (_users != null)
+        {
+            @foreach(var user in _users)
+            {
+                <div class="@GetUserClass(user)" @onclick="()=>RedirectToUserId(user.User.Id)">
+                    <div class="userImage">
+                        <img src="@user.User.Avatar" alt="">
+                    </div>
+                    <div class="userAboutWrapper">
+                        <div class="nameSurnameUser">
+                            <span>@user.User.FirstName @user.User.LastName</span>
+                        </div>
+                        <div class="xpCountDefaultUser">
+                            <span>@user.Score XP</span>
+                        </div>
+                    </div>
+                    <div class="ClubLogoAndPositionUser">
+                        <div class="clubUserLogo">
+                            <img src=@(_clubs.Where(club=>club.Id == user.User.ClubRefId).FirstOrDefault().LogoURL) alt="">
+                        </div>
+                        <div class="topPositionUserDefault">
+                            <span>#@(user.RatingNumber+1)</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</main>
+<!-----------------------------------main----------------------------------------->
+@code
+{
+    private List<UserWithRatingAndScore> _users;
+    private List<AchiveClubServer.Data.DTO.Club> _clubs;
+
+    protected override void OnInitialized()
+    {
+        LoadUsers();
+        LoadUserClub();
+    }
+
+    private void LoadUsers()
+    {
+        _users = _ratingService.GetUserRating();
+    }
+
+    private void LoadUserClub()
+    {
+        _clubs = _clubRepository.GetAll();
+    }
+
+    private string GetUserClass(UserWithRatingAndScore user)
+    {
+        int number = user.RatingNumber;
+        switch (number)
+        {
+            case 0:
+                return "topOneUser";
+            case 1:
+                return "topTwoUser";
+            case 2:
+                return "topThreeUser";
+            default:
+                return "topUser";
+        }
+    }
+
+    private void RedirectToUserId(int id)
+    {
+        _navigation.NavigateTo($"/user/{id}");
+    }
+}

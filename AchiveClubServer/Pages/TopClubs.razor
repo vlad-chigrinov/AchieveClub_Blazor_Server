@@ -1,0 +1,76 @@
+﻿@page "/topclubs"
+@layout MainLayout
+@inject ClubRatingService _clubsRating
+@inject NavigationManager _navigation
+
+<header>
+    <div class="heading-wrapper">
+        <div id="profileSlogan">
+            <span>Топ рейтинг клубов</span>
+        </div>
+    </div>
+</header>
+<!-----------------------------------header----------------------------------------->
+<main>
+    <div class="topUsers">
+        @foreach (var club in _clubs)
+        {
+            <a @onclick="()=>RedirectToClubId(club.Club.Id)">
+                <div class=@GetClubClass(club)>
+                    <div class="userImageTop">
+                        <img src=@club.Club.LogoURL alt="">
+                    </div>
+                    <div class="userAboutWrapper">
+                        <div class="nameSurnameUser">
+                            <span>@club.Club.Title</span>
+                        </div>
+                        <div class="xpCountUser">
+                            <span>Средний опыт: @club.AvgXP XP</span>
+                        </div>
+                    </div>
+                    <div class="ClubLogoAndPositionUser">
+                        <div class="topPositionUser">
+                            <span>#@(club.RatingNumber+1)</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</main>
+<!-----------------------------------main----------------------------------------->
+@code {
+    private List<ClubWithScoreAndRating> _clubs = new List<ClubWithScoreAndRating>();
+
+    protected override void OnInitialized()
+    {
+        LoadClubs();
+        StateHasChanged();
+    }
+
+    private void LoadClubs()
+    {
+        _clubs = _clubsRating.GetClubRating();
+    }
+
+    private string GetClubClass(ClubWithScoreAndRating club)
+    {
+        int number = club.RatingNumber;
+        switch (number)
+        {
+            case 0:
+                return "topOneClub";
+            case 1:
+                return "topTwoClub";
+            case 2:
+                return "topThreeClub";
+            default:
+                return "topClub";
+        }
+    }
+
+    private void RedirectToClubId(int id)
+    {
+        _navigation.NavigateTo($"/club/{id}");
+    }
+}

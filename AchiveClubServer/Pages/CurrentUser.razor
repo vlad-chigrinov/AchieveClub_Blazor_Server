@@ -1,0 +1,172 @@
+﻿@page "/"
+@layout MainLayout
+@inject UserPageModelBuilder _modelBuilder
+@inject CompleteAchieveService _completeAchieveService
+@inject UserLoginService _login
+@inject NavigationManager _navigation
+
+@if (_model != null)
+{
+    <header>
+        <div class="heading-wrapper">
+            <div id="profileSlogan">
+                <span>Профиль</span>
+            </div>
+            <div class="exitLink">
+                <a @onclick="Logout">Выйти</a>
+            </div>
+        </div>
+        <div class="userProfile">
+            <div class="userImage">
+                <img id="userProfileImg" src="@_model.Avatar" alt="">
+            </div>
+            <div class="userId">
+                <h1>
+                    <!--First Name-->
+                @_model.FirstName
+                    <br>
+                    <!--Last Name-->
+                @_model.LastName
+                </h1>
+            </div>
+        </div>
+    </header>
+    <!-----------------------------------header----------------------------------------->
+    <main>
+        <div class="generalInfo">
+            <!--Locate-->
+        <div class="club">
+                <h1 id="locate">Клуб <b id="clubName">@_model.ClubTitle</b>, @_model.ClubAddress</h1>
+                <p id="locateSlogan">Место обучения</p>
+            </div>
+            <hr id="hr">
+            <!--XP SUM-->
+        <div class="xp">
+                <h1 id="XPLevel">@_model.XPSum ХР</h1>
+                <p id="XPSlogan">Общее количество опыта</p>
+            </div>
+            <hr id="hr">
+            <div class="task">
+                <!--Completed Count-->
+            <h1 id="allTasks">Заданий выполнено: @_model.CompletedAchievementsCount из @_model.AchievementsCount</h1>
+                <!--Completed Ratio (%)-->
+            <p id="tasksSlogan">Выполнено @_model.CompletedRatio%</p>
+            </div>
+        </div>
+        <!---It's generalInfo -->
+    <div class="completed" id="completed">
+            <h1 id="completedTasks">Выполненные: </h1>
+        </div>
+        <!------------task completed------------------------->
+        @foreach (var achievement in _model.Achivements)
+        {
+            @if (achievement.Completed)
+            {
+                <div class="completedTask" id="completedTask">
+                    <div class="taskImg">
+                        <img id="logoTask" src="@achievement.LogoURL" alt="">
+                    </div>
+                    <div class="aboutTask">
+                        <div class="mark">
+                            <h1 id="nameTask">
+                                @achievement.Title
+                            </h1>
+                        </div>
+                        <p class="infoTask" id="infoTask">
+                            @achievement.Description
+                        </p>
+                    </div>
+                    <div class="taskXP">
+                        <h1 id="reward">
+                            +@achievement.Xp XP
+                        </h1>
+                    </div>
+                </div>
+            }
+        }
+        <!------------task completed------------------------->
+
+    <div class="notCompleted" id="notCompleted">
+            <h1 id="notCompletedTasks">Не выполненные: </h1>
+        </div>
+        <!---------------------Not completed------------------>
+        @foreach (var achievement in _model.Achivements)
+        {
+            if (!achievement.Completed)
+            {
+                <div class="notCompletedTask" id="notCompletedTask" @onclick="()=>CompleteAchiveAsync(achievement.Id)">
+                    <div class="taskImg">
+                        <img id="logoTask" src="@achievement.LogoURL" alt="">
+                    </div>
+                    <div class="aboutTask">
+                        <div class="mark">
+                            <h1 id="nameTask">
+                                @achievement.Title
+                            </h1>
+                        </div>
+                        <p class="notInfoTask">
+                            @achievement.Description
+                        </p>
+                    </div>
+                    <div class="taskXP">
+                        <h1 id="reward">
+                            +@achievement.Xp XP
+                        </h1>
+                    </div>
+                </div>
+            }
+        }
+        <!---------------------Not completed------------------>
+</main>
+    <!-----------------------------------main----------------------------------------->
+}
+
+@code
+{
+    [CascadingParameter] public IModalService Modal { get; set; }
+
+    private UserPageModel _model;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (_login.IsAuthorized == true)
+        {
+            int id = _login.CurrentUser.Id;
+            _model = _modelBuilder.Build(id);
+            StateHasChanged();
+        }
+    }
+
+    private async Task CompleteAchiveAsync(int achivementId)
+    {
+        var modalInstance = Modal.Show<AdminKeyModal>();
+        var result = await modalInstance.Result;
+
+        if (!result.Cancelled)
+        {
+            string adminKey = (string)result.Data;
+            var completeAchiveParams = new CompleteAchiveParams()
+                {
+                    UserId = _model.Id,
+                    AchieveId = achivementId,
+                    SupervisorKey = adminKey
+                };
+            try
+            {
+                _completeAchieveService.Complete(completeAchiveParams);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            _model = _modelBuilder.Build(_model.Id);
+        }
+    }
+
+    private async Task Logout()
+    {
+        await _login.Logout();
+        _navigation.NavigateTo("/login");
+    }
+}
