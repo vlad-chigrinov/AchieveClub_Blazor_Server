@@ -40,7 +40,7 @@
             <input type="email" name="" @bind-value="_registrationParams.Email">
         </div>
         <div class="emailForm">
-            <span>Аватарка</span>
+            <span>Фотография</span>
             <InputFile OnChange="@LoadFiles" AdditionalAttributes=@_fileInputAttributes />
             @if (_avatarImageProcessed)
             {
@@ -113,7 +113,7 @@
         }
         else if (string.IsNullOrWhiteSpace(_registrationParams.Avatar))
         {
-            _resultMessage = "Загрузите свою аватарку!";
+            _resultMessage = "Загрузите свою фотографию!";
         }
         else if (_registrationParams.ClubId < 1)
         {
