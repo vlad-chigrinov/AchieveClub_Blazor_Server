@@ -16,12 +16,14 @@ namespace AchiveClubServer
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IConfiguration _configuration;
+        private IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            (_configuration, _env) = (configuration, env);
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -30,9 +32,18 @@ namespace AchiveClubServer
             services.AddBlazoredLocalStorage();
             services.AddBlazoredModal();
 
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddScoped<string>(_ => connection);
+            string connection = _configuration.GetConnectionString("DefaultConnection");
+            if (_env.IsProduction())
+            {
+                connection = "Server=.; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
+            }
+            
+            if(connection.Contains("{{password}}"))
+            {
+                connection = connection.Replace("{{password}}", _configuration["Password"]);
+            }
 
+            services.AddSingleton<string>(_ => connection);
             services.AddSingleton<ImageLoader>();
             services.AddSingleton<HashService>();
 
