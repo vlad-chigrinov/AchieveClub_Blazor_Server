@@ -53,19 +53,21 @@ nav {
 
 #profileSlogan {
     display: flex;
+    justify-content: center !important;
     width: 60%;
     font-size: 20px;
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
-    margin: 0;
+    margin-right: 20%;
     color: white;
     justify-content: flex-end;
 }
 
 .exitLink {
     display: flex;
-    width: 40%;
+    justify-content: center !important;
+    width: 20%;
     margin: 0;
     justify-content: flex-end;
     padding-right: 1rem;
