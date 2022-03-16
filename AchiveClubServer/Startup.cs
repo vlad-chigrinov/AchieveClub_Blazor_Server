@@ -57,10 +57,10 @@ namespace AchiveClubServer
             services.AddTransient<AdminLoginDataProvider>();
             services.AddScoped<AdminLoginService>();
 
-            services.AddTransient<LoginLocalStorageService>();
-            services.AddTransient<UserLoginDataProvider>();
+            services.AddTransient<LoginLocalStorage>();
+            services.AddTransient<UserLoginQuery>();
             services.AddScoped<UserLoginService>();
-            services.AddScoped<UniqEmailProvider>();
+            services.AddScoped<UniqEmailQuery>();
             services.AddTransient<RegistrationService>();
 
             services.AddTransient<ClubNamesService>();
@@ -74,6 +74,7 @@ namespace AchiveClubServer
             services.AddTransient<UserPageModelBuilder>();
             services.AddTransient<UserRatingService>();
             services.AddTransient<UserScoreService>();
+            services.AddTransient<ChangeUserPasswordService>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
