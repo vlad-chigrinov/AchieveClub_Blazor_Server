@@ -12,10 +12,10 @@ namespace AchiveClubServer.Services
         public User CurrentUser { get; private set; }
         public bool IsAuthorized { get; private set; } = false;
 
-        private UserLoginDataProvider _loginProvider;
-        private LoginLocalStorageService _loginLocalStorage;
+        private UserLoginQuery _loginProvider;
+        private LoginLocalStorage _loginLocalStorage;
 
-        public UserLoginService(UserLoginDataProvider authService, LoginLocalStorageService loginLocalStorage)
+        public UserLoginService(UserLoginQuery authService, LoginLocalStorage loginLocalStorage)
         {
             _loginProvider = authService;
             _loginLocalStorage = loginLocalStorage;

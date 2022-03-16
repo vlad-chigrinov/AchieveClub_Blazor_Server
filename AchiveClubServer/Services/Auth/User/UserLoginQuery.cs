@@ -7,11 +7,11 @@ using Dapper;
 
 namespace AchiveClubServer.Services
 {
-    public class UserLoginDataProvider
+    public class UserLoginQuery
     {
         private IUserRepository _userRepository;
         private HashService _hashService;
-        public UserLoginDataProvider(IUserRepository userRepository, HashService hashService)
+        public UserLoginQuery(IUserRepository userRepository, HashService hashService)
         {
             _userRepository = userRepository;
             _hashService = hashService;

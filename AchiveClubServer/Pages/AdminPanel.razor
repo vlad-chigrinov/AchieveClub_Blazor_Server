@@ -10,6 +10,8 @@
 
 @inject ClubNamesService _clubNamesService
 
+@inject ChangeUserPasswordService _changePassword
+
 @inject NavigationManager _nav
 
 @if (_login.CurrentAdmin != null)
@@ -175,6 +177,14 @@ else
                             }
                         }
                     </select>
+                    <br />
+                    <div class="columns">
+                        <div style="background-color:lightgray;padding:10px">
+                            <input placeholder="Новый пароль" type="text" @bind=_newPassword />
+                            <button @onclick="()=>ChangeUserPassword(user.Id)">Установить</button>
+                            <button @onclick="ClearNewPassword">Отменить</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="columns">
                     <button @onclick="()=>EditUser(user)">Сохранить</button>
@@ -204,6 +214,8 @@ else
     private List<User> _users;
     private List<ClubNameInfo> _clubNames;
 
+    private string _newPassword;
+
     protected override void OnInitialized()
     {
         GetAchievements();
@@ -213,6 +225,19 @@ else
         GetUsers();
 
         GetClubNames();
+    }
+
+    private void ChangeUserPassword(int userId)
+    {
+        if (_changePassword.ChangePassword(userId, _newPassword))
+        {
+            ClearNewPassword();
+        }
+    }
+
+    private void ClearNewPassword()
+    {
+        _newPassword = "";
     }
 
     private void GetClubNames()
@@ -230,12 +255,12 @@ else
     private void AddAchive()
     {
         var newAchive = new Achievement
-            {
-                Title = "Название",
-                Description = "Описание",
-                Xp = 0,
-                LogoURL = "/image/temp.jpg" //нян-кэт
-            };
+        {
+            Title = "Название",
+            Description = "Описание",
+            Xp = 0,
+            LogoURL = "/image/temp.jpg" //нян-кэт
+        };
         _achiveService.Insert(newAchive);
 
         GetAchievements();
@@ -293,10 +318,10 @@ else
     private void AddAdmin()
     {
         var newAdmin = new Admin
-            {
-                Name = "Полное имя",
-                Password = "Пароль"
-            };
+        {
+            Name = "Полное имя",
+            Password = "Пароль"
+        };
 
         _adminService.Insert(newAdmin);
 
@@ -329,10 +354,10 @@ else
     private void AddSupervisor()
     {
         var newSupervisor = new Supervisor
-            {
-                Name = "Полное имя",
-                Key = "Ключ"
-            };
+        {
+            Name = "Полное имя",
+            Key = "Ключ"
+        };
 
         _supervisorService.Insert(newSupervisor);
 
@@ -392,12 +417,12 @@ else
     private void AddClub()
     {
         var newClub = new Data.DTO.Club
-            {
-                Title = "Клуб",
-                Description = "Описание клуба",
-                Address = "Адрес",
-                LogoURL = "image/clubs/logos/palace.png"
-            };
+        {
+            Title = "Клуб",
+            Description = "Описание клуба",
+            Address = "Адрес",
+            LogoURL = "image/clubs/logos/palace.png"
+        };
 
         _clubService.Insert(newClub);
 
@@ -436,14 +461,14 @@ else
     private void AddUser()
     {
         var newUser = new User
-            {
-                FirstName = "Имя",
-                LastName = "Фамилия",
-                Email = "Почта",
-                Avatar = "/image/avatars/8.jpg",
-                Password = "password",
-                ClubRefId = 1,
-            };
+        {
+            FirstName = "Имя",
+            LastName = "Фамилия",
+            Email = "Почта",
+            Avatar = "/image/avatars/8.jpg",
+            Password = "password",
+            ClubRefId = 1,
+        };
 
         _userService.Insert(newUser);
 

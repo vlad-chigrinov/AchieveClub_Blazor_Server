@@ -10,8 +10,8 @@ namespace AchiveClubServer.Services
         private UserLoginService _userLoginService;
         private IUserRepository _userRepository;
         private HashService _hashService;
-        private UniqEmailProvider _uniqEmailProvider;
-        public RegistrationService(UserLoginService userLoginService, IUserRepository userRepository, HashService hashService, UniqEmailProvider uniqEmailProvider)
+        private UniqEmailQuery _uniqEmailProvider;
+        public RegistrationService(UserLoginService userLoginService, IUserRepository userRepository, HashService hashService, UniqEmailQuery uniqEmailProvider)
         {
             _userLoginService = userLoginService;
             _userRepository = userRepository;
