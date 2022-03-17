@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace AchiveClubServer.Services
 {
-    public class UniqEmailProvider
+    public class UniqEmailQuery
     {
         private string connectionString = null;
-        public UniqEmailProvider(string connection)
+        public UniqEmailQuery(string connection)
         {
             connectionString = connection;
         }

@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace AchiveClubServer.Services
 {
-    public class LoginLocalStorageService
+    public class LoginLocalStorage
     {
         private ILocalStorageService _localStorage;
 
-        public LoginLocalStorageService(ILocalStorageService localStorage)
+        public LoginLocalStorage(ILocalStorageService localStorage)
         {
             _localStorage = localStorage;
         }
@@ -29,8 +29,8 @@ namespace AchiveClubServer.Services
 
         public async Task Clear()
         {
-            await _localStorage.SetItemAsync("password", "");
-            await _localStorage.SetItemAsync("email", "");
+            await _localStorage.SetItemAsync("password", "1");
+            await _localStorage.SetItemAsync("email", "1");
         }
     }
 }
