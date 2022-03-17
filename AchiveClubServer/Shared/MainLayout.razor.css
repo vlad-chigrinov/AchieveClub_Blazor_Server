@@ -31,7 +31,7 @@ nav {
 }
 
 footer {
-    width: 100%;
+    width: 60%;
     position: fixed;
     bottom: 0;
     overflow: hidden;
@@ -124,6 +124,12 @@ hr {
 
     .exitLink {
         width: 50%;
+    }
+}
+
+@media (max-width: 800px) {
+    footer{
+        width: 100%;
     }
 }
 

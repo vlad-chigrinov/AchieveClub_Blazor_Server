@@ -126,7 +126,7 @@ nav {
 }
 
 .aboutTask {
-    width: 700px;
+    width: 100%;
 }
 
 #infoTask {
@@ -222,6 +222,11 @@ footer img {
     #infoTask {
         text-align: left;
     }
+
+    #userProfileImg{
+        width: 100px;
+        height: 100px;
+    }
 }
 
 @media (min-width:1100px) {
@@ -236,9 +241,7 @@ footer img {
     #nameTask {
         text-align: left;
     }
-    .aboutTask {
-        width: 100%;
-    }
+    
     .mark {
         display: unset;
     }
