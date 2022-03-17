@@ -249,10 +249,4 @@ footer img {
     .notCompletedTask {
         cursor: pointer;
     }
-    #profileSlogan {
-        width: 50%;
-    }
-    .exitLink {
-        width: 50%;
-    }
 }
