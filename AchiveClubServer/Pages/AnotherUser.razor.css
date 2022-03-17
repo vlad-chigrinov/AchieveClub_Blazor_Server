@@ -70,8 +70,16 @@ nav {
     width: 20%;
     margin: 0;
     justify-content: flex-end;
-    padding-right: 1rem;
     align-items: self-end;
+}
+
+.exitLink a img:hover {
+    cursor: pointer;
+}
+
+.exitLink a img {
+    width: 40px;
+    object-fit: cover;
 }
 
     .exitLink a {
