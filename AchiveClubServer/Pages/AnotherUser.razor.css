@@ -117,7 +117,7 @@ nav {
 }
 
 .aboutTask {
-    width: 250px;
+    width: 100%;
 }
 
 #completed, #notCompleted {
@@ -243,6 +243,11 @@ footer img {
     #infoTask {
         text-align: left;
     }
+
+    #userProfileImg {
+        width: 100px;
+        height: 100px;
+    }
 }
 @media (min-width:1100px) {
     #infoTask {
@@ -259,10 +264,6 @@ footer img {
         text-align: left;
     }
 
-    .aboutTask {
-        width: 100%;
-    }
-
     .mark {
         display: unset;
     }
@@ -272,3 +273,4 @@ footer img {
         text-align: right;
     }
 }
+
