@@ -21,6 +21,10 @@ body {
     align-items: center;
 }
 
+.blazored-modal-center {
+    width: 60% !important;
+}
+
     .lds-circle > div {
         display: inline-block;
         width: 64px;
@@ -54,6 +58,9 @@ body {
     body {
         width: 100%;
         margin: 0;
+    }
+    .blazored-modal-center {
+        width: 100% !important;
     }
 }
 
