@@ -39,13 +39,15 @@
             <span>Email</span>
             <input type="email" name="" @bind-value="_registrationParams.Email">
         </div>
-        <div class="emailForm">
+        <div class="emailForm" id="input-photo">
             <span>Фотография</span>
-            <InputFile OnChange="@LoadFiles" AdditionalAttributes=@_fileInputAttributes />
-            @if (_avatarImageProcessed)
-            {
-                <img src=@_registrationParams.Avatar style="border-radius:50%; width:200px; height:200px; margin: 0 auto" />
-            }
+            <div>
+                <InputFile OnChange="@LoadFiles" AdditionalAttributes=@_fileInputAttributes />
+                @if (_avatarImageProcessed)
+                {
+                    <img src=@_registrationParams.Avatar style="border-radius:50%; width:200px; height:200px; margin: 0 auto" />
+                }
+            </div>
         </div>
         <div class="emailForm">
             <span>Место обучения</span>

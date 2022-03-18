@@ -7,15 +7,24 @@
 
 @if (_model != null)
 {
+    <div id="settings-cont">
+        <div id="settings">
+            <a @onclick="ChangeAvatar">Изменить фотографию</a>
+            <hr>
+            <a @onclick="Logout">Выйти</a>
+        </div>
+    </div>
+
     <header>
         <div class="heading-wrapper">
             <div id="profileSlogan">
                 <span>Профиль</span>
             </div>
             <div class="exitLink">
-                <a @onclick="Logout">Выйти</a>
+                <img id="settingsButton" src="" alt="" @onclick="OpenSettings">
             </div>
         </div>
+        
         <div class="userProfile">
             <div class="userImage">
                 <img id="userProfileImg" src="@_model.Avatar" alt="">
@@ -31,6 +40,7 @@
             </div>
         </div>
     </header>
+    
     <!-----------------------------------header----------------------------------------->
     <main>
         <div class="generalInfo">
@@ -168,5 +178,15 @@
     {
         await _login.Logout();
         _navigation.NavigateTo("/login");
+    }
+
+    private async Task ChangeAvatar()
+    {
+
+    }
+
+    private async Task OpenSettings()
+    {
+        
     }
 }

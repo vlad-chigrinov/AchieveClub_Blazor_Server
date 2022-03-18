@@ -16,6 +16,48 @@ nav {
     justify-content: space-around;
 }
 
+#settingsButton {
+    width: 40px;
+    height: 40px;
+}
+
+#settings-cont {
+    position: absolute;
+    width: 60%;
+    top: 15px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+#settings {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-right: 20px;
+    width: fit-content;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+#settings :last-child{
+    color: red !important;
+}
+
+#settings a{
+    color: #000;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#settings hr{
+    width: 70%;
+}
+
+#settings a:hover {
+    color: #0D4E81;
+}
+
 .paragraph {
     padding: 15px;
 }
@@ -226,6 +268,12 @@ footer img {
     #userProfileImg{
         width: 100px;
         height: 100px;
+    }
+}
+
+@media(max-width: 800px){
+    #settings-cont{
+        width: 100%;
     }
 }
 
