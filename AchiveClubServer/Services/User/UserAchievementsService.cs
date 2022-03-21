@@ -13,10 +13,12 @@ namespace AchiveClubServer.Services
     {
         private string connectionString = null;
         private IAchieveRepository _achieveRepository;
-        public UserAchievementsService(string connection, IAchieveRepository achieveRepository)
+        private AchieveCompleteRatioCounter _achieveCompleteRatioCounter;
+        public UserAchievementsService(string connection, IAchieveRepository achieveRepository, AchieveCompleteRatioCounter achieveCompleteRatioCounter)
         {
             connectionString = connection;
             _achieveRepository = achieveRepository;
+            _achieveCompleteRatioCounter = achieveCompleteRatioCounter;
         }
 
         public List<UserPageAchieveItem> GetAchievementsByUserId(int userId)
@@ -35,7 +37,8 @@ namespace AchiveClubServer.Services
                         Xp = achieve.Xp,
                         Title = achieve.Title,
                         Description = achieve.Description,
-                        LogoURL = achieve.LogoURL
+                        LogoURL = achieve.LogoURL,
+                        UsersCompleteRatio = _achieveCompleteRatioCounter.GetValueByAchieveId(achieve.Id)
                     };
                     achieveItem.Completed = completedAchievementsId.Contains(achieve.Id);
                     achieveItems.Add(achieveItem);

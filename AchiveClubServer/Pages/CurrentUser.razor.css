@@ -1,6 +1,7 @@
 ﻿header {
     background-color: #0D4E81;
     border-radius: 0px 0px 50px 50px;
+    margin:0;
 }
 
 nav {
@@ -26,12 +27,16 @@ nav {
 
 .userProfile {
     display: flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
 }
 
 #userProfileImg {
     width: 148px;
     height: 148px;
-    margin: 28px 25px 25px 40px;
+    margin: 20px;
+    margin-top:-20px;
     border-radius: 50%;
 }
 
@@ -42,13 +47,19 @@ nav {
     font-size: 14px;
     color: white;
     align-items: center;
-    margin-top: 38px;
+    margin-top: -20px;
+    text-align:center;
 }
-
+#locate
+{
+    color:white;
+}
+#locate:visited {
+    color: white;
+}
 .heading-wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 15px;
 }
 
 #profileSlogan {
@@ -66,11 +77,9 @@ nav {
 
 .exitLink {
     display: flex;
-    justify-content: center !important;
-    width: 20%;
-    margin: 0;
-    justify-content: flex-end;
-    align-items: self-end;
+    justify-content: right;
+    padding-top: 20px;
+    padding-right: 20px;
 }
 
     .exitLink a {
@@ -83,14 +92,24 @@ nav {
         cursor: pointer;
     }
 
-#locate, #XPLevel, #allTasks, #completedTasks, #nameTask, #reward, #notCompletedTasks {
+#locate, #XPLevel, #allTasks,  #nameTask, #reward {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 19px;
     margin: 0;
 }
-
+#completedTasks, #notCompletedTasks {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 29px;
+    margin: 0;
+    width: 80%;
+    padding-left: 30px;
+}
+.completed,.notCompleted {
+}
 #locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
     font-family: 'Play', sans-serif;
     font-style: normal;
@@ -98,13 +117,23 @@ nav {
     margin: 0;
     color: #818181;
     padding-top: 5px;
+    width:98%;
+}
+.taskXP
+{
+    padding-right:10px;
 }
 
-.generalInfo, .completed, .completedTask, .notCompleted, .notCompletedTask {
+.generalInfo {
+    text-align: center;
+}
+
+.generalInfo,  .completedTask,  .notCompletedTask {
     background: white;
     margin: 30px;
     padding: 15px;
     border-radius: 20px;
+ 
 }
 
 #completed, #notCompleted {
@@ -175,6 +204,7 @@ nav {
 
 .taskImg {
     padding-right: 10px;
+    padding-top:4px;
 }
 
 #markUp {

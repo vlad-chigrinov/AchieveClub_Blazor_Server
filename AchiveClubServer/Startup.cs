@@ -76,6 +76,10 @@ namespace AchiveClubServer
             services.AddTransient<UserScoreService>();
             services.AddTransient<ChangeUserPasswordService>();
 
+            services.AddTransient<UserCounter>();
+            services.AddTransient<AchieveCompleteCounter>();
+            services.AddTransient<AchieveCompleteRatioCounter>();
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
         }
