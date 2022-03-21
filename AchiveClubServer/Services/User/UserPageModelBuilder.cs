@@ -33,8 +33,7 @@ namespace AchiveClubServer.Services
                 LastName = user.LastName,
                 Avatar = user.Avatar,
                 ClubTitle = club.Title,
-                ClubAddress = club.Address,
-                ClubLogoURL = club.LogoURL,
+                ClubId = club.Id,
                 Achivements = achievements
             };
         }

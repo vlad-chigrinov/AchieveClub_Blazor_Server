@@ -14,5 +14,6 @@ namespace AchiveClubServer.Data.DTO
         public string Description { get; set; }
         public string LogoURL { get; set; }
         public bool Completed { get; set; }
+        public double UsersCompleteRatio { get; set; }
     }
 }

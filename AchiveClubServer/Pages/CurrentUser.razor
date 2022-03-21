@@ -8,13 +8,12 @@
 @if (_model != null)
 {
     <header>
-        <div class="heading-wrapper">
-            <div id="profileSlogan">
-                <span>Профиль</span>
-            </div>
-            <div class="exitLink">
+         <div class="exitLink">
                 <a @onclick="Logout">Выйти</a>
             </div>
+        <div class="heading-wrapper">
+           
+           
         </div>
         <div class="userProfile">
             <div class="userImage">
@@ -24,9 +23,11 @@
                 <h1>
                     <!--First Name-->
                 @_model.FirstName
-                    <br>
+                 
                     <!--Last Name-->
                 @_model.LastName
+                <br>
+                <a id="locate" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
                 </h1>
             </div>
         </div>
@@ -34,12 +35,6 @@
     <!-----------------------------------header----------------------------------------->
     <main>
         <div class="generalInfo">
-            <!--Locate-->
-        <div class="club">
-                <h1 id="locate">Клуб <b id="clubName">@_model.ClubTitle</b>, @_model.ClubAddress</h1>
-                <p id="locateSlogan">Место обучения</p>
-            </div>
-            <hr id="hr">
             <!--XP SUM-->
         <div class="xp">
                 <h1 id="XPLevel">@_model.XPSum ХР</h1>
@@ -55,7 +50,7 @@
         </div>
         <!---It's generalInfo -->
     <div class="completed" id="completed">
-            <h1 id="completedTasks">Выполненные: </h1>
+            <h1 id="completedTasks">Выполненные </h1>
         </div>
         <!------------task completed------------------------->
         @foreach (var achievement in _model.Achivements)
@@ -69,7 +64,7 @@
                     <div class="aboutTask">
                         <div class="mark">
                             <h1 id="nameTask">
-                                @achievement.Title
+                                @achievement.Title | @achievement.Xp XP
                             </h1>
                         </div>
                         <p class="infoTask" id="infoTask">
@@ -77,9 +72,9 @@
                         </p>
                     </div>
                     <div class="taskXP">
-                        <h1 id="reward">
-                            +@achievement.Xp XP
-                        </h1>
+                        <p>
+                            @((int)achievement.UsersCompleteRatio)%
+                        </p>
                     </div>
                 </div>
             }
@@ -87,7 +82,7 @@
         <!------------task completed------------------------->
 
     <div class="notCompleted" id="notCompleted">
-            <h1 id="notCompletedTasks">Не выполненные: </h1>
+            <h1 id="notCompletedTasks">Невыполненные </h1>
         </div>
         <!---------------------Not completed------------------>
         @foreach (var achievement in _model.Achivements)
