@@ -133,11 +133,14 @@ nav {
     margin: 30px;
     padding: 15px;
     border-radius: 20px;
- 
 }
 
 #completed, #notCompleted {
     margin-bottom: 10px;
+}
+
+#notCompleted{
+    margin-top: 15px;
 }
 
 #completedTask, #notCompletedTask {
@@ -252,10 +255,15 @@ footer img {
     #infoTask {
         text-align: left;
     }
+}
 
-    #userProfileImg{
-        width: 100px;
-        height: 100px;
+@media(max-width:600px){
+    .generalInfo, .completedTask, .notCompletedTask{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #notCompletedTasks, #completedTasks {
+        padding-left: 10px;
     }
 }
 
@@ -282,4 +290,5 @@ footer img {
     .notCompletedTask {
         cursor: pointer;
     }
+    
 }

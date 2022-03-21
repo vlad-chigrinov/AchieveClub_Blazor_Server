@@ -5,48 +5,47 @@
 @if (_user != null)
 {
     <header>
+        <div class="exitLink">
+               <a><img src="\image\left-chevron.png" alt=""></a>
+        </div>
         <div class="heading-wrapper">
-            <div class="exitLink">
-                <a href="/topusers"><img src="./image/left-chevron.png" alt=""></a>
-            </div>
-            <div id="profileSlogan">
-                <span>Профиль</span>
-            </div>
         </div>
         <div class="userProfile">
-            <div class="userImage">
-                <img id="userProfileImg" src="@_user.Avatar" alt="">
-            </div>
-            <div class="userId">
-                <h1>
-                    <!--First Name-->
-                @_user.FirstName
-                    <br>
-                    <!--Last Name-->
-                @_user.LastName
-                </h1>
-            </div>
-        </div>
+             <div class="userImage">
+                 <img id="userProfileImg" src="@_user.Avatar" alt="">
+             </div>
+             <div class="userId">
+                 <h1>
+                     <!--First Name-->
+                 @_user.FirstName
+                 
+                     <!--Last Name-->
+                 @_user.LastName
+                 <br>
+                 <a id="locate" href="/club/@_user.ClubId">Клуб @_user.ClubTitle.ToUpper()</a>
+                 </h1>
+             </div>
+         </div>
     </header>
     <!-----------------------------------header----------------------------------------->
     <main>
         <div class="generalInfo">
-            <div class="club">
-                <!--XP SUM-->
-            <h1 id="XPLevel">@XPSum ХР</h1>
+            <!--XP SUM-->
+        <div class="xp">
+                <h1 id="XPLevel">@_user.XPSum ХР</h1>
                 <p id="XPSlogan">Общее количество опыта</p>
             </div>
             <hr id="hr">
             <div class="task">
                 <!--Completed Count-->
-            <h1 id="allTasks">Заданий выполнено: @CompletedAchievementsCount из @AchievementsCount</h1>
+            <h1 id="allTasks">Заданий выполнено: @_user.CompletedAchievementsCount из @_user.AchievementsCount</h1>
                 <!--Completed Ratio (%)-->
-            <p id="tasksSlogan">Выполнено @CompletedRatio%</p>
+            <p id="tasksSlogan">Выполнено @_user.CompletedRatio%</p>
             </div>
         </div>
         <!---It's generalInfo -->
-    <div class="completed" id="completed">
-            <h1 id="completedTasks">Выполненые: </h1>
+        <div class="completed" id="completed">
+            <h1 id="completedTasks">Выполненые </h1>
         </div>
         <!------------task completed------------------------->
         @foreach (var achievement in _user.Achivements)
@@ -60,7 +59,7 @@
                     <div class="aboutTask">
                         <div class="mark">
                             <h1 id="nameTask">
-                                @achievement.Title
+                                @achievement.Title | @achievement.Xp XP
                             </h1>
                         </div>
                         <p class="infoTask" id="infoTask">
@@ -68,17 +67,17 @@
                         </p>
                     </div>
                     <div class="taskXP">
-                        <h1 id="reward">
-                            +@achievement.Xp XP
-                        </h1>
+                        <p>
+                            @((int)achievement.UsersCompleteRatio)%
+                        </p>
                     </div>
                 </div>
             }
         }
         <!------------task completed------------------------->
 
-    <div class="notCompleted" id="notCompleted">
-            <h1 id="notCompletedTasks">Не выполненые: </h1>
+        <div class="notCompleted" id="notCompleted">
+            <h1 id="notCompletedTasks">Не выполненые </h1>
         </div>
         <!---------------------Not completed------------------>
         @foreach (var achievement in _user.Achivements)
@@ -92,17 +91,17 @@
                     <div class="aboutTask">
                         <div class="mark">
                             <h1 id="nameTask">
-                                @achievement.Title
+                                @achievement.Title | @achievement.Xp XP
                             </h1>
                         </div>
-                        <p class="notInfoTask">
+                        <p class="notInfoTask" id="notInfoTask">
                             @achievement.Description
                         </p>
                     </div>
                     <div class="taskXP">
-                        <h1 id="reward">
-                            +@achievement.Xp XP
-                        </h1>
+                        <p>
+                            @((int)achievement.UsersCompleteRatio)%
+                        </p>
                     </div>
                 </div>
             }

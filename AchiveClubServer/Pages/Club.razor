@@ -13,8 +13,7 @@
                         <a href="topclubs"><img src="./image/left-chevron.png" alt=""></a>
                     </div>
                     <div id="club-name-cont">
-                        <span id="club">Клуб</span>
-                        <span><b>@_model.Club.Title</b></span>
+                        <span id="club"><b>@_model.Club.Title</b></span>
                     </div>
                 </div>
             </div>
@@ -34,7 +33,7 @@
         </div>
         <div class="topThreeUsers">
             <div class="topThreeUsersHead">
-                <h3>Топ <b>@_model.Top3Users.Count</b> пользователей: </h3>
+                <h3>Топ <b>@_model.Top3Users.Count</b> пользователей </h3>
             </div>
             @foreach (var user in _model.Top3Users)
             {
