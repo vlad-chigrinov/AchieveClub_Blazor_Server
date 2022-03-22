@@ -248,12 +248,13 @@ footer img {
 #header-cont{
     display: flex;
     align-items: center;
+    padding-right: 60px;
 }
 
 #club-name-cont{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
     text-align: center;
     justify-self:center;
 }

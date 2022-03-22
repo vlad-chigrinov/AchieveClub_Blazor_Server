@@ -17,6 +17,11 @@ nav {
     justify-content: space-around;
 }
 
+#exitImg{
+    width: 30px;
+    height: 30px;
+}
+
 .paragraph {
     padding: 15px;
 }
@@ -32,12 +37,25 @@ nav {
     justify-content:center;
 }
 
+.userImage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px
+}
+
 #userProfileImg {
     width: 148px;
     height: 148px;
     margin: 20px;
     margin-top:-20px;
     border-radius: 50%;
+}
+
+#changeUserProfileImg{
+    width: 20px;
+    height: 20px;
+    margin-top: -15px;
 }
 
 .userId {
@@ -48,7 +66,7 @@ nav {
     color: white;
     align-items: center;
     margin-top: -20px;
-    text-align:center;
+    text-align: center;
 }
 #locate
 {
@@ -77,9 +95,9 @@ nav {
 
 .exitLink {
     display: flex;
-    justify-content: right;
+    justify-content: left;
     padding-top: 20px;
-    padding-right: 20px;
+    padding-left: 20px;
 }
 
     .exitLink a {
