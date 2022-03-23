@@ -98,6 +98,7 @@ footer img {
     border-radius: 20px;
     display: flex;
     padding: 15px;
+    margin-top: 15px;
 }
 
 .topTwoUser {
@@ -152,7 +153,6 @@ footer img {
 
 .xpCountUser {
     font-size: 13px;
-    color: white;
 }
 
 .xpCountDefaultUser {
@@ -177,7 +177,6 @@ footer img {
     font-weight: bold;
     text-align: center;
     display: flex;
-    color: white;
     align-items: center;
 }
 
@@ -239,7 +238,7 @@ footer img {
     }
 
 #arrowExit {
-    width: 20%;
+    padding-left: 20px;
     text-align: center;
     /*position: absolute;
     left: -15%;
@@ -249,13 +248,15 @@ footer img {
 #header-cont{
     display: flex;
     align-items: center;
+    padding-right: 60px;
 }
 
 #club-name-cont{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
     text-align: center;
+    justify-self:center;
 }
 
 #arrowExit img {
@@ -287,12 +288,10 @@ footer img {
 }
 
 .topThreeUsersHead {
-    background-color: white;
-    padding: 10px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    margin-bottom: 15px;
 }
 
 .topThreeUsers {
@@ -304,7 +303,6 @@ footer img {
 
     .topThreeUsers h3 {
         margin: 0;
-        padding-bottom: 5px;
         font-weight: 400;
     }
 

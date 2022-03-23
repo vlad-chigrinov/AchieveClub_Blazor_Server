@@ -26,12 +26,16 @@ nav {
 
 .userProfile {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #userProfileImg {
     width: 148px;
     height: 148px;
-    margin: 28px 25px 25px 40px;
+    margin: 20px;
+    margin-top: -20px;
     border-radius: 50%;
 }
 
@@ -42,13 +46,13 @@ nav {
     font-size: 14px;
     color: white;
     align-items: center;
-    margin-top: 38px;
+    margin-top: -20px;
+    text-align: center;
 }
 
 .heading-wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 15px;
 }
 
 #profileSlogan {
@@ -66,11 +70,8 @@ nav {
 
 .exitLink {
     display: flex;
-    justify-content: center !important;
-    width: 20%;
-    margin: 0;
-    justify-content: flex-end;
-    align-items: self-end;
+    padding-top: 20px;
+    padding-left: 20px;
 }
 
 .exitLink a img:hover {
@@ -82,22 +83,44 @@ nav {
     object-fit: cover;
 }
 
-    .exitLink a {
-        font-size: 16px;
-        font-family: 'Play', sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        text-decoration: none;
-        color: white;
-        cursor: pointer;
-    }
+.exitLink a {
+    font-size: 16px;
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
 
-#locate, #XPLevel, #allTasks, #completedTasks, #nameTask, #reward, #notCompletedTasks {
+.generalInfo {
+    text-align: center;
+}
+
+#locate{
+    color: white;
+}
+
+#locate, #XPLevel, #allTasks, #nameTask, #reward {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 19px;
     margin: 0;
+}
+
+#completedTasks, #notCompletedTasks {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 29px;
+    margin: 0;
+    width: 80%;
+    padding-left: 30px;
+}
+
+#notCompleted {
+    margin-top: 15px;
 }
 
 #locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
@@ -109,7 +132,7 @@ nav {
     padding-top: 5px;
 }
 
-.generalInfo, .completed, .completedTask, .notCompleted, .notCompletedTask {
+.generalInfo, .completedTask, .notCompletedTask {
     background: white;
     margin: 30px;
     padding: 15px;
@@ -243,12 +266,19 @@ footer img {
     #infoTask {
         text-align: left;
     }
+}
 
-    #userProfileImg {
-        width: 100px;
-        height: 100px;
+@media(max-width:600px) {
+    .generalInfo, .completedTask, .notCompletedTask {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #notCompletedTasks, #completedTasks {
+        padding-left: 10px;
     }
 }
+
 @media (min-width:1100px) {
     #infoTask {
         width: 100%;

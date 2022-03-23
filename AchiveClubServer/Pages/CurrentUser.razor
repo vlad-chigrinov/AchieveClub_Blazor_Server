@@ -9,7 +9,7 @@
 {
     <header>
          <div class="exitLink">
-                <a @onclick="Logout">Выйти</a>
+                <a @onclick="Logout"><img id="exitImg" src="\image\exit.png" alt=""/></a>
             </div>
         <div class="heading-wrapper">
            
@@ -18,6 +18,7 @@
         <div class="userProfile">
             <div class="userImage">
                 <img id="userProfileImg" src="@_model.Avatar" alt="">
+                <img id="changeUserProfileImg" src="\image\replace.png" alt="">
             </div>
             <div class="userId">
                 <h1>
@@ -36,7 +37,7 @@
     <main>
         <div class="generalInfo">
             <!--XP SUM-->
-        <div class="xp">
+            <div class="xp">
                 <h1 id="XPLevel">@_model.XPSum ХР</h1>
                 <p id="XPSlogan">Общее количество опыта</p>
             </div>
@@ -49,7 +50,7 @@
             </div>
         </div>
         <!---It's generalInfo -->
-    <div class="completed" id="completed">
+        <div class="completed" id="completed">
             <h1 id="completedTasks">Выполненные </h1>
         </div>
         <!------------task completed------------------------->
@@ -81,7 +82,7 @@
         }
         <!------------task completed------------------------->
 
-    <div class="notCompleted" id="notCompleted">
+        <div class="notCompleted" id="notCompleted">
             <h1 id="notCompletedTasks">Невыполненные </h1>
         </div>
         <!---------------------Not completed------------------>
@@ -96,17 +97,17 @@
                     <div class="aboutTask">
                         <div class="mark">
                             <h1 id="nameTask">
-                                @achievement.Title
+                                @achievement.Title | @achievement.Xp XP
                             </h1>
                         </div>
-                        <p class="notInfoTask">
+                        <p class="notInfoTask" id="notInfoTask">
                             @achievement.Description
                         </p>
                     </div>
                     <div class="taskXP">
-                        <h1 id="reward">
-                            +@achievement.Xp XP
-                        </h1>
+                        <p>
+                            @((int)achievement.UsersCompleteRatio)%
+                        </p>
                     </div>
                 </div>
             }
