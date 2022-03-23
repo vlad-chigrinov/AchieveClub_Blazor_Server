@@ -40,7 +40,7 @@ nav {
 .userImage{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     margin-bottom: 20px
 }
 
@@ -55,7 +55,7 @@ nav {
 #changeUserProfileImg{
     width: 20px;
     height: 20px;
-    margin-top: -15px;
+    margin-right: 20px;
 }
 
 .userId {
@@ -68,9 +68,9 @@ nav {
     margin-top: -20px;
     text-align: center;
 }
-#locate
-{
-    color:white;
+#locate {
+    color: #98caff !important;
+    text-decoration: none;
 }
 #locate:visited {
     color: white;
@@ -137,9 +137,31 @@ nav {
     padding-top: 5px;
     width:98%;
 }
-.taskXP
-{
+.taskXP{
     padding-right:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoTask{
+    color: black!important;
+}
+
+.userPerscentIcon{
+    width: 20px;
+}
+
+.taskXP p {
+    font-size: large;
+    font-weight: bold;
+    margin: 0;
+    margin-right: 4px;
+    color: white !important;
+}
+
+.taskXPNotCompleted p{
+    color: black!important
 }
 
 .generalInfo {

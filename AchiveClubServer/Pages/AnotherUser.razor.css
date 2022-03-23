@@ -97,8 +97,9 @@ nav {
     text-align: center;
 }
 
-#locate{
-    color: white;
+#locate {
+    color: #98caff !important;
+    text-decoration: none;
 }
 
 #locate, #XPLevel, #allTasks, #nameTask, #reward {
@@ -162,7 +163,7 @@ nav {
 }
 
 #infoTask {
-    color: white;
+    color: black !important;
 }
 
 #logoTask {
@@ -203,6 +204,25 @@ nav {
 
 .taskXP {
     padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.taskXP p {
+    font-size: large;
+    font-weight: bold;
+    margin: 0;
+    margin-right: 4px;
+    color: white !important;
+}
+
+.taskXPNotCompleted p {
+    color: black !important
+}
+
+.userPerscentIcon {
+    width: 20px;
 }
 
 .taskImg {
@@ -226,7 +246,7 @@ nav {
 }
 
 .notInfoTask {
-    color: white;
+    color: black;
 }
 
 footer {

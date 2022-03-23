@@ -6,7 +6,7 @@
 {
     <header>
         <div class="exitLink">
-               <a><img src="\image\left-chevron.png" alt=""></a>
+               <a><img src="\image\back_icon.png" alt=""></a>
         </div>
         <div class="heading-wrapper">
         </div>
@@ -22,7 +22,7 @@
                      <!--Last Name-->
                  @_user.LastName
                  <br>
-                 <a id="locate" href="/club/@_user.ClubId">Клуб @_user.ClubTitle.ToUpper()</a>
+                 <a id="locate" href="/club/@_user.ClubId">@_user.ClubTitle.ToUpper()</a>
                  </h1>
              </div>
          </div>
@@ -67,8 +67,9 @@
                         </p>
                     </div>
                     <div class="taskXP">
+                        <img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt="" />
                         <p>
-                            @((int)achievement.UsersCompleteRatio)%
+                            @((int)achievement.UsersCompleteRatio)
                         </p>
                     </div>
                 </div>
@@ -98,9 +99,10 @@
                             @achievement.Description
                         </p>
                     </div>
-                    <div class="taskXP">
+                    <div class="taskXP taskXPNotCompleted">
+                        <img class="userPerscentIcon" src="\image\user_perscent_icon.png" alt="" />
                         <p>
-                            @((int)achievement.UsersCompleteRatio)%
+                            @((int)achievement.UsersCompleteRatio)
                         </p>
                     </div>
                 </div>
