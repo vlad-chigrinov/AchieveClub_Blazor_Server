@@ -5,6 +5,7 @@
 
 .input__file-cont {
     width: 100% !important;
+    margin: 0;
 }
 
 #input__file{
@@ -113,13 +114,14 @@ main {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
+    width:278px;
 }
 
 .emailForm select {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
-    width: 292px;
+    width: 300px;
     background: white;
 }
 
@@ -137,6 +139,7 @@ main {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
+    width: 278px;
 }
 
 .passwordForm {
@@ -157,7 +160,7 @@ main {
 }
 
 .submitButton {
-    width: 98%;
+    width: 100%;
 }
 
     .submitButton button {
@@ -167,7 +170,9 @@ main {
         border: 1px solid #4E9BDA;
         color: white;
         font-family: 'Play', sans-serif;
-        height: 25px;
+        height: 45px;
+        font-size: large;
+        font-weight: bold;
         padding: 0;
         cursor: pointer;
     }
@@ -181,4 +186,8 @@ main {
 
 .registerForm{
     margin: 0;
+}
+
+.registerForm hr{
+    width: 300px;
 }

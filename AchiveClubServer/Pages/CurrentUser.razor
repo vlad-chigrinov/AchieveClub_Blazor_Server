@@ -9,7 +9,7 @@
 {
     <header>
          <div class="exitLink">
-                <a @onclick="Logout"><img id="exitImg" src="\image\exit.png" alt=""/></a>
+                <a @onclick="Logout"><img id="exitImg" src="\image\logout1.ico" alt=""/></a>
             </div>
         <div class="heading-wrapper">
            
@@ -17,11 +17,12 @@
         </div>
         <div class="userProfile">
             <div class="userImage">
-                <img id="changeUserProfileImg" src="\image\switch_image.png" alt="">
+                <input type="file" id="changePhotoInput" class="changePhotoInput" accept="image/jpeg,image/png,image/webp"/>
+                <img id="changeUserProfileImg" src="\image\changePhotoImg.png" alt="" for="changePhotoInput">
                 <img id="userProfileImg" src="@_model.Avatar" alt="">
             </div>
             <div class="userId">
-                <h1>
+                <p>
                     <!--First Name-->
                 @_model.FirstName
                  
@@ -29,7 +30,7 @@
                 @_model.LastName
                 <br>
                 <a id="locate" href="/club/@_model.ClubId">@_model.ClubTitle.ToUpper()</a>
-                </h1>
+                </p>
             </div>
         </div>
     </header>
