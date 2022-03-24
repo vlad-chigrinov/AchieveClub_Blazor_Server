@@ -20,12 +20,12 @@
 <!-----------------------------------main----------------------------------------->
 <main>
     <div class="content-wrapper">
-        <div class="headingWrapper">
-            <h3>Зарегистрироваться</h3>
-        </div>
         <div class="registerForm">
             <p><a @onclick="ToLogin">Войти в систему</a></p>
-            <hr />
+            <hr/>
+        </div>
+        <div class="headingWrapper">
+            <h3>Зарегистрироваться</h3>
         </div>
         <div class="emailForm">
             <span>Имя</span>
@@ -41,8 +41,12 @@
         </div>
         <div class="emailForm">
             <span>Фотография</span>
-            <div class="input__file">
-                <InputFile OnChange="@LoadFiles" AdditionalAttributes=@_fileInputAttributes />
+            <div class="input__file-cont">
+                <input type="file" class="input__file" id="input__file" accept="image/jpeg,image/png,image/webp" />
+                <label for="input__file" class="input__file-button">
+                    <span class="input__file-icon-wrapper"><img class="input__file-icon" src="\image\upload.png" alt="Выбрать файл"></span>
+                    <span class="input__file-button-text">Выберите файл</span>
+                </label>
             </div>
             @if (_avatarImageProcessed)
             {
@@ -85,7 +89,7 @@
     private string _resultMessage = "";
     private string _passwordSubmit = "";
 
-    private Dictionary<string, object> _fileInputAttributes = new Dictionary<string, object> { ["accept"] = "image/jpeg,image/png,image/webp" };
+    private Dictionary<string, object> _fileInputAttributes = new Dictionary<string, object> { ["accept"] = "image/jpeg,image/png,image/webp", ["class"] = "input__file", ["id"] = "input__file" };
 
     private RegisterParams _registrationParams = new RegisterParams();
 
