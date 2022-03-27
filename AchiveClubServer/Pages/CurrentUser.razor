@@ -10,7 +10,9 @@
     <header>
          <div class="exitLink">
                 <a @onclick="Logout"><img id="exitImg" src="\image\logout1.ico" alt=""/></a>
-            </div>
+         </div>
+
+
         <div class="heading-wrapper">
            
            
@@ -18,7 +20,9 @@
         <div class="userProfile">
             <div class="userImage">
                 <input type="file" id="changePhotoInput" class="changePhotoInput" accept="image/jpeg,image/png,image/webp"/>
-                <img id="changeUserProfileImg" src="\image\changePhotoImg.png" alt="" for="changePhotoInput">
+                <label for="changePhotoInput">
+                    <img id="changeUserProfileImg" src="\image\changePhotoImg.png" alt="">
+                </label>
                 <img id="userProfileImg" src="@_model.Avatar" alt="">
             </div>
             <div class="userId">
@@ -122,6 +126,7 @@
 
 @code
 {
+
     [CascadingParameter] public IModalService Modal { get; set; }
 
     private UserPageModel _model;
@@ -145,11 +150,11 @@
         {
             string adminKey = (string)result.Data;
             var completeAchiveParams = new CompleteAchiveParams()
-                {
-                    UserId = _model.Id,
-                    AchieveId = achivementId,
-                    SupervisorKey = adminKey
-                };
+            {
+                UserId = _model.Id,
+                AchieveId = achivementId,
+                SupervisorKey = adminKey
+            };
             try
             {
                 _completeAchieveService.Complete(completeAchiveParams);
