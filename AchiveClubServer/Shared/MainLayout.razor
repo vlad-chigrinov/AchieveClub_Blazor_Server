@@ -7,21 +7,28 @@
 <footer>
     <div class="footerSections">
         <div class="firstSection">
-            <a href="@_profilePath"><img src="StaticFiles/icons/user_profile.png" alt=""></a>
+            <a href="@_profilePath">
+               <i class="fa-solid fa-circle-user"></i>
+               @* <img src="StaticFiles/icons/user_profile.png" alt="">*@
+            </a>
             @if (LocalPath == _profilePath)
             {
                 <hr />
             }
         </div>
         <div class="secondSection">
-            <a href="@_topUsersPath"><img src="StaticFiles/icons/top_users.png" alt=""></a>
+            <a href="@_topUsersPath">
+               <i class="fa-solid fa-list-ol"></i>
+            </a>
             @if (LocalPath == _topUsersPath || LocalPath.Contains(_anotherUserPage))
             {
                 <hr />
             }
         </div>
         <div class="thirdSection">
-            <a href="@_topClubsPath"><img src="StaticFiles/icons/top_clubs.png" alt=""></a>
+            <a href="@_topClubsPath">
+               <i class="fa-solid fa-school-flag"></i>
+            </a>
             @if (LocalPath == _topClubsPath || LocalPath.Contains(_clubPage))
             {
                 <hr />

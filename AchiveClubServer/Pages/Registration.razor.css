@@ -27,8 +27,8 @@
     border-right: 1px solid #fff;
 }
 
-.input__file-icon-wrapper img{
-    width: 25px;
+.input__file-icon-wrapper i{
+    font-size: 30px;
 }
 
 .input__file-button-text {

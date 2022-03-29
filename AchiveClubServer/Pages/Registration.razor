@@ -1,8 +1,13 @@
 ﻿@page "/registration"
+
+@using Tewr.Blazor.FileReader
+
 @inject RegistrationService _registration
 @inject NavigationManager _navigation
 @inject ClubNamesService _clubNamesService
 @inject ImageLoader _imageLoader
+
+@inject IFileReaderService fileReaderService
 
 <!-----------------------------------nav----------------------------------------->
 <header>
@@ -12,7 +17,8 @@
         </div>
         <div class="text-wrapper">
             <h3>
-                <b>AchiveClub</b> for <m>It_Club</m>
+                @*<b>AchiveClub</b> for <m>It_Club</m>*@
+                <b>Система достижений</b>
             </h3>
         </div>
     </div>
@@ -24,7 +30,7 @@
             <h3>Зарегистрироваться</h3>
         </div>
         <div class="registerForm">
-            <hr/>
+            <hr />
             <p><a @onclick="ToLogin">Войти в систему</a></p>
         </div>
         <div class="emailForm">
@@ -42,9 +48,12 @@
         <div class="emailForm">
             <span>Фотография</span>
             <div class="input__file-cont">
-                <input type="file" class="input__file" id="input__file" accept="image/jpeg,image/png,image/webp" />
+                <input @ref=inputTypeFileElement @onchange=@LoadFiles type="file" class="input__file" id="input__file" accept="image/jpeg,image/png,image/webp" />
                 <label for="input__file" class="input__file-button">
-                    <span class="input__file-icon-wrapper"><img class="input__file-icon" src="\image\upload.png" alt="Выбрать файл"></span>
+                    <span class="input__file-icon-wrapper">
+                        @*<img class="input__file-icon" src="\image\upload.png" alt="Выбрать файл">*@
+                        <i class="fa-solid fa-file-image"></i>
+                    </span>
                     <span class="input__file-button-text">Выберите файл</span>
                 </label>
             </div>
@@ -84,12 +93,12 @@
 
 @code
 {
+    private ElementReference inputTypeFileElement;
+
     private bool _avatarImageProcessed = false;
 
     private string _resultMessage = "";
     private string _passwordSubmit = "";
-
-    private Dictionary<string, object> _fileInputAttributes = new Dictionary<string, object> { ["accept"] = "image/jpeg,image/png,image/webp", ["class"] = "input__file", ["id"] = "input__file" };
 
     private RegisterParams _registrationParams = new RegisterParams();
 
@@ -150,12 +159,13 @@
 
     }
 
-    private async Task LoadFiles(InputFileChangeEventArgs e)
+    private async Task LoadFiles()
     {
         _avatarImageProcessed = false;
         try
         {
-            _registrationParams.Avatar = await _imageLoader.CreateImage(e.File, "avatars");
+            var file = await fileReaderService.CreateReference(inputTypeFileElement).EnumerateFilesAsync();
+            _registrationParams.Avatar = await _imageLoader.CreateImage(file.First(), "avatars");
             _avatarImageProcessed = true;
         }
         catch (Exception ex)

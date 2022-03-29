@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using Tewr.Blazor.FileReader;
 
 namespace AchiveClubServer.Services
 {
@@ -19,11 +20,10 @@ namespace AchiveClubServer.Services
             _environment = environment;
         }
 
-        public async Task<string> CreateImage(IBrowserFile file, string folder)
+        public async Task<string> CreateImage(IFileReference file, string folder)
         {
             bool _fileLoaded = false;
 
-            IBrowserFile _file = file;
             string _fileName = Guid.NewGuid() + ".jpeg";
             string _fullDestFolder = Path.Combine(_environment.ContentRootPath, _destFolder, folder);
             string _path = Path.Combine(_fullDestFolder, _fileName);
@@ -32,7 +32,9 @@ namespace AchiveClubServer.Services
             try
             {
                 await using FileStream fs = new(_path, FileMode.Create);
-                await _file.OpenReadStream(1024 * 1024 * 5).CopyToAsync(fs);
+                var stream = await file.OpenReadAsync();
+                await stream.CopyToAsync(fs);
+                //await _file.OpenReadStream(1024 * 1024 * 5).CopyToAsync(fs);
                 _fileLoaded = true;
             }
             catch (Exception ex)
