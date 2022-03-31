@@ -169,7 +169,6 @@ nav {
 #logoTask {
     width: 60px;
     object-fit: cover;
-    border-radius: 50%;
 }
 
 #clubName {
@@ -213,7 +212,6 @@ nav {
     font-size: large;
     font-weight: bold;
     margin: 0;
-    margin-right: 4px;
     color: white !important;
 }
 
