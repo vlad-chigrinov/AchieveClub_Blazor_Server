@@ -19,9 +19,11 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<int>("select * " +
+                return db.Query<int>("select Count(*) " +
                     "from CompletedAchivements as C " +
-                    "where C.AchiveId = @Id",
+                    "join Users as U " +
+                    "on C.UserId = U.Id " +
+                    "where C.AchiveId = @Id ",
                     new {Id = id})
                     .FirstOrDefault();
             }

@@ -62,7 +62,7 @@
 
     private void LoadUsers()
     {
-        _users = _ratingService.GetUserRating();
+        _users = _ratingService.GetUserRating().Take(100).ToList();
     }
 
     private void LoadUserClub()
