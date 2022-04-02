@@ -208,6 +208,21 @@ nav {
     background: white;
 }
 
+#notComplitedTaskHighlighted {
+    background: #98ffdf;
+}
+
+#acceptList {
+    right: 22%;
+    bottom: 11%;
+    z-index: 1;
+    text-align: center;
+    position: fixed;
+    border-radius: 20px;
+    padding: 15px;
+    background: #98ffdf;
+}
+
 .aboutTask {
     width: 100%;
 }
@@ -315,6 +330,12 @@ footer img {
 
     #notCompletedTasks, #completedTasks {
         padding-left: 10px;
+    }
+}
+
+@media (max-width: 800px){
+    #acceptList{
+        right: 2%;
     }
 }
 
