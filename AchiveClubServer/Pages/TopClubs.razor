@@ -1,6 +1,6 @@
 ﻿@page "/topclubs"
 @layout MainLayout
-@inject ClubRatingService _clubsRating
+@inject ClubRatingStorage _clubsStorage
 @inject NavigationManager _navigation
 
 <header>
@@ -50,7 +50,7 @@
 
     private void LoadClubs()
     {
-        _clubs = _clubsRating.GetClubRating();
+        _clubs = _clubsStorage.ClubRating;
     }
 
     private string GetClubClass(ClubWithScoreAndRating club)
