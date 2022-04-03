@@ -13,11 +13,13 @@ namespace AchiveClubServer.Services
     public class UserPageModelBuilder
     {
         private UserAchievementsService _achievements;
+        private UserScoreService _userScore;
         private IUserRepository _users;
         private IClubRepository _clubs;
-        public UserPageModelBuilder(UserAchievementsService achievements, IUserRepository users, IClubRepository clubs)
+        public UserPageModelBuilder(UserAchievementsService achievements, UserScoreService userScore, IUserRepository users, IClubRepository clubs)
         {
             _achievements = achievements;
+            _userScore = userScore;
             _users = users;
             _clubs = clubs;
         }
@@ -34,7 +36,8 @@ namespace AchiveClubServer.Services
                 Avatar = user.Avatar,
                 ClubTitle = club.Title,
                 ClubId = club.Id,
-                Achivements = achievements
+                Achivements = achievements,
+                XPSum = _userScore.GetUserXP(userId)
             };
         }
     }

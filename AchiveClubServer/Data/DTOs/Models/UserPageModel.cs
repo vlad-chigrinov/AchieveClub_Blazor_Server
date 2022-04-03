@@ -14,10 +14,10 @@ namespace AchiveClubServer.Data.DTO
         public string Avatar { get; set; }
         public int ClubId { get; set; }
         public string ClubTitle { get; set; }
+        public int XPSum { get; set; }
         public List<UserPageAchieveItem> Achivements { get; set; } = new List<UserPageAchieveItem>();
         public int AchievementsCount => Achivements.Count;
         public int CompletedAchievementsCount => Achivements.Count(a => a.Completed);
         public int CompletedRatio => (int)(((float)CompletedAchievementsCount / (float)AchievementsCount) * 100);
-        public int XPSum => Achivements.Where(a => a.Completed).Sum(a => a.Xp);
     }
 }
