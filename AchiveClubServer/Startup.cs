@@ -1,16 +1,18 @@
+using System.IO;
+
 using AchiveClubServer.Data;
 using AchiveClubServer.Services;
+
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.FileProviders;
+
 using Blazored.Modal;
 using Blazored.LocalStorage;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
+using Tewr.Blazor.FileReader;
 
 namespace AchiveClubServer
 {
@@ -29,16 +31,19 @@ namespace AchiveClubServer
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddFileReaderService();
+
             services.AddBlazoredLocalStorage();
             services.AddBlazoredModal();
 
             string connection = _configuration.GetConnectionString("DefaultConnection");
-            if (_env.IsProduction())
-            {
-                connection = "Server=.; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
-            }
-            
-            if(connection.Contains("{{password}}"))
+            connection = "Server=it-club.online; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
+            //if (_env.IsProduction())
+            //{
+            //    connection = "Server=.; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
+            //}
+
+            if (connection.Contains("{{password}}"))
             {
                 connection = connection.Replace("{{password}}", _configuration["Password"]);
             }
@@ -75,6 +80,7 @@ namespace AchiveClubServer
             services.AddTransient<UserRatingService>();
             services.AddTransient<UserScoreService>();
             services.AddTransient<ChangeUserPasswordService>();
+            services.AddTransient<AvatarChanger>();
 
             services.AddTransient<UserCounter>();
             services.AddTransient<AchieveCompleteCounter>();

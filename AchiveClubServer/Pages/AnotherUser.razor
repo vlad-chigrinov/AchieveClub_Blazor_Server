@@ -6,7 +6,7 @@
 {
     <header>
         <div class="exitLink">
-               <a><img src="\image\left-chevron.png" alt=""></a>
+               <a href="/topusers"><img src="\image\back_icon.png" alt=""></a>
         </div>
         <div class="heading-wrapper">
         </div>
@@ -44,66 +44,81 @@
             </div>
         </div>
         <!---It's generalInfo -->
-        <div class="completed" id="completed">
-            <h1 id="completedTasks">Выполненые </h1>
-        </div>
-        <!------------task completed------------------------->
-        @foreach (var achievement in _user.Achivements)
+        @if (_user.Achivements.Count(a => a.Completed) > 0)
         {
-            @if (achievement.Completed)
+            <div class="completed" id="completed">
+                <h1 id="completedTasks">Выполненые </h1>
+            </div>
+            <!------------task completed------------------------->
+            @foreach (var achievement in _user.Achivements)
             {
-                <div class="completedTask" id="completedTask">
-                    <div class="taskImg">
-                        <img id="logoTask" src="@achievement.LogoURL" alt="">
-                    </div>
-                    <div class="aboutTask">
-                        <div class="mark">
-                            <h1 id="nameTask">
-                                @achievement.Title | @achievement.Xp XP
-                            </h1>
+                @if (achievement.Completed)
+                {
+                    <div class="completedTask" id="completedTask">
+                        <div class="taskImg">
+                            <img id="logoTask" src="@achievement.LogoURL" alt="">
                         </div>
-                        <p class="infoTask" id="infoTask">
-                            @achievement.Description
-                        </p>
+                        <div class="aboutTask">
+                            <div class="mark">
+                                <h1 id="nameTask">
+                                    @achievement.Title | @achievement.Xp XP
+                                </h1>
+                            </div>
+                            <p class="infoTask" id="infoTask">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span style="color: white;" class="userPerscentIcon">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt="" />*@
+                            <p>
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
                     </div>
-                    <div class="taskXP">
-                        <p>
-                            @((int)achievement.UsersCompleteRatio)%
-                        </p>
-                    </div>
-                </div>
+                }
+
             }
         }
         <!------------task completed------------------------->
 
-        <div class="notCompleted" id="notCompleted">
-            <h1 id="notCompletedTasks">Не выполненые </h1>
-        </div>
-        <!---------------------Not completed------------------>
-        @foreach (var achievement in _user.Achivements)
+        @if (_user.Achivements.Count(a => a.Completed == false) > 0)
         {
-            if (!achievement.Completed)
+            <div class="notCompleted" id="notCompleted">
+                <h1 id="notCompletedTasks">Не выполненые </h1>
+            </div>
+            <!---------------------Not completed------------------>
+            @foreach (var achievement in _user.Achivements)
             {
-                <div class="notCompletedTask" id="notCompletedTask">
-                    <div class="taskImg">
-                        <img id="logoTask" src="@achievement.LogoURL" alt="">
-                    </div>
-                    <div class="aboutTask">
-                        <div class="mark">
-                            <h1 id="nameTask">
-                                @achievement.Title | @achievement.Xp XP
-                            </h1>
+                if (!achievement.Completed)
+                {
+                    <div class="notCompletedTask" id="notCompletedTask">
+                        <div class="taskImg">
+                            <img id="logoTask" src="@achievement.LogoURL" alt="">
                         </div>
-                        <p class="notInfoTask" id="notInfoTask">
-                            @achievement.Description
-                        </p>
+                        <div class="aboutTask">
+                            <div class="mark">
+                                <h1 id="nameTask">
+                                    @achievement.Title | @achievement.Xp XP
+                                </h1>
+                            </div>
+                            <p class="notInfoTask" id="notInfoTask">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP taskXPNotCompleted">
+                            <span style="color: black;" class="userPerscentIcon">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon.png" alt="" />*@
+                            <p>
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
                     </div>
-                    <div class="taskXP">
-                        <p>
-                            @((int)achievement.UsersCompleteRatio)%
-                        </p>
-                    </div>
-                </div>
+                }
             }
         }
         <!---------------------Not completed------------------>

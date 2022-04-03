@@ -3,6 +3,59 @@
     border-radius: 0px 0px 50px 50px;
 }
 
+.input__file-cont {
+    width: 100% !important;
+    margin: 0;
+}
+
+#input__file{
+    display: none;
+}
+
+.input__file-icon-wrapper {
+    height: 60px;
+    width: 60px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-right: 1px solid #fff;
+}
+
+.input__file-icon-wrapper i{
+    font-size: 30px;
+}
+
+.input__file-button-text {
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.input__file-button {
+    width: 100% !important;
+    height: 38px;
+    background: #4E9BDA;
+    color: #fff;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
 .header-wrapper {
     display: flex;
     justify-content: center;
@@ -61,13 +114,14 @@ main {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
+    width:278px;
 }
 
 .emailForm select {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
-    width: 292px;
+    width: 300px;
     background: white;
 }
 
@@ -85,6 +139,7 @@ main {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
+    width: 278px;
 }
 
 .passwordForm {
@@ -93,13 +148,19 @@ main {
     width: 100%;
 }
 
+#inputFileImg-cont{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .headingWrapper {
-    margin-bottom: 15px;
+    margin: 0;
     width: 100%;
 }
 
 .submitButton {
-    width: 98%;
+    width: 100%;
 }
 
     .submitButton button {
@@ -109,7 +170,9 @@ main {
         border: 1px solid #4E9BDA;
         color: white;
         font-family: 'Play', sans-serif;
-        height: 25px;
+        height: 45px;
+        font-size: large;
+        font-weight: bold;
         padding: 0;
         cursor: pointer;
     }
@@ -119,4 +182,12 @@ main {
     color: #8F8F8F;
     font-weight: bold;
     font-size: 14px;
+}
+
+.registerForm{
+    margin: 0;
+}
+
+.registerForm hr{
+    width: 300px;
 }

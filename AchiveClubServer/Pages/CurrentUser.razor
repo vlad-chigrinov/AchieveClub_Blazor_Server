@@ -1,35 +1,55 @@
 ﻿@page "/"
 @layout MainLayout
+
+@using Tewr.Blazor.FileReader
+
 @inject UserPageModelBuilder _modelBuilder
 @inject CompleteAchieveService _completeAchieveService
 @inject UserLoginService _login
 @inject NavigationManager _navigation
+@inject ImageLoader _imageLoader
+@inject AvatarChanger _avatarChanger
+
+@inject IFileReaderService fileReaderService
 
 @if (_model != null)
 {
     <header>
-         <div class="exitLink">
-                <a @onclick="Logout"><img id="exitImg" src="\image\exit.png" alt=""/></a>
-            </div>
-        <div class="heading-wrapper">
-           
-           
+        <div class="exitLink">
+            <a @onclick="Logout">
+                @*<img id="exitImg" src="\image\logout1.ico" alt=""/>*@
+                <span style="font-size: 2em; color: white;" id="exitImg">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </span>
+            </a>
         </div>
+
+
+        <div class="heading-wrapper">
+        </div>
+
         <div class="userProfile">
             <div class="userImage">
+
+
                 <img id="userProfileImg" src="@_model.Avatar" alt="">
-                <img id="changeUserProfileImg" src="\image\replace.png" alt="">
+            </div>
+            <div class="changePhotoContainer">
+                <input @ref=inputTypeFileElement @onchange=@LoadFiles type="file" id="changePhotoInput" class="changePhotoInput" accept="image/jpeg,image/png,image/webp" />
+                <label for="changePhotoInput" class="changePhotoText">
+                    Изменить аватарку
+                </label>
             </div>
             <div class="userId">
-                <h1>
+                <p>
                     <!--First Name-->
                 @_model.FirstName
-                 
+
                     <!--Last Name-->
                 @_model.LastName
-                <br>
-                <a id="locate" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
-                </h1>
+                    <br>
+                    <a id="locate" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
+                </p>
             </div>
         </div>
     </header>
@@ -37,7 +57,7 @@
     <main>
         <div class="generalInfo">
             <!--XP SUM-->
-            <div class="xp">
+        <div class="xp">
                 <h1 id="XPLevel">@_model.XPSum ХР</h1>
                 <p id="XPSlogan">Общее количество опыта</p>
             </div>
@@ -50,66 +70,88 @@
             </div>
         </div>
         <!---It's generalInfo -->
-        <div class="completed" id="completed">
-            <h1 id="completedTasks">Выполненные </h1>
-        </div>
-        <!------------task completed------------------------->
-        @foreach (var achievement in _model.Achivements)
+        @if (_model.Achivements.Count(a => a.Completed) > 0)
         {
-            @if (achievement.Completed)
+            <div class="completed" id="completed">
+                <h1 id="completedTasks">Выполненные </h1>
+            </div>
+
+            <!------------task completed------------------------->
+            @foreach (var achievement in _model.Achivements)
             {
-                <div class="completedTask" id="completedTask">
-                    <div class="taskImg">
-                        <img id="logoTask" src="@achievement.LogoURL" alt="">
-                    </div>
-                    <div class="aboutTask">
-                        <div class="mark">
-                            <h1 id="nameTask">
-                                @achievement.Title | @achievement.Xp XP
-                            </h1>
+                @if (achievement.Completed)
+                {
+                    <div class="completedTask" id="completedTask">
+                        <div class="taskImg">
+                            <img id="logoTask" src="@achievement.LogoURL" alt="">
                         </div>
-                        <p class="infoTask" id="infoTask">
-                            @achievement.Description
-                        </p>
+                        <div class="aboutTask">
+                            <div class="mark">
+                                <h1 id="nameTask">
+                                    @achievement.Title | @achievement.Xp XP
+                                </h1>
+                            </div>
+                            <p class="infoTask" id="infoTask">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span style="color: white;" class="userPerscentIcon">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt=""/>*@
+                            <p>
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
                     </div>
-                    <div class="taskXP">
-                        <p>
-                            @((int)achievement.UsersCompleteRatio)%
-                        </p>
-                    </div>
-                </div>
+                }
+
             }
         }
         <!------------task completed------------------------->
-
-        <div class="notCompleted" id="notCompleted">
-            <h1 id="notCompletedTasks">Невыполненные </h1>
-        </div>
-        <!---------------------Not completed------------------>
-        @foreach (var achievement in _model.Achivements)
+        @if (_model.Achivements.Count(a => a.Completed == false) > 0)
         {
-            if (!achievement.Completed)
+            <div class="notCompleted" id="notCompleted">
+                <h1 id="notCompletedTasks">Невыполненные </h1>
+            </div>
+
+            <!---------------------Not completed------------------>
+            @foreach (var achievement in _model.Achivements)
             {
-                <div class="notCompletedTask" id="notCompletedTask" @onclick="()=>CompleteAchiveAsync(achievement.Id)">
-                    <div class="taskImg">
-                        <img id="logoTask" src="@achievement.LogoURL" alt="">
-                    </div>
-                    <div class="aboutTask">
-                        <div class="mark">
-                            <h1 id="nameTask">
-                                @achievement.Title | @achievement.Xp XP
-                            </h1>
+                if (!achievement.Completed)
+                {
+                    <div class="notCompletedTask" id="notCompletedTask" @onclick="()=>CompleteAchiveAsync(achievement.Id)">
+                        <div class="taskImg">
+                            <img id="logoTask" src="@achievement.LogoURL" alt="">
                         </div>
-                        <p class="notInfoTask" id="notInfoTask">
-                            @achievement.Description
-                        </p>
+                        <div class="aboutTask">
+                            <div class="mark">
+                                <h1 id="nameTask">
+                                    @achievement.Title | @achievement.Xp XP
+                                </h1>
+                            </div>
+                            <p class="notInfoTask" id="notInfoTask">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        @*<div class="taskXP taskXPNotCompleted">
+                            <img class="userPerscentIcon" src="\image\user_perscent_icon.png" alt="" />
+                            <p>
+                            @((int)achievement.UsersCompleteRatio)
+                            </p>
+                            </div>*@
+                        <div class="taskXP taskXPNotCompleted">
+                            <span style="color: black;" class="userPerscentIcon">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt=""/>*@
+                            <p>
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
                     </div>
-                    <div class="taskXP">
-                        <p>
-                            @((int)achievement.UsersCompleteRatio)%
-                        </p>
-                    </div>
-                </div>
+                }
             }
         }
         <!---------------------Not completed------------------>
@@ -120,6 +162,8 @@
 @code
 {
     [CascadingParameter] public IModalService Modal { get; set; }
+
+    private ElementReference inputTypeFileElement;
 
     private UserPageModel _model;
 
@@ -157,6 +201,7 @@
             }
 
             _model = _modelBuilder.Build(_model.Id);
+            StateHasChanged();
         }
     }
 
@@ -164,5 +209,29 @@
     {
         await _login.Logout();
         _navigation.NavigateTo("/login");
+    }
+
+    private async Task LoadFiles()
+    {
+        try
+        {
+            var files = await fileReaderService.CreateReference(inputTypeFileElement).EnumerateFilesAsync();
+            var file = files.First();
+            string avatarPath = await _imageLoader.CreateImage(file, "avatars");
+
+            if (_avatarChanger.ChangeAvatarById(_model.Id, avatarPath))
+            {
+                _model.Avatar = avatarPath;
+            }
+            else
+            {
+                _model.Avatar = @"https://icon-library.com/images/error-icon-png/error-icon-png-15.jpg";
+            }
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 }

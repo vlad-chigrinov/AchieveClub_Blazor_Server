@@ -1,7 +1,7 @@
 ﻿header {
     background-color: #0D4E81;
     border-radius: 0px 0px 50px 50px;
-    margin:0;
+    margin: 0;
 }
 
 nav {
@@ -17,9 +17,10 @@ nav {
     justify-content: space-around;
 }
 
-#exitImg{
+#exitImg {
     width: 30px;
     height: 30px;
+    transform: rotate(180deg); 
 }
 
 .paragraph {
@@ -32,49 +33,60 @@ nav {
 
 .userProfile {
     display: flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-
-.userImage{
-    display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px
+    justify-content: center;
+}
+
+.userImage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 #userProfileImg {
     width: 148px;
     height: 148px;
-    margin: 20px;
-    margin-top:-20px;
     border-radius: 50%;
 }
 
-#changeUserProfileImg{
-    width: 20px;
-    height: 20px;
-    margin-top: -15px;
+.changePhotoInput {
+    display: none;
+}
+
+.changePhotoContainer {
+    margin-top: 10px;
+    color: mediumaquamarine;
+}
+
+.changePhotoText{
+    cursor: pointer;
 }
 
 .userId {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: lighter;
-    font-size: 14px;
+    font-size: xx-large;
     color: white;
     align-items: center;
-    margin-top: -20px;
     text-align: center;
+    margin-bottom: 10px;
 }
-#locate
-{
-    color:white;
+
+.userId *{
+    margin: 0;
 }
-#locate:visited {
-    color: white;
+
+#locate {
+    color: mediumaquamarine !important;
+    text-decoration: none;
 }
+
+    #locate:visited {
+        color: white;
+    }
+
 .heading-wrapper {
     display: flex;
     justify-content: center;
@@ -101,22 +113,17 @@ nav {
 }
 
     .exitLink a {
-        font-size: 16px;
-        font-family: 'Play', sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        text-decoration: none;
-        color: white;
         cursor: pointer;
     }
 
-#locate, #XPLevel, #allTasks,  #nameTask, #reward {
+#locate, #XPLevel, #allTasks, #nameTask, #reward {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 19px;
     margin: 0;
 }
+
 #completedTasks, #notCompletedTasks {
     font-family: 'Play', sans-serif;
     font-style: normal;
@@ -126,8 +133,7 @@ nav {
     width: 80%;
     padding-left: 30px;
 }
-.completed,.notCompleted {
-}
+
 #locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
     font-family: 'Play', sans-serif;
     font-style: normal;
@@ -135,18 +141,45 @@ nav {
     margin: 0;
     color: #818181;
     padding-top: 5px;
-    width:98%;
+    width: 98%;
 }
-.taskXP
-{
-    padding-right:10px;
+
+.notInfoTask {
+    color: black !important;
+}
+
+.taskXP {
+    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infoTask {
+    color: black !important;
+}
+
+.userPerscentIcon {
+    width: 20px;
+}
+
+.taskXP p {
+    font-size: large;
+    font-weight: bold;
+    margin: 0;
+    /*margin-right: 4px;*/
+    color: white !important;
+}
+
+.taskXPNotCompleted p {
+    color: black !important
 }
 
 .generalInfo {
     text-align: center;
 }
 
-.generalInfo,  .completedTask,  .notCompletedTask {
+.generalInfo, .completedTask, .notCompletedTask {
     background: white;
     margin: 30px;
     padding: 15px;
@@ -157,7 +190,7 @@ nav {
     margin-bottom: 10px;
 }
 
-#notCompleted{
+#notCompleted {
     margin-top: 15px;
 }
 
@@ -186,7 +219,6 @@ nav {
 #logoTask {
     width: 60px;
     object-fit: cover;
-    border-radius: 50%;
 }
 
 #clubName {
@@ -225,7 +257,7 @@ nav {
 
 .taskImg {
     padding-right: 10px;
-    padding-top:4px;
+    padding-top: 4px;
 }
 
 #markUp {
@@ -275,11 +307,12 @@ footer img {
     }
 }
 
-@media(max-width:600px){
-    .generalInfo, .completedTask, .notCompletedTask{
+@media(max-width:600px) {
+    .generalInfo, .completedTask, .notCompletedTask {
         margin-left: 10px;
         margin-right: 10px;
     }
+
     #notCompletedTasks, #completedTasks {
         padding-left: 10px;
     }
@@ -290,23 +323,26 @@ footer img {
         width: 100%;
         text-align: left;
     }
+
     .notInfoTask {
         width: 100%;
         text-align: left;
     }
+
     #nameTask {
         text-align: left;
     }
-    
+
     .mark {
         display: unset;
     }
+
     .taskXP {
         width: 100px;
         text-align: right;
     }
+
     .notCompletedTask {
         cursor: pointer;
     }
-    
 }

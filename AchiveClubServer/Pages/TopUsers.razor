@@ -52,12 +52,17 @@
     protected override void OnInitialized()
     {
         LoadUsers();
+        var anonim = _users.Where(u => u.User.Email == "anonim@example.com").FirstOrDefault();
+        if (anonim != null)
+        {
+            _users.Remove(anonim);
+        }
         LoadUserClub();
     }
 
     private void LoadUsers()
     {
-        _users = _ratingService.GetUserRating();
+        _users = _ratingService.GetUserRating().Take(100).ToList();
     }
 
     private void LoadUserClub()

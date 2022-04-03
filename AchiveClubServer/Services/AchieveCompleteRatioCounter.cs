@@ -16,7 +16,7 @@
             int usersCount = _userCounter.GetValue();
             int completedCount = _achieveCompleteCounter.GetValueById(id);
 
-            return (double)completedCount / usersCount;
+            return ((double)completedCount / (double)usersCount) * 100.0;
         }
     }
 }
