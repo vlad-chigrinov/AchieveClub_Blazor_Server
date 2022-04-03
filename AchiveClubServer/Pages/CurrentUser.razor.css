@@ -219,6 +219,8 @@ nav {
     text-align: center;
     position: fixed;
     border-radius: 20px;
+    border: 0;
+    font-weight:bold;
     padding: 15px;
     background: #98ffdf;
 }
