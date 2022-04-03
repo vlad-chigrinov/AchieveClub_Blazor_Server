@@ -1,4 +1,6 @@
 ﻿<div class="adminKeyinput">
+    <p class="modalInfo"><b>Пользователь:</b>&nbsp;@UserFullName</p>
+    <p class="modalInfo"><b>Достижение:</b>&nbsp;@AchieveTitle</p>
     <input type="password" autocomplete="off" placeholder="...ключ преподавателя..." @bind-value="_message" />
     <div class="buttons">
         <button id="buttonSubmit" @onclick="SubmitForm">Подтвердить</button>
@@ -8,10 +10,11 @@
 @code {
 
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
+    [Parameter] public string UserFullName { get; set; }
+    [Parameter] public string AchieveTitle { get; set; }
+
 
     private string _message;
-
-    protected override void OnInitialized() => BlazoredModal.SetTitle("Передайте устройство тренеру для подтверждения выполнения!");
 
     void SubmitForm() => BlazoredModal.CloseAsync(ModalResult.Ok(_message));
 }

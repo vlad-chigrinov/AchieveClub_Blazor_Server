@@ -121,7 +121,7 @@
             {
                 if (!achievement.Completed)
                 {
-                    <div class="notCompletedTask" id="notCompletedTask" @onclick="()=>CompleteAchiveAsync(achievement.Id)">
+                    <div class="notCompletedTask" id="notCompletedTask" @onclick="()=>CompleteAchiveAsync(achievement)">
                         <div class="taskImg">
                             <img id="logoTask" src="@achievement.LogoURL" alt="">
                         </div>
@@ -177,9 +177,12 @@
         }
     }
 
-    private async Task CompleteAchiveAsync(int achivementId)
+    private async Task CompleteAchiveAsync(UserPageAchieveItem achivement)
     {
-        var modalInstance = Modal.Show<AdminKeyModal>();
+        var parameters = new ModalParameters();
+        parameters.Add("UserFullName", _model.FullName);
+        parameters.Add("AchieveTitle", achivement.Title);
+        var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для подтверждения выполнения!", parameters);
         var result = await modalInstance.Result;
 
         if (!result.Cancelled)
@@ -188,7 +191,7 @@
             var completeAchiveParams = new CompleteAchiveParams()
                 {
                     UserId = _model.Id,
-                    AchieveId = achivementId,
+                    AchieveId = achivement.Id,
                     SupervisorKey = adminKey
                 };
             try

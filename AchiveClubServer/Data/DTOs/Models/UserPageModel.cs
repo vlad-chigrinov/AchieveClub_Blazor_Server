@@ -19,5 +19,6 @@ namespace AchiveClubServer.Data.DTO
         public int AchievementsCount => Achivements.Count;
         public int CompletedAchievementsCount => Achivements.Count(a => a.Completed);
         public int CompletedRatio => (int)(((float)CompletedAchievementsCount / (float)AchievementsCount) * 100);
+        public string FullName => FirstName + " " + LastName;
     }
 }
