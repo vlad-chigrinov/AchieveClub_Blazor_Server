@@ -8,9 +8,9 @@ namespace AchiveClubServer.Services
     {
         private ClubUsersService _users;
         private IClubRepository _clubs;
-        private ClubRatingService _clubRatingService;
-        private UserRatingService _userRatingService;
-        public ClubPageModelBuilder(ClubUsersService users, IClubRepository clubs, ClubRatingService clubRatingService, UserRatingService userRatingService)
+        private ClubRatingStorage _clubRatingService;
+        private UserRatingStorage _userRatingService;
+        public ClubPageModelBuilder(ClubUsersService users, IClubRepository clubs, ClubRatingStorage clubRatingService, UserRatingStorage userRatingService)
         {
             _users = users;
             _clubs = clubs;
@@ -20,18 +20,18 @@ namespace AchiveClubServer.Services
         public ClubPageModel Build(int clubId)
         {
             var top3Users = _userRatingService
-                .GetUserRating()
+                .UserRating
                 .Where(u => u.User.ClubRefId == clubId)
-                .Take(3)
+                .Take(10)
                 .ToList();
-            int clubRatingNumber = _clubRatingService.GetClubRating().Where(club => club.Club.Id == clubId).Select(club=>club.RatingNumber).FirstOrDefault();
+            int clubRatingNumber = _clubRatingService.ClubRating.Where(club => club.Club.Id == clubId).Select(club=>club.RatingNumber).FirstOrDefault();
             var club = _clubs.GetById(clubId);
 
             return new ClubPageModel
             {
                 Club = club,
                 RatingPosition = clubRatingNumber,
-                Top3Users = top3Users
+                TopUsers = top3Users
             };
         }
     }

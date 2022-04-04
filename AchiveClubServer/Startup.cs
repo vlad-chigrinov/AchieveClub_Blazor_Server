@@ -88,6 +88,11 @@ namespace AchiveClubServer
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            services.AddSingleton<UserRatingStorage>();
+            services.AddSingleton<ClubRatingStorage>();
+
+            services.AddHostedService<RatingTimerUpdater>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

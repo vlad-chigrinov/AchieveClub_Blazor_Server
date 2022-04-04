@@ -1,6 +1,6 @@
 ﻿@page "/topusers"
 @layout MainLayout
-@inject UserRatingService _ratingService
+@inject UserRatingStorage _ratingStorage
 @inject IClubRepository _clubRepository
 @inject NavigationManager _navigation
 
@@ -62,7 +62,7 @@
 
     private void LoadUsers()
     {
-        _users = _ratingService.GetUserRating().Take(100).ToList();
+        _users = _ratingStorage.UserRating.Take(100).ToList();
     }
 
     private void LoadUserClub()

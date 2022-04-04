@@ -10,6 +10,6 @@ namespace AchiveClubServer.Data.DTO
     {
         public Club Club { get; set; }
         public int RatingPosition { get; set; }
-        public List<UserWithRatingAndScore> Top3Users { get; set; }
+        public List<UserWithRatingAndScore> TopUsers { get; set; }
     }
 }
