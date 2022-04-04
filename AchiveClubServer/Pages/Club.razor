@@ -33,9 +33,9 @@
         </div>
         <div class="topThreeUsers">
             <div class="topThreeUsersHead">
-                <h3>Топ <b>@_model.Top3Users.Count</b> пользователей </h3>
+                <h3>Топ <b>@_model.TopUsers.Count</b> пользователей </h3>
             </div>
-            @foreach (var user in _model.Top3Users)
+            @foreach (var user in _model.TopUsers)
             {
                 <div class="@GetUserClass(user)" @onclick=@(()=>RedirectToUserId(user.User.Id))>
                     <div class="userImage">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="ClubLogoAndPositionUser">
                         <div class="topPositionUser">
-                            <span>#@(_model.Top3Users.IndexOf(user)+1)</span>
+                            <span>#@(_model.TopUsers.IndexOf(user)+1)</span>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@ else
 
     private string GetUserClass(UserWithRatingAndScore user)
     {
-        int number = _model.Top3Users.IndexOf(user);
+        int number = _model.TopUsers.IndexOf(user);
         switch (number)
         {
             case 0:
