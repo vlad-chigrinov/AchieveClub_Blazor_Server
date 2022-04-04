@@ -8,7 +8,7 @@ namespace AchiveClubServer.Data.DTO
 {
     public class CompleteAchiveParams
     {
-        public int AchieveId { get; set; }
+        public List<int> AchievementsId { get; set; }
         public int UserId { get; set; }
         public string SupervisorKey { get; set; }
     }

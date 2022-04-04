@@ -124,6 +124,13 @@ nav {
     margin: 0;
 }
 
+.completedTasks {
+    background: #7BC3FF;
+}
+.completedTask {
+    background: #7BC3FF;
+}
+
 #completedTasks, #notCompletedTasks {
     font-family: 'Play', sans-serif;
     font-style: normal;
@@ -180,7 +187,6 @@ nav {
 }
 
 .generalInfo, .completedTask, .notCompletedTask {
-    background: white;
     margin: 30px;
     padding: 15px;
     border-radius: 20px;
@@ -194,22 +200,23 @@ nav {
     margin-top: 15px;
 }
 
-#completedTask, #notCompletedTask {
+#completedTask, #notCompletedTask{
     margin-top: 10px;
     margin-bottom: 10px;
-    background: #7BC3FF;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px;
 }
 
-#notCompletedTask {
+.notCompletedTask {
     background: white;
 }
 
-#notComplitedTaskHighlighted {
+.notCompletedTaskHighlighted {
     background: #98ffdf;
+    border-radius: 20px;
+    margin: 0px 20px;
 }
 
 #acceptList {
@@ -221,6 +228,8 @@ nav {
     border-radius: 20px;
     padding: 15px;
     background: #98ffdf;
+    border: 0;
+    font-weight: bold;
 }
 
 .aboutTask {

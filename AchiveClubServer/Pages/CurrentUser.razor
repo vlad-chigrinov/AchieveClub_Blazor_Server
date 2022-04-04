@@ -54,9 +54,12 @@
         </div>
     </header>
     <!-----------------------------------header----------------------------------------->
-    <button id="acceptList" onclick="">
-        <span>Подтвердить все</span>
-    </button>
+    @if (_model.Achivements.Count(a => a.Selected) > 0)
+    {
+        <button id="acceptList" @onclick=CompleteAchivementsAsync>
+            <span>Подтвердить все</span>
+        </button>
+    }
     <main>
         <div class="generalInfo">
             <!--XP SUM-->
@@ -124,7 +127,7 @@
             {
                 if (!achievement.Completed)
                 {
-                    <div class="notCompletedTask" id="notCompletedTask" @onclick="()=>CompleteAchiveAsync(achievement)">
+                    <div id="notCompletedTask" class=@(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask") @onclick=@(()=>SelectAchievement(achievement))>
                         <div class="taskImg">
                             <img id="logoTask" src="@achievement.LogoURL" alt="">
                         </div>
@@ -138,17 +141,10 @@
                                 @achievement.Description
                             </p>
                         </div>
-                        @*<div class="taskXP taskXPNotCompleted">
-                            <img class="userPerscentIcon" src="\image\user_perscent_icon.png" alt="" />
-                            <p>
-                            @((int)achievement.UsersCompleteRatio)
-                            </p>
-                            </div>*@
                         <div class="taskXP taskXPNotCompleted">
                             <span style="color: black;" class="userPerscentIcon">
                                 <i class="fa-solid fa-users"></i>
                             </span>
-                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt=""/>*@
                             <p>
                                 @((int)achievement.UsersCompleteRatio)%
                             </p>
@@ -172,6 +168,19 @@
 
     protected override void OnAfterRender(bool firstRender)
     {
+        //if (firstRender != true)
+        //{
+        //    if (_login.IsAuthorized == true)
+        //    {
+        //        int id = _login.CurrentUser.Id;
+        //        _model = _modelBuilder.Build(id);
+        //        StateHasChanged();
+        //    }
+        //}
+    }
+
+    protected override void OnInitialized()
+    {
         if (_login.IsAuthorized == true)
         {
             int id = _login.CurrentUser.Id;
@@ -180,11 +189,17 @@
         }
     }
 
-    private async Task CompleteAchiveAsync(UserPageAchieveItem achivement)
+    private void SelectAchievement(UserPageAchieveItem achivement)
     {
+        achivement.Selected = !achivement.Selected;
+    }
+
+    private async Task CompleteAchivementsAsync()
+    {
+        var selectedAchievements = _model.Achivements.Where(a => a.Selected).ToList();
         var parameters = new ModalParameters();
         parameters.Add("UserFullName", _model.FullName);
-        parameters.Add("AchieveTitle", achivement.Title);
+        parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
         var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для подтверждения выполнения!", parameters);
         var result = await modalInstance.Result;
 
@@ -194,12 +209,12 @@
             var completeAchiveParams = new CompleteAchiveParams()
                 {
                     UserId = _model.Id,
-                    AchieveId = achivement.Id,
+                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
                     SupervisorKey = adminKey
                 };
             try
             {
-                _completeAchieveService.Complete(completeAchiveParams);
+                _completeAchieveService.CompleteMultiple(completeAchiveParams);
             }
             catch (Exception ex)
             {
