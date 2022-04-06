@@ -20,7 +20,7 @@ nav {
 #exitImg {
     width: 30px;
     height: 30px;
-    transform: rotate(180deg); 
+    transform: rotate(180deg);
 }
 
 .paragraph {
@@ -59,7 +59,7 @@ nav {
     color: mediumaquamarine;
 }
 
-.changePhotoText{
+.changePhotoText {
     cursor: pointer;
 }
 
@@ -74,9 +74,9 @@ nav {
     margin-bottom: 10px;
 }
 
-.userId *{
-    margin: 0;
-}
+    .userId * {
+        margin: 0;
+    }
 
 #locate {
     color: mediumaquamarine !important;
@@ -127,6 +127,7 @@ nav {
 .completedTasks {
     background: #7BC3FF;
 }
+
 .completedTask {
     background: #7BC3FF;
 }
@@ -192,6 +193,10 @@ nav {
     border-radius: 20px;
 }
 
+.generalInfo {
+    background-color: white;
+}
+
 #completed, #notCompleted {
     margin-bottom: 10px;
 }
@@ -200,7 +205,7 @@ nav {
     margin-top: 15px;
 }
 
-#completedTask, #notCompletedTask{
+#completedTask, #notCompletedTask {
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
@@ -342,8 +347,8 @@ footer img {
     }
 }
 
-@media (max-width: 800px){
-    #acceptList{
+@media (max-width: 800px) {
+    #acceptList {
         right: 2%;
     }
 }

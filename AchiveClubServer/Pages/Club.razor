@@ -33,28 +33,35 @@
         </div>
         <div class="topThreeUsers">
             <div class="topThreeUsersHead">
-                <h3>Топ <b>@_model.TopUsers.Count</b> пользователей </h3>
+                <h3>Лучшие участники</h3>
             </div>
-            @foreach (var user in _model.TopUsers)
+            @if (_model.TopUsers != null)
             {
-                <div class="@GetUserClass(user)" @onclick=@(()=>RedirectToUserId(user.User.Id))>
-                    <div class="userImage">
-                        <img src="@user.User.Avatar" alt="">
-                    </div>
-                    <div class="userAboutWrapper">
-                        <div class="nameSurnameUser">
-                            <span>@user.User.FirstName @user.User.LastName</span>
+                @foreach (var user in _model.TopUsers)
+                {
+                    <div class="@GetUserClass(user)" @onclick=@(()=>RedirectToUserId(user.User.Id))>
+                        <div class="userImage">
+                            <img src="@user.User.Avatar" alt="">
                         </div>
-                        <div class="xpCountUser">
-                            <span>@user.Score XP</span>
+                        <div class="userAboutWrapper">
+                            <div class="nameSurnameUser">
+                                <span>@user.User.FirstName @user.User.LastName</span>
+                            </div>
+                            <div class="xpCountUser">
+                                <span>@user.Score XP</span>
+                            </div>
+                        </div>
+                        <div class="ClubLogoAndPositionUser">
+                            <div class="topPositionUser">
+                                <span>#@(_model.TopUsers.IndexOf(user)+1)</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="ClubLogoAndPositionUser">
-                        <div class="topPositionUser">
-                            <span>#@(_model.TopUsers.IndexOf(user)+1)</span>
-                        </div>
-                    </div>
-                </div>
+                }
+            }
+            else
+            {
+                <h1>Упс..Перезагрузите страницу чтобы все иправить!</h1>
             }
         </div>
     </main>

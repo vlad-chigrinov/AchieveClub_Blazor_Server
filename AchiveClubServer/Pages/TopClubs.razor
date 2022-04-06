@@ -13,28 +13,35 @@
 <!-----------------------------------header----------------------------------------->
 <main>
     <div class="topUsers">
-        @foreach (var club in _clubs)
+        @if (_clubs != null)
         {
-            <a @onclick="()=>RedirectToClubId(club.Club.Id)">
-                <div class=@GetClubClass(club)>
-                    <div class="userImageTop">
-                        <img src=@club.Club.LogoURL alt="">
-                    </div>
-                    <div class="userAboutWrapper">
-                        <div class="nameSurnameUser">
-                            <span>@club.Club.Title</span>
+            @foreach (var club in _clubs)
+            {
+                <a @onclick="()=>RedirectToClubId(club.Club.Id)">
+                    <div class=@GetClubClass(club)>
+                        <div class="userImageTop">
+                            <img src=@club.Club.LogoURL alt="">
                         </div>
-                        <div class="xpCountUser">
-                            <span>Средний опыт: @club.AvgXP XP</span>
+                        <div class="userAboutWrapper">
+                            <div class="nameSurnameUser">
+                                <span>@club.Club.Title</span>
+                            </div>
+                            <div class="xpCountUser">
+                                <span>Средний опыт: @club.AvgXP XP</span>
+                            </div>
+                        </div>
+                        <div class="ClubLogoAndPositionUser">
+                            <div class="topPositionUser">
+                                <span>#@(club.RatingNumber+1)</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="ClubLogoAndPositionUser">
-                        <div class="topPositionUser">
-                            <span>#@(club.RatingNumber+1)</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            }
+        }
+        else
+        {
+            <h1>Упс..Перезагрузите страницу чтобы все иправить!</h1>
         }
     </div>
 </main>
