@@ -4,12 +4,121 @@
     margin: 0;
 }
 
-nav {
-    background: white;
-    position: fixed;
-    width: 480px;
-    top: 1010px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+.exitLink {
+    display: flex;
+    justify-content: left;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+    .exitLink a {
+        cursor: pointer;
+    }
+
+.heading-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.userProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.userImage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+    .userImage img {
+        width: 148px;
+        height: 148px;
+        border-radius: 50%;
+    }
+
+.changePhoto {
+    margin-top: 10px;
+    color: mediumaquamarine;
+}
+
+    .changePhoto input {
+        display: none;
+    }
+
+    .changePhoto label {
+        cursor: pointer;
+    }
+
+.userInfo {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: xx-large;
+    color: white;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+    .userInfo * {
+        margin: 0;
+    }
+
+    .userInfo .locate {
+        color: mediumaquamarine !important;
+        text-decoration: none;
+        font-family: 'Play', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 19px;
+        margin: 0;
+    }
+
+        .userInfo .locate:visited {
+            color: white;
+        }
+
+main {
+    margin: 0 30px;
+}
+
+.generalInfo {
+    text-align: center;
+    background-color: white;
+    margin: 30px 0;
+    padding: 15px 0;
+    border-radius: 20px;
+}
+
+.solidHeading {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    font-size: 29px;
+    margin-bottom: 5px;
+}
+
+.task {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 29px;
+    width: 100%;
+}
+
+.task *
+{
+    margin: 0;
+    padding: 0;
 }
 
 .userMenu {
@@ -31,67 +140,6 @@ nav {
     width: 50px;
 }
 
-.userProfile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.userImage {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-#userProfileImg {
-    width: 148px;
-    height: 148px;
-    border-radius: 50%;
-}
-
-.changePhotoInput {
-    display: none;
-}
-
-.changePhotoContainer {
-    margin-top: 10px;
-    color: mediumaquamarine;
-}
-
-.changePhotoText {
-    cursor: pointer;
-}
-
-.userId {
-    font-family: 'Play', sans-serif;
-    font-style: normal;
-    font-weight: lighter;
-    font-size: xx-large;
-    color: white;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-    .userId * {
-        margin: 0;
-    }
-
-#locate {
-    color: mediumaquamarine !important;
-    text-decoration: none;
-}
-
-    #locate:visited {
-        color: white;
-    }
-
-.heading-wrapper {
-    display: flex;
-    justify-content: center;
-}
-
 #profileSlogan {
     display: flex;
     justify-content: center !important;
@@ -105,18 +153,7 @@ nav {
     justify-content: flex-end;
 }
 
-.exitLink {
-    display: flex;
-    justify-content: left;
-    padding-top: 20px;
-    padding-left: 20px;
-}
-
-    .exitLink a {
-        cursor: pointer;
-    }
-
-#locate, #XPLevel, #allTasks, #nameTask, #reward {
+.XPLevel, #allTasks, #nameTask, #reward {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -124,25 +161,7 @@ nav {
     margin: 0;
 }
 
-.completedTasks {
-    background: #7BC3FF;
-}
-
-.completedTask {
-    background: #7BC3FF;
-}
-
-#completedTasks, #notCompletedTasks {
-    font-family: 'Play', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 29px;
-    margin: 0;
-    width: 80%;
-    padding-left: 30px;
-}
-
-#locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
+#locateSlogan, .XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -183,18 +202,12 @@ nav {
     color: black !important
 }
 
-.generalInfo {
-    text-align: center;
-}
 
-.generalInfo, .completedTask, .notCompletedTask {
-    margin: 30px;
-    padding: 15px;
+
+.completedTask, .notCompletedTask {
+    margin: 30px 0;
+    padding: 15px 0;
     border-radius: 20px;
-}
-
-.generalInfo {
-    background-color: white;
 }
 
 #completed, #notCompleted {
@@ -205,13 +218,8 @@ nav {
     margin-top: 15px;
 }
 
-#completedTask, #notCompletedTask {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px;
+.completedTask, .notCompletedTask, completedTaskHighlighted, .notCompletedTaskHighlighted {
+    
 }
 
 .notCompletedTask {
@@ -220,8 +228,14 @@ nav {
 
 .notCompletedTaskHighlighted {
     background: #98ffdf;
-    border-radius: 20px;
-    margin: 0px 20px;
+}
+
+.completedTask {
+    background: #7BC3FF;
+}
+
+.completedTaskTaskHighlighted {
+    background: #98ffdf;
 }
 
 #acceptList {
@@ -232,7 +246,20 @@ nav {
     position: fixed;
     border-radius: 20px;
     padding: 15px;
-    background: #98ffdf;
+    background-color: #98ffdf;
+    border: 0;
+    font-weight: bold;
+}
+
+#deleteList {
+    left: 22%;
+    bottom: 11%;
+    z-index: 1;
+    text-align: center;
+    position: fixed;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: indianred;
     border: 0;
     font-weight: bold;
 }
@@ -255,8 +282,9 @@ nav {
 }
 
 
-#hr {
+.UserInfoSeparetor {
     background: #818181;
+    margin: 8px 15px;
 }
 
 #markUp, .markUpRed {
@@ -297,28 +325,6 @@ nav {
     height: 20px;
 }
 
-footer {
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-}
-
-.footerSections {
-    display: flex;
-    background: white;
-    width: 100%;
-    justify-content: center;
-    -webkit-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
-}
-
-footer img {
-    width: 50px;
-    margin: 10px 30px 5px 30px;
-    object-fit: cover;
-}
-
 .secondSection hr {
     border-bottom: 5px solid #0D4E81;
     border-radius: 10px 10px 0px 0px;
@@ -337,12 +343,16 @@ footer img {
 }
 
 @media(max-width:600px) {
-    .generalInfo, .completedTask, .notCompletedTask {
+    .generalInfo {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .completedTask, .notCompletedTask {
         margin-left: 10px;
         margin-right: 10px;
     }
 
-    #notCompletedTasks, #completedTasks {
+    .notCompletedTasks, .completedTasks {
         padding-left: 10px;
     }
 }
