@@ -69,6 +69,37 @@
                 <p class="sloganHint">Выполнено @_model.CompletedRatio%</p>
             </div>
         </div>
+        <!---------------------Not completed------------------>
+        @if (_model.Achivements.Count(a => a.Completed == false) > 0)
+        {
+            <h1 class="solidHeading">Невыполненные </h1>
+
+            @foreach (var achievement in _model.Achivements)
+            {
+                if (!achievement.Completed)
+                {
+                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask")" @onclick=@(()=>SelectAchievement(achievement))>
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
+                        <div class="aboutTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span class="userPerscentIcon blackText">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            <p class="blackText">
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+        }
         <!------------task completed------------------------->
         @if (_model.Achivements.Count(a => a.Completed) > 0)
         {
@@ -98,43 +129,9 @@
                         </div>
                     </div>
                 }
-
             }
         }
-        <!------------task completed------------------------->
-        @if (_model.Achivements.Count(a => a.Completed == false) > 0)
-        {
-            <h1 class="solidHeading">Невыполненные </h1>
-
-            <!---------------------Not completed------------------>
-            @foreach (var achievement in _model.Achivements)
-            {
-                if (!achievement.Completed)
-                {
-                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask")" @onclick=@(()=>SelectAchievement(achievement))>
-                        <img class="logoTask" src="@achievement.LogoURL" alt="">
-                        <div class="aboutTask">
-                            <h3 class="taskName">
-                                @achievement.Title | @achievement.Xp XP
-                            </h3>
-                            <p class="taskDescription">
-                                @achievement.Description
-                            </p>
-                        </div>
-                        <div class="taskXP">
-                            <span class="userPerscentIcon blackText">
-                                <i class="fa-solid fa-users"></i>
-                            </span>
-                            <p class="blackText">
-                                @((int)achievement.UsersCompleteRatio)%
-                            </p>
-                        </div>
-                    </div>
-                }
-            }
-        }
-        <!---------------------Not completed------------------>
-</main>
+    </main>
     <!-----------------------------------main----------------------------------------->
 }
 
@@ -146,8 +143,8 @@
 
     private UserPageModel _model;
 
-    private bool _showAcceptButton => _model.Achivements.Any(a=>a.Selected&&!a.Completed);
-    private bool _showDeleteButton => _model.Achivements.Any(a=>a.Selected&&a.Completed);
+    private bool _showAcceptButton => _model.Achivements.Any(a => a.Selected && !a.Completed);
+    private bool _showDeleteButton => _model.Achivements.Any(a => a.Selected && a.Completed);
 
     protected override void OnAfterRender(bool firstRender)
     {
