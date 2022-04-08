@@ -46,14 +46,14 @@
     <!--Detete selected button-->
     @if (_showDeleteButton)
     {
-        <button id="deleteList" @onclick=DeleteAchivementsAsync>
+        <button id="deleteList" class="overlayButton" @onclick=DeleteAchivementsAsync>
             <span>Отменить все</span>
         </button>
     }
     <!--Complete selected button-->
     @if (_showAcceptButton)
     {
-        <button id="acceptList" @onclick=CompleteAchivementsAsync>
+        <button id="acceptList" class="overlayButton" @onclick=CompleteAchivementsAsync>
             <span>Подтвердить все</span>
         </button>
     }
