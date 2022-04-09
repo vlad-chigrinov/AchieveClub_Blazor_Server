@@ -48,6 +48,20 @@ namespace AchiveClubServer.Services
             return completedAchievements;
         }
 
+        public void DeleteMultiple(CompleteAchiveParams completeParams)
+        {
+            GetSupervisorIdByKey(completeParams.SupervisorKey);
+
+            foreach(var achieveId in completeParams.AchievementsId)
+            {
+                using (IDbConnection db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = "DELETE FROM CompletedAchivements WHERE AchiveId = @AchieveId and UserId = @UserId";
+                        db.Execute(sqlQuery, new { AchieveId = achieveId, UserId = completeParams.UserId });
+                }
+            }
+        }
+
         private int GetSupervisorIdByKey(string key)
         {
             key = key.ToUpper();

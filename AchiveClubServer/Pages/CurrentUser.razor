@@ -174,7 +174,7 @@
 
     private async Task CompleteAchivementsAsync()
     {
-        var selectedAchievements = _model.Achivements.Where(a => a.Selected).ToList();
+        var selectedAchievements = _model.Achivements.Where(a => a.Selected && a.Completed==false).ToList();
         var parameters = new ModalParameters();
         parameters.Add("UserFullName", _model.FullName);
         parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
@@ -206,25 +206,25 @@
 
     private async Task DeleteAchivementsAsync()
     {
-        var selectedAchievements = _model.Achivements.Where(a => a.Selected).ToList();
+        var selectedAchievements = _model.Achivements.Where(a => a.Selected&&a.Completed==true).ToList();
         var parameters = new ModalParameters();
         parameters.Add("UserFullName", _model.FullName);
         parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
-        var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для подтверждения выполнения!", parameters);
+        var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для отмены выполнения!", parameters);
         var result = await modalInstance.Result;
 
         if (!result.Cancelled)
         {
-            string adminKey = (string)result.Data;
+            string supervisorKey = (string)result.Data;
             var completeAchiveParams = new CompleteAchiveParams()
                 {
                     UserId = _model.Id,
                     AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
-                    SupervisorKey = adminKey
+                    SupervisorKey = supervisorKey
                 };
             try
             {
-                _completeAchieveService.CompleteMultiple(completeAchiveParams);
+                _completeAchieveService.DeleteMultiple(completeAchiveParams);
             }
             catch (Exception ex)
             {
