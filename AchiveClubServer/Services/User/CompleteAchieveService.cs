@@ -19,31 +19,67 @@ namespace AchiveClubServer.Services
             _completedAchieveRepository = completedAchieveRepository;
             connectionString = connection;
         }
-        public CompletedAchievement Complete(CompleteAchiveParams completeParams)
+        public List<CompletedAchievement> CompleteMultiple(CompleteAchiveParams completeParams)
         {
-            completeParams.SupervisorKey = completeParams.SupervisorKey.ToUpper();
-            var completedAchieve = new CompletedAchievement
+            int supervisorKey = GetSupervisorIdByKey(completeParams.SupervisorKey);
+            var currentDate = DateTime.Now;
+
+            var completedAchievements = new List<CompletedAchievement>();
+            foreach(int achieveId in completeParams.AchievementsId)
             {
-                UserId = completeParams.UserId,
-                AchiveId = completeParams.AchieveId,
-                DateOfCompletion = DateTime.Now
-            };
+                var nextAchievement = new CompletedAchievement
+                {
+                    UserId = completeParams.UserId,
+                    AchiveId = achieveId,
+                    DateOfCompletion = currentDate,
+                    SupervisorId = supervisorKey
+                };
+                try
+                {
+                    nextAchievement.Id = _completedAchieveRepository.Insert(nextAchievement);
+                }
+                catch
+                {
+                    throw new Exception("Error on complete achievement insert to DB!");
+                }
+                completedAchievements.Add(nextAchievement);
+            }
+
+            return completedAchievements;
+        }
+
+        public void DeleteMultiple(CompleteAchiveParams completeParams)
+        {
+            GetSupervisorIdByKey(completeParams.SupervisorKey);
+
+            foreach(var achieveId in completeParams.AchievementsId)
+            {
+                using (IDbConnection db = new SqlConnection(connectionString))
+                {
+                    var sqlQuery = "DELETE FROM CompletedAchivements WHERE AchiveId = @AchieveId and UserId = @UserId";
+                        db.Execute(sqlQuery, new { AchieveId = achieveId, UserId = completeParams.UserId });
+                }
+            }
+        }
+
+        private int GetSupervisorIdByKey(string key)
+        {
+            key = key.ToUpper();
 
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 var sqlQuery = "select S.Id from Supervisors S where S.[Key] = @Key";
-                var argument = new { Key = completeParams.SupervisorKey };
+                var argument = new { Key = key };
                 int? completedAchieveId = db.Query<int?>(sqlQuery, argument).FirstOrDefault();
-                if (completedAchieveId.HasValue == false)
+                if (completedAchieveId.HasValue)
                 {
-                    throw new Exception("Complete achieve exception!");
+                    return completedAchieveId.Value;
                 }
-                completedAchieve.SupervisorId = completedAchieveId.Value;
+                else
+                {
+                    throw new Exception("Supervisor key not found!");
+                }
             }
-
-            completedAchieve.Id = _completedAchieveRepository.Insert(completedAchieve);
-
-            return completedAchieve;
         }
     }
 }

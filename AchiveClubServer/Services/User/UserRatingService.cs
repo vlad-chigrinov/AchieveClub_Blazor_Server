@@ -22,6 +22,7 @@ namespace AchiveClubServer.Services
         public List<UserWithRatingAndScore> GetUserRating()
         {
             var users = _userRepository.GetAll();
+            users.RemoveAll(u => u.Email == "anonim@example.com");
             var usersWithScore = new List<UserWithRatingAndScore>();
             users.ForEach(user => usersWithScore.Add(new UserWithRatingAndScore
             {

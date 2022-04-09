@@ -2,78 +2,66 @@
 @layout MainLayout
 @inject UserPageModelBuilder _modelBuilder
 
-@if (_user != null)
+@if (_model != null)
 {
     <header>
-        <div class="exitLink">
-               <a href="/topusers"><img src="\image\back_icon.png" alt=""></a>
-        </div>
+        <a href="/topusers" class="exitLink">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+
         <div class="heading-wrapper">
         </div>
+
         <div class="userProfile">
-             <div class="userImage">
-                 <img id="userProfileImg" src="@_user.Avatar" alt="">
-             </div>
-             <div class="userId">
-                 <h1>
-                     <!--First Name-->
-                 @_user.FirstName
-                 
-                     <!--Last Name-->
-                 @_user.LastName
-                 <br>
-                 <a id="locate" href="/club/@_user.ClubId">Клуб @_user.ClubTitle.ToUpper()</a>
-                 </h1>
-             </div>
-         </div>
-    </header>
-    <!-----------------------------------header----------------------------------------->
-    <main>
-        <div class="generalInfo">
-            <!--XP SUM-->
-        <div class="xp">
-                <h1 id="XPLevel">@_user.XPSum ХР</h1>
-                <p id="XPSlogan">Общее количество опыта</p>
+            <div class="userImage">
+                <img src="@_model.Avatar" alt="">
             </div>
-            <hr id="hr">
-            <div class="task">
-                <!--Completed Count-->
-            <h1 id="allTasks">Заданий выполнено: @_user.CompletedAchievementsCount из @_user.AchievementsCount</h1>
-                <!--Completed Ratio (%)-->
-            <p id="tasksSlogan">Выполнено @_user.CompletedRatio%</p>
+            <div class="userInfo">
+                <h1 class="userName">
+                    <span>@_model.FirstName</span>
+                    <span>@_model.LastName</span>
+                </h1>
+                <a class="userClub" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
             </div>
         </div>
-        <!---It's generalInfo -->
-        @if (_user.Achivements.Count(a => a.Completed) > 0)
-        {
-            <div class="completed" id="completed">
-                <h1 id="completedTasks">Выполненые </h1>
+    </header>
+
+    <main>
+        <div class="generalInfo">
+            <div>
+                <p class="sloganTitle">@_model.XPSum ХР</p>
+                <p class="sloganHint">Общее количество опыта</p>
             </div>
-            <!------------task completed------------------------->
-            @foreach (var achievement in _user.Achivements)
+            <hr class="UserInfoSeparetor">
+            <div>
+                <p class="sloganTitle">Заданий выполнено: @_model.CompletedAchievementsCount из @_model.AchievementsCount</p>
+                <p class="sloganHint">Выполнено @_model.CompletedRatio%</p>
+            </div>
+        </div>
+        <!------------task completed------------------------->
+        @if (_model.Achivements.Count(a => a.Completed) > 0)
+        {
+            <h1 class="solidHeading">Выполненные </h1>
+
+            @foreach (var achievement in _model.Achivements)
             {
                 @if (achievement.Completed)
                 {
-                    <div class="completedTask" id="completedTask">
-                        <div class="taskImg">
-                            <img id="logoTask" src="@achievement.LogoURL" alt="">
-                        </div>
+                    <div class="task completedTask">
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
                         <div class="aboutTask">
-                            <div class="mark">
-                                <h1 id="nameTask">
-                                    @achievement.Title | @achievement.Xp XP
-                                </h1>
-                            </div>
-                            <p class="infoTask" id="infoTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
                                 @achievement.Description
                             </p>
                         </div>
                         <div class="taskXP">
-                            <span style="color: white;" class="userPerscentIcon">
+                            <span class="userPerscentIcon whiteText">
                                 <i class="fa-solid fa-users"></i>
                             </span>
-                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt="" />*@
-                            <p>
+                            <p class="whiteText">
                                 @((int)achievement.UsersCompleteRatio)%
                             </p>
                         </div>
@@ -83,37 +71,30 @@
             }
         }
         <!------------task completed------------------------->
-
-        @if (_user.Achivements.Count(a => a.Completed == false) > 0)
+        @if (_model.Achivements.Count(a => a.Completed == false) > 0)
         {
-            <div class="notCompleted" id="notCompleted">
-                <h1 id="notCompletedTasks">Не выполненые </h1>
-            </div>
+            <h1 class="solidHeading">Невыполненные </h1>
+
             <!---------------------Not completed------------------>
-            @foreach (var achievement in _user.Achivements)
+            @foreach (var achievement in _model.Achivements)
             {
                 if (!achievement.Completed)
                 {
-                    <div class="notCompletedTask" id="notCompletedTask">
-                        <div class="taskImg">
-                            <img id="logoTask" src="@achievement.LogoURL" alt="">
-                        </div>
+                    <div class="task notCompletedTask">
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
                         <div class="aboutTask">
-                            <div class="mark">
-                                <h1 id="nameTask">
-                                    @achievement.Title | @achievement.Xp XP
-                                </h1>
-                            </div>
-                            <p class="notInfoTask" id="notInfoTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
                                 @achievement.Description
                             </p>
                         </div>
-                        <div class="taskXP taskXPNotCompleted">
-                            <span style="color: black;" class="userPerscentIcon">
+                        <div class="taskXP">
+                            <span class="userPerscentIcon blackText">
                                 <i class="fa-solid fa-users"></i>
                             </span>
-                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon.png" alt="" />*@
-                            <p>
+                            <p class="blackText">
                                 @((int)achievement.UsersCompleteRatio)%
                             </p>
                         </div>
@@ -123,7 +104,6 @@
         }
         <!---------------------Not completed------------------>
 </main>
-    <!-----------------------------------main----------------------------------------->
 }
 
 @code
@@ -131,12 +111,12 @@
     [Parameter]
     public string UserIdParam { get; set; }
 
-    public int AchievementsCount => _user.Achivements.Count;
-    public int CompletedAchievementsCount => _user.Achivements.Count(a => a.Completed);
+    public int AchievementsCount => _model.Achivements.Count;
+    public int CompletedAchievementsCount => _model.Achivements.Count(a => a.Completed);
     public int CompletedRatio => (int)(((float)CompletedAchievementsCount / (float)AchievementsCount) * 100);
-    public int XPSum => _user.Achivements.Where(a => a.Completed).Sum(a => a.Xp);
+    public int XPSum => _model.Achivements.Where(a => a.Completed).Sum(a => a.Xp);
 
-    private UserPageModel _user;
+    private UserPageModel _model;
 
     protected override void OnInitialized()
     {
@@ -146,7 +126,7 @@
     private void UpdateUser()
     {
         int id = int.Parse(UserIdParam);
-        _user = _modelBuilder.Build(id);
+        _model = _modelBuilder.Build(id);
         StateHasChanged();
     }
 }

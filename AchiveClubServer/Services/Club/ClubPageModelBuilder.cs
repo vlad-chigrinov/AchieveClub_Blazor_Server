@@ -22,7 +22,6 @@ namespace AchiveClubServer.Services
             var top3Users = _userRatingService
                 .UserRating
                 .Where(u => u.User.ClubRefId == clubId)
-                .Take(10)
                 .ToList();
             int clubRatingNumber = _clubRatingService.ClubRating.Where(club => club.Club.Id == clubId).Select(club=>club.RatingNumber).FirstOrDefault();
             var club = _clubs.GetById(clubId);

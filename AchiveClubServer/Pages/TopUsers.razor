@@ -41,6 +41,10 @@
                 </div>
             }
         }
+        else
+        {
+            <h1>Упс..Перезагрузите страницу чтобы все иправить!</h1>
+        }
     </div>
 </main>
 <!-----------------------------------main----------------------------------------->
@@ -52,11 +56,6 @@
     protected override void OnInitialized()
     {
         LoadUsers();
-        var anonim = _users.Where(u => u.User.Email == "anonim@example.com").FirstOrDefault();
-        if (anonim != null)
-        {
-            _users.Remove(anonim);
-        }
         LoadUserClub();
     }
 

@@ -15,141 +15,82 @@
 @if (_model != null)
 {
     <header>
-        <div class="exitLink">
-            <a @onclick="Logout">
-                @*<img id="exitImg" src="\image\logout1.ico" alt=""/>*@
-                <span style="font-size: 2em; color: white;" id="exitImg">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                </span>
-            </a>
-        </div>
-
+        <a @onclick="Logout" class="exitLink">
+            <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i>
+        </a>
 
         <div class="heading-wrapper">
         </div>
 
         <div class="userProfile">
             <div class="userImage">
-
-
-                <img id="userProfileImg" src="@_model.Avatar" alt="">
+                <img src="@_model.Avatar" alt="">
             </div>
-            <div class="changePhotoContainer">
-                <input @ref=inputTypeFileElement @onchange=@LoadFiles type="file" id="changePhotoInput" class="changePhotoInput" accept="image/jpeg,image/png,image/webp" />
-                <label for="changePhotoInput" class="changePhotoText">
+            <div class="changePhoto">
+                <input @ref=inputTypeFileElement @onchange=@LoadFiles type="file" id="changePhotoInput" accept="image/jpeg,image/png,image/webp" />
+                <label for="changePhotoInput">
                     Изменить аватарку
                 </label>
             </div>
-            <div class="userId">
-                <p>
-                    <!--First Name-->
-                @_model.FirstName
-
-                    <!--Last Name-->
-                @_model.LastName
-                    <br>
-                    <a id="locate" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
-                </p>
+            <div class="userInfo">
+                <h1 class="userName">
+                    <span>@_model.FirstName</span>
+                    <span>@_model.LastName</span>
+                </h1>
+                <a class="userClub" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
             </div>
         </div>
     </header>
-    <!-----------------------------------header----------------------------------------->
-    <button id="acceptList" onclick="">
-        <span>Подтвердить все</span>
-    </button>
+    <!--Detete selected button-->
+    @if (_showDeleteButton)
+    {
+        <button id="deleteList" class="overlayButton" @onclick=DeleteAchivementsAsync>
+            <span>Отменить все</span>
+        </button>
+    }
+    <!--Complete selected button-->
+    @if (_showAcceptButton)
+    {
+        <button id="acceptList" class="overlayButton" @onclick=CompleteAchivementsAsync>
+            <span>Подтвердить все</span>
+        </button>
+    }
     <main>
         <div class="generalInfo">
-            <!--XP SUM-->
-        <div class="xp">
-                <h1 id="XPLevel">@_model.XPSum ХР</h1>
-                <p id="XPSlogan">Общее количество опыта</p>
+            <div>
+                <p class="sloganTitle">@_model.XPSum ХР</p>
+                <p class="sloganHint">Общее количество опыта</p>
             </div>
-            <hr id="hr">
-            <div class="task">
-                <!--Completed Count-->
-            <h1 id="allTasks">Заданий выполнено: @_model.CompletedAchievementsCount из @_model.AchievementsCount</h1>
-                <!--Completed Ratio (%)-->
-            <p id="tasksSlogan">Выполнено @_model.CompletedRatio%</p>
+            <hr class="UserInfoSeparetor">
+            <div>
+                <p class="sloganTitle">Заданий выполнено: @_model.CompletedAchievementsCount из @_model.AchievementsCount</p>
+                <p class="sloganHint">Выполнено @_model.CompletedRatio%</p>
             </div>
         </div>
-        <!---It's generalInfo -->
-        @if (_model.Achivements.Count(a => a.Completed) > 0)
-        {
-            <div class="completed" id="completed">
-                <h1 id="completedTasks">Выполненные </h1>
-            </div>
-
-            <!------------task completed------------------------->
-            @foreach (var achievement in _model.Achivements)
-            {
-                @if (achievement.Completed)
-                {
-                    <div class="completedTask" id="completedTask">
-                        <div class="taskImg">
-                            <img id="logoTask" src="@achievement.LogoURL" alt="">
-                        </div>
-                        <div class="aboutTask">
-                            <div class="mark">
-                                <h1 id="nameTask">
-                                    @achievement.Title | @achievement.Xp XP
-                                </h1>
-                            </div>
-                            <p class="infoTask" id="infoTask">
-                                @achievement.Description
-                            </p>
-                        </div>
-                        <div class="taskXP">
-                            <span style="color: white;" class="userPerscentIcon">
-                                <i class="fa-solid fa-users"></i>
-                            </span>
-                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt=""/>*@
-                            <p>
-                                @((int)achievement.UsersCompleteRatio)%
-                            </p>
-                        </div>
-                    </div>
-                }
-
-            }
-        }
-        <!------------task completed------------------------->
+        <!---------------------Not completed------------------>
         @if (_model.Achivements.Count(a => a.Completed == false) > 0)
         {
-            <div class="notCompleted" id="notCompleted">
-                <h1 id="notCompletedTasks">Невыполненные </h1>
-            </div>
+            <h1 class="solidHeading">Невыполненные </h1>
 
-            <!---------------------Not completed------------------>
             @foreach (var achievement in _model.Achivements)
             {
                 if (!achievement.Completed)
                 {
-                    <div class="notCompletedTask" id="notCompletedTask" @onclick="()=>CompleteAchiveAsync(achievement)">
-                        <div class="taskImg">
-                            <img id="logoTask" src="@achievement.LogoURL" alt="">
-                        </div>
+                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask")" @onclick=@(()=>SelectAchievement(achievement))>
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
                         <div class="aboutTask">
-                            <div class="mark">
-                                <h1 id="nameTask">
-                                    @achievement.Title | @achievement.Xp XP
-                                </h1>
-                            </div>
-                            <p class="notInfoTask" id="notInfoTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
                                 @achievement.Description
                             </p>
                         </div>
-                        @*<div class="taskXP taskXPNotCompleted">
-                            <img class="userPerscentIcon" src="\image\user_perscent_icon.png" alt="" />
-                            <p>
-                            @((int)achievement.UsersCompleteRatio)
-                            </p>
-                            </div>*@
-                        <div class="taskXP taskXPNotCompleted">
-                            <span style="color: black;" class="userPerscentIcon">
+                        <div class="taskXP">
+                            <span class="userPerscentIcon blackText">
                                 <i class="fa-solid fa-users"></i>
                             </span>
-                            @*<img class="userPerscentIcon" src="\image\user_perscent_icon_white.png" alt=""/>*@
-                            <p>
+                            <p class="blackText">
                                 @((int)achievement.UsersCompleteRatio)%
                             </p>
                         </div>
@@ -157,8 +98,38 @@
                 }
             }
         }
-        <!---------------------Not completed------------------>
-</main>
+        <!------------task completed------------------------->
+        @if (_model.Achivements.Count(a => a.Completed) > 0)
+        {
+            <h1 class="solidHeading">Выполненные </h1>
+
+            @foreach (var achievement in _model.Achivements)
+            {
+                @if (achievement.Completed)
+                {
+                    <div class="task @(achievement.Selected?"completedTaskHighlighted":"completedTask")" @onclick=@(()=>SelectAchievement(achievement))>
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
+                        <div class="aboutTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span class="userPerscentIcon whiteText">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            <p class="whiteText">
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </main>
     <!-----------------------------------main----------------------------------------->
 }
 
@@ -170,7 +141,23 @@
 
     private UserPageModel _model;
 
+    private bool _showAcceptButton => _model.Achivements.Any(a => a.Selected && !a.Completed);
+    private bool _showDeleteButton => _model.Achivements.Any(a => a.Selected && a.Completed);
+
     protected override void OnAfterRender(bool firstRender)
+    {
+        //if (firstRender != true)
+        //{
+        //    if (_login.IsAuthorized == true)
+        //    {
+        //        int id = _login.CurrentUser.Id;
+        //        _model = _modelBuilder.Build(id);
+        //        StateHasChanged();
+        //    }
+        //}
+    }
+
+    protected override void OnInitialized()
     {
         if (_login.IsAuthorized == true)
         {
@@ -180,11 +167,17 @@
         }
     }
 
-    private async Task CompleteAchiveAsync(UserPageAchieveItem achivement)
+    private void SelectAchievement(UserPageAchieveItem achivement)
     {
+        achivement.Selected = !achivement.Selected;
+    }
+
+    private async Task CompleteAchivementsAsync()
+    {
+        var selectedAchievements = _model.Achivements.Where(a => a.Selected && a.Completed==false).ToList();
         var parameters = new ModalParameters();
         parameters.Add("UserFullName", _model.FullName);
-        parameters.Add("AchieveTitle", achivement.Title);
+        parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
         var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для подтверждения выполнения!", parameters);
         var result = await modalInstance.Result;
 
@@ -194,12 +187,44 @@
             var completeAchiveParams = new CompleteAchiveParams()
                 {
                     UserId = _model.Id,
-                    AchieveId = achivement.Id,
+                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
                     SupervisorKey = adminKey
                 };
             try
             {
-                _completeAchieveService.Complete(completeAchiveParams);
+                _completeAchieveService.CompleteMultiple(completeAchiveParams);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            _model = _modelBuilder.Build(_model.Id);
+            StateHasChanged();
+        }
+    }
+
+    private async Task DeleteAchivementsAsync()
+    {
+        var selectedAchievements = _model.Achivements.Where(a => a.Selected&&a.Completed==true).ToList();
+        var parameters = new ModalParameters();
+        parameters.Add("UserFullName", _model.FullName);
+        parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
+        var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для отмены выполнения!", parameters);
+        var result = await modalInstance.Result;
+
+        if (!result.Cancelled)
+        {
+            string supervisorKey = (string)result.Data;
+            var completeAchiveParams = new CompleteAchiveParams()
+                {
+                    UserId = _model.Id,
+                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
+                    SupervisorKey = supervisorKey
+                };
+            try
+            {
+                _completeAchieveService.DeleteMultiple(completeAchiveParams);
             }
             catch (Exception ex)
             {

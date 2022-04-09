@@ -2,33 +2,25 @@
     background-color: #0D4E81;
     border-radius: 0px 0px 50px 50px;
     margin: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-nav {
-    background: white;
-    position: fixed;
-    width: 480px;
-    top: 1010px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5)
-}
-
-.userMenu {
+.exitLink {
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: 2em;
+    color: white;
 }
 
-#exitImg {
-    width: 30px;
-    height: 30px;
-    transform: rotate(180deg); 
-}
+    .exitLink a {
+        cursor: pointer;
+    }
 
-.paragraph {
-    padding: 15px;
-}
-
-#userParagraph {
-    width: 50px;
+.heading-wrapper {
+    display: flex;
+    justify-content: center;
 }
 
 .userProfile {
@@ -42,99 +34,160 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    margin-bottom: 6px;
 }
 
-#userProfileImg {
-    width: 148px;
-    height: 148px;
-    border-radius: 50%;
-}
+    .userImage img {
+        width: 148px;
+        height: 148px;
+        border-radius: 50%;
+        box-shadow: 0 0 4px #7BC3FF;
+    }
 
-.changePhotoInput {
-    display: none;
-}
-
-.changePhotoContainer {
-    margin-top: 10px;
+.changePhoto {
+    margin-top: 0 10px;
     color: mediumaquamarine;
 }
 
-.changePhotoText{
-    cursor: pointer;
-}
-
-.userId {
-    font-family: 'Play', sans-serif;
-    font-style: normal;
-    font-weight: lighter;
-    font-size: xx-large;
-    color: white;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.userId *{
-    margin: 0;
-}
-
-#locate {
-    color: mediumaquamarine !important;
-    text-decoration: none;
-}
-
-    #locate:visited {
-        color: white;
+    .changePhoto input {
+        display: none;
     }
 
-.heading-wrapper {
-    display: flex;
-    justify-content: center;
-}
-
-#profileSlogan {
-    display: flex;
-    justify-content: center !important;
-    width: 60%;
-    font-size: 20px;
-    font-family: 'Play', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    margin-left: 20%;
-    color: white;
-    justify-content: flex-end;
-}
-
-.exitLink {
-    display: flex;
-    justify-content: left;
-    padding-top: 20px;
-    padding-left: 20px;
-}
-
-    .exitLink a {
+    .changePhoto label {
         cursor: pointer;
     }
 
-#locate, #XPLevel, #allTasks, #nameTask, #reward {
+.userInfo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+    .userInfo * {
+        margin: 0;
+        font-family: 'Play', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+    }
+
+    .userInfo .userName {
+        color: white;
+        font-family: 'Play', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: xx-large;
+        margin: 0;
+    }
+
+    .userInfo .userClub {
+        color: mediumaquamarine !important;
+        text-decoration: none;
+        font-family: 'Play', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 19px;
+        margin: 0;
+    }
+
+    .userInfo .locate:visited {
+        color: white;
+    }
+
+.generalInfo {
+    text-align: center;
+    background-color: white;
+    margin: 20px 0;
+    padding: 15px 0;
+    border-radius: 20px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.solidHeading {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 19px;
     margin: 0;
+    font-size: 29px;
+    margin-bottom: 4px;
+    margin-top: 8px;
 }
 
-#completedTasks, #notCompletedTasks {
+.task {
+    margin: 9px 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 29px;
-    margin: 0;
-    width: 80%;
-    padding-left: 30px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: inset 0 0 6px #e5e5e5;
 }
 
-#locateSlogan, #XPSlogan, #tasksSlogan, .infoTask, .notInfoTask {
+    .task * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .task .logoTask {
+        width: 60px;
+        margin: 10px;
+        object-fit: cover;
+    }
+
+    .task .aboutTask {
+        width: 100%;
+    }
+
+        .task .aboutTask .taskName {
+            font-size: 19px;
+            font-weight: normal;
+            margin-bottom: 6px;
+            margin-top: 5px;
+        }
+
+        .task .aboutTask .taskDescription {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+    .task .taskXP {
+        margin-right: 15px;
+        margin-left: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .task .taskXP p {
+            font-size: large;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .task .taskXP .userPerscentIcon {
+            font-size: 20px;
+        }
+
+.completedTask {
+    background: #7BC3FF;
+}
+
+.completedTaskHighlighted {
+    background: #ff9e9e;
+}
+
+.notCompletedTask {
+    background: white;
+}
+
+.notCompletedTaskHighlighted {
+    background: #98ffdf;
+}
+
+.sloganHint {
     font-family: 'Play', sans-serif;
     font-style: normal;
     font-weight: normal;
@@ -144,226 +197,93 @@ nav {
     width: 98%;
 }
 
-.notInfoTask {
-    color: black !important;
-}
-
-.taskXP {
-    padding-right: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.infoTask {
-    color: black !important;
-}
-
-.userPerscentIcon {
-    width: 20px;
-}
-
-.taskXP p {
-    font-size: large;
-    font-weight: bold;
+.sloganTitle {
+    font-family: 'Play', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 19px;
     margin: 0;
-    /*margin-right: 4px;*/
-    color: white !important;
 }
 
-.taskXPNotCompleted p {
-    color: black !important
+@media (max-width:500px) {
+    main {
+        margin: 0 5px;
+    }
+
+    #acceptList {
+        right: 3%;
+    }
+
+    #deleteList {
+        left: 3%;
+    }
 }
 
-.generalInfo {
-    text-align: center;
+@media (min-width:500px) and (max-width:800px) {
+    main {
+        margin: 0 10px;
+    }
+
+    #acceptList {
+        right: 5%;
+    }
+
+    #deleteList {
+        left: 5%;
+    }
 }
 
-.generalInfo, .completedTask, .notCompletedTask {
-    background: white;
-    margin: 30px;
-    padding: 15px;
-    border-radius: 20px;
+@media (min-width:800px) and (max-width:1200px) {
+    main {
+        margin: 0 20px;
+    }
+
+    #acceptList {
+        right: 10%;
+    }
+
+    #deleteList {
+        left: 10%;
+    }
 }
 
-#completed, #notCompleted {
-    margin-bottom: 10px;
-}
+@media (min-width:1200px) {
+    main {
+        margin: 0;
+    }
 
-#notCompleted {
-    margin-top: 15px;
-}
+    #acceptList {
+        right: 22%;
+    }
 
-#completedTask, #notCompletedTask {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: #7BC3FF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px;
-}
-
-#notCompletedTask {
-    background: white;
-}
-
-#notComplitedTaskHighlighted {
-    background: #98ffdf;
+    #deleteList {
+        left: 22%;
+    }
 }
 
 #acceptList {
-    right: 22%;
+    background-color: #98ffdf;
+}
+
+#deleteList {
+    background-color: indianred;
+}
+
+.overlayButton {
     bottom: 11%;
     z-index: 1;
     text-align: center;
     position: fixed;
     border-radius: 20px;
     padding: 15px;
-    background: #98ffdf;
+    border: 0;
+    font-weight: bold;
 }
 
-.aboutTask {
-    width: 100%;
-}
-
-#infoTask {
+.whiteText {
     color: white;
 }
 
-#logoTask {
-    width: 60px;
-    object-fit: cover;
-}
-
-#clubName {
-    color: #0D4E81;
-}
-
-
-#hr {
-    background: #818181;
-}
-
-#markUp, .markUpRed {
-    margin: 0;
-    font-family: 'Play', sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    border: 1px solid #0D4E81;
-    padding: 4px;
-    border-radius: 10px;
-    color: #0D4E81;
-}
-
-#markUpRed {
-    border: 1px solid #ff0000;
-    color: #ff0000;
-}
-
-.mark {
-    display: flex;
-    justify-content: space-between;
-}
-
-.taskXP {
-    padding-left: 10px;
-}
-
-.taskImg {
-    padding-right: 10px;
-    padding-top: 4px;
-}
-
-#markUp {
-    height: 20px;
-}
-
-.markUpRed {
-    height: 20px;
-}
-
-footer {
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-}
-
-.footerSections {
-    display: flex;
-    background: white;
-    width: 100%;
-    justify-content: center;
-    -webkit-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px -5px 15px 4px rgba(0, 0, 0, 0.2);
-}
-
-footer img {
-    width: 50px;
-    margin: 10px 30px 5px 30px;
-    object-fit: cover;
-}
-
-.secondSection hr {
-    border-bottom: 5px solid #0D4E81;
-    border-radius: 10px 10px 0px 0px;
-    margin: 0;
-}
-
-.px {
-    width: 100%;
-    height: 75px;
-}
-
-@media(max-width:430px) {
-    #infoTask {
-        text-align: left;
-    }
-}
-
-@media(max-width:600px) {
-    .generalInfo, .completedTask, .notCompletedTask {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    #notCompletedTasks, #completedTasks {
-        padding-left: 10px;
-    }
-}
-
-@media (max-width: 800px){
-    #acceptList{
-        right: 2%;
-    }
-}
-
-@media (min-width:1100px) {
-    #infoTask {
-        width: 100%;
-        text-align: left;
-    }
-
-    .notInfoTask {
-        width: 100%;
-        text-align: left;
-    }
-
-    #nameTask {
-        text-align: left;
-    }
-
-    .mark {
-        display: unset;
-    }
-
-    .taskXP {
-        width: 100px;
-        text-align: right;
-    }
-
-    .notCompletedTask {
-        cursor: pointer;
-    }
+.blackText {
+    color: black;
 }
