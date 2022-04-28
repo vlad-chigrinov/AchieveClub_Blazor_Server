@@ -56,11 +56,14 @@ footer img {
     margin: 15px;
 }
 
+.topOneUser, .topTwoUser, .topThreeUser {
+    padding: 10px;
+}
+
 .topOneUser {
     background: linear-gradient(180deg, #EDCF33 78.44%, #DAAA30 100%);
     border-radius: 20px;
     display: flex;
-    padding: 15px;
     cursor: pointer;
 }
 
@@ -68,7 +71,6 @@ footer img {
     background: linear-gradient(180deg, #A7A7A7 0%, #D1D1CF 25.31%);
     border-radius: 20px;
     display: flex;
-    padding: 15px;
     margin-top: 15px;
     cursor: pointer;
 }
@@ -77,7 +79,6 @@ footer img {
     background: linear-gradient(180deg, #E68F3F 73.23%, #BE7532 100%);
     border-radius: 20px;
     display: flex;
-    padding: 15px;
     margin-top: 15px;
     cursor: pointer;
 }
@@ -96,6 +97,11 @@ footer img {
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.topOneUser .userImage img, .topTwoUser .userImage img, .topThreeUser .userImage img {
+    width: 60px;
+    height: 60px;
 }
 
 .userAboutWrapper {
@@ -140,7 +146,7 @@ footer img {
     text-align: center;
     display: flex;
     align-items: center;
-    color:white;
+    color: white;
 }
 
 .topPositionUserDefault {
