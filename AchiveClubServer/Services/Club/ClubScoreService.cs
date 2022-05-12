@@ -15,14 +15,14 @@ namespace AchiveClubServer.Services
         {
             _userRatingService = userRatingService;
         }
-        public int GetClubAvgXP(int clubId)
+        public int GetClubAvgXP(int clubId, int usersCount)
         {
             var users = _userRatingService
                 .GetUserRating()
                 .Where(u => u.User.ClubRefId == clubId);
             if(users.Count()>0)
             {
-                double avgXp = users.Average(u => u.Score);
+                double avgXp = users.Sum(u=>u.Score) / usersCount;
                 return Convert.ToInt32(avgXp);
             }
             else

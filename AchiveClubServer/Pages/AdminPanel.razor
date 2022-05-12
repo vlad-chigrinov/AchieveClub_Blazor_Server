@@ -133,7 +133,8 @@ else
                     <input placeholder="Название" type="text" @bind=club.Title />
                     <input placeholder="Описание" type="text" @bind=club.Description />
                     <input placeholder="Адрес" type="text" @bind=club.Address />
-                    <input placeholder="Логотип" type="text" @bind=club.LogoURL />
+                    <input placeholder="Логотип" type="url" @bind=club.LogoURL />
+                    <input placeholder="Количество пользователей" type="number" @bind=club.UsersCount />
                 </div>
                 <div class="columns">
                     <button @onclick="()=>EditClub(club)">Сохранить</button>
