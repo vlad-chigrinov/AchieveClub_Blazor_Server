@@ -58,6 +58,8 @@ namespace AchiveClubServer
             services.AddTransient<IClubRepository, ClubRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICompletedAchieveRepository, CompletedAchieveRepository>();
+            services.AddTransient<IMedalRepository, MedalRepository>();
+            services.AddTransient<IUsersMedalRepository, UsersMedalRepository>();
 
             services.AddTransient<AdminLoginDataProvider>();
             services.AddScoped<AdminLoginService>();

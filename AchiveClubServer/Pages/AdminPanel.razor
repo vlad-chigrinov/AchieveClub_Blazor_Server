@@ -7,6 +7,8 @@
 @inject IAchieveRepository _achiveService
 @inject IClubRepository _clubService
 @inject IUserRepository _userService
+@inject IMedalRepository _medalService
+@inject IUsersMedalRepository _usersMedalService
 
 @inject ClubNamesService _clubNamesService
 
@@ -206,6 +208,46 @@ else
 }
 
 
+
+
+
+
+@if (_medals != null)
+{
+    <button @onclick=AddMedals>Добавить</button>
+    @if (_medals.Any())
+    {
+        <h3>Медали</h3>
+        @foreach (var medal in _medals)
+        {
+            <div class="rows">
+                <div class="columns">
+                    <p>#@medal.Id</p>
+                    <input placeholder="Название" type="text" @bind=medal.Title />
+                    <input placeholder="Картинка" type="text" @bind=medal.Icon />
+                </div>
+                <div class="columns">
+                    <button @onclick="()=>EditMedals(medal)">Сохранить</button>
+                    <button @onclick="()=>DeleteMedals(medal)">Удалить</button>
+                </div>
+                <hr />
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Список медалей пуст!</h3>
+    }
+}
+else
+{
+    <h3>Загрузка списка медалей...</h3>
+}
+
+
+
+
+
 @code
 {
     private List<Achievement> _achieves;
@@ -214,6 +256,7 @@ else
     private List<Data.DTO.Club> _clubs;
     private List<User> _users;
     private List<ClubNameInfo> _clubNames;
+    private List<Medal> _medals;
 
     private string _newPassword;
 
@@ -224,7 +267,7 @@ else
         GetSupervisors();
         GetClubs();
         GetUsers();
-
+        GetMedals();
         GetClubNames();
     }
 
@@ -490,5 +533,42 @@ else
         GetUsers();
     }
 
+
     #endregion UsersCRUD
+
+    #region MedalCRUD
+
+    private void GetMedals()
+    {
+        _medals = _medalService.GetAll();
+    }
+
+    private void AddMedals()
+    {
+        var newMedal = new Medal
+        {
+            Title = "Новая медаль",
+            Icon = "/image/avatars/8.jpg",
+        };
+
+        _medalService.Insert(newMedal);
+
+        GetMedals();
+    }
+
+    private void EditMedals(Medal medal)
+    {
+        _medalService.Update(medal);
+        GetMedals();
+    }
+
+    private void DeleteMedals(Medal medal)
+    {
+        _medalService.Delete(medal.Id);
+
+        GetMedals();
+    }
+
+
+    #endregion MedalsCRUD
 }
