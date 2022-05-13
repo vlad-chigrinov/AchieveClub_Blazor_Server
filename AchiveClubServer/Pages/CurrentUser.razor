@@ -57,12 +57,12 @@
     }
 <main>
     <div class="generalInfo">
-        <div>
+        <div class="medals">
             @foreach (var medal in _model.Medals)
             {
                 <img src=@medal.Icon class="medalIcon" />
             }
-            <p class="sloganHint">Медали</p>
+            <p class="sloganHint">Достижения</p>
         </div>
         <hr class="UserInfoSeparetor">
         <div>
@@ -75,37 +75,7 @@
             <p class="sloganHint">Выполнено @_model.CompletedRatio%</p>
         </div>
     </div>
-    <!---------------------Not completed------------------>
-    @if (_model.Achivements.Count(a => a.Completed == false) > 0)
-    {
-        <h1 class="solidHeading">Невыполненные </h1>
 
-        @foreach (var achievement in _model.Achivements)
-        {
-            if (achievement.Completed == false && achievement.IsMultiple == false)
-            {
-                <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask")" @onclick=@(()=>SelectAchievement(achievement))>
-                    <img class="logoTask" src="@achievement.LogoURL" alt="">
-                    <div class="aboutTask">
-                        <h3 class="taskName">
-                            @achievement.Title | @achievement.Xp XP
-                        </h3>
-                        <p class="taskDescription">
-                            @achievement.Description
-                        </p>
-                    </div>
-                    <div class="taskXP">
-                        <span class="userPerscentIcon blackText">
-                            <i class="fa-solid fa-users"></i>
-                        </span>
-                        <p class="blackText">
-                            @((int)achievement.UsersCompleteRatio)%
-                        </p>
-                    </div>
-                </div>
-            }
-        }
-    }
     <!------------multiple completeble task------------------------->
     @if (_model.Achivements.Count(a => a.IsMultiple) > 0)
     {
@@ -137,6 +107,39 @@
             }
         }
     }
+
+    <!---------------------Not completed------------------>
+    @if (_model.Achivements.Count(a => a.Completed == false) > 0)
+    {
+        <h1 class="solidHeading">Невыполненные </h1>
+
+        @foreach (var achievement in _model.Achivements)
+        {
+            if (achievement.Completed == false && achievement.IsMultiple == false)
+            {
+                <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask")" @onclick=@(()=>SelectAchievement(achievement))>
+                    <img class="logoTask" src="@achievement.LogoURL" alt="">
+                    <div class="aboutTask">
+                        <h3 class="taskName">
+                            @achievement.Title | @achievement.Xp XP
+                        </h3>
+                        <p class="taskDescription">
+                            @achievement.Description
+                        </p>
+                    </div>
+                    <div class="taskXP">
+                        <span class="userPerscentIcon blackText">
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+                        <p class="blackText">
+                            @((int)achievement.UsersCompleteRatio)%
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+    }
+
     <!------------task completed------------------------->
     @if (_model.Achivements.Count(a => a.Completed) > 0)
     {
