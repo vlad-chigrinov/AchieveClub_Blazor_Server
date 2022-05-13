@@ -16,6 +16,7 @@ namespace AchiveClubServer.Data.DTO
         public string ClubTitle { get; set; }
         public int XPSum { get; set; }
         public List<UserPageAchieveItem> Achivements { get; set; } = new List<UserPageAchieveItem>();
+        public List<Medal> Medals { get; set; } = new List<Medal>();
         public int AchievementsCount => Achivements.Count;
         public int CompletedAchievementsCount => Achivements.Count(a => a.Completed);
         public int CompletedRatio => (int)(((float)CompletedAchievementsCount / (float)AchievementsCount) * 100);

@@ -40,9 +40,19 @@ namespace AchiveClubServer.Services
                     Title = achieve.Title,
                     Description = achieve.Description,
                     LogoURL = achieve.LogoURL,
-                    UsersCompleteRatio = _achieveCompleteRatioCounter.GetValueByAchieveId(achieve.Id)
+                    IsMultiple = achieve.IsMultiple,
                 };
-                achieveItem.Completed = completedAchievementsId.Contains(achieve.Id);
+                if(achieve.IsMultiple)
+                {
+                    achieveItem.CompletedCount = completedAchievementsId.Count(a => a == achieve.Id);
+                    achieveItem.Completed = false;
+                    achieveItem.UsersCompleteRatio = 0;
+                }
+                else
+                {
+                    achieveItem.Completed = completedAchievementsId.Contains(achieve.Id);
+                    achieveItem.UsersCompleteRatio = _achieveCompleteRatioCounter.GetValueByAchieveId(achieve.Id);
+                }
                 achieveItems.Add(achieveItem);
             }
             return achieveItems;

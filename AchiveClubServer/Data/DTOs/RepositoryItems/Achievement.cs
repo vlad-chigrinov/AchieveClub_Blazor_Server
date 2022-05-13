@@ -13,6 +13,7 @@ namespace AchiveClubServer.Data.DTO
         public string Title { get; set; }
         public string Description { get; set; }
         public string LogoURL { get; set; }
+        public bool IsMultiple { get; set; }
         public string XpString
         {
             get => Xp.ToString();
