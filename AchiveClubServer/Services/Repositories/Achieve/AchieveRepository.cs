@@ -56,8 +56,8 @@ namespace AchiveClubServer.Services
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 var sqlQuery =
-                    "INSERT INTO Achivements(Xp, Title, Description, LogoURL)" +
-                    "VALUES(@Xp, @Title, @Description, @LogoURL);" +
+                    "INSERT INTO Achivements(Xp, Title, Description, LogoURL, IsMultiple)" +
+                    "VALUES(@Xp, @Title, @Description, @LogoURL, @IsMultiple);" +
                     "SELECT CAST(SCOPE_IDENTITY() as int)";
                 int? achieveId = db.Query<int>(sqlQuery, achieve).FirstOrDefault();
                 return achieveId.Value;
@@ -68,7 +68,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "UPDATE Achivements SET Xp = @Xp, Title = @Title, Description = @Description, LogoURL = @LogoURL WHERE Id = @Id";
+                var sqlQuery = "UPDATE Achivements SET Xp = @Xp, Title = @Title, Description = @Description, LogoURL = @LogoURL, IsMultiple = @IsMultiple WHERE Id = @Id";
                 try
                 {
                     db.Execute(sqlQuery, achieve);

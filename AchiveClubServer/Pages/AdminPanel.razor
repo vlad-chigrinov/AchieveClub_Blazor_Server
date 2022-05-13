@@ -32,17 +32,20 @@ else
         <h3>Достижения</h3>
         @foreach (var achieve in _achieves)
         {
-            <div class="rows">
-                <div class="columns">
-                    <p>#@(_achieves.IndexOf(achieve)+1)</p>
-                    <input placeholder="Название" type="text" @bind=achieve.Title width="450px" />
-                    <button @onclick="()=>EditAchive(achieve)">Сохранить</button>
-                    <button @onclick="()=>DeleteAchive(achieve)">Удалить</button>
-                </div>
-                <textarea placeholder="Описание" type="text" @bind=achieve.Description rows=2 />
-                <input placeholder="Количество опыта" type="text" @bind=achieve.XpString />
-                <input placeholder="URL иконки" type="text" @bind=achieve.LogoURL />
-            </div>
+<div class="rows">
+    <div class="columns">
+        <p>#@(_achieves.IndexOf(achieve)+1)</p>
+        <input placeholder="Название" type="text" @bind=achieve.Title width="450px" />
+        <button @onclick="()=>EditAchive(achieve)">Сохранить</button>
+        <button @onclick="()=>DeleteAchive(achieve)">Удалить</button>
+    </div>
+    <textarea placeholder="Описание" type="text" @bind=achieve.Description rows=2 />
+    <input placeholder="Количество опыта" type="text" @bind=achieve.XpString />
+    <input placeholder="URL иконки" type="text" @bind=achieve.LogoURL />
+    <input type="checkbox" id="multi" @bind=achieve.IsMultiple />
+    <label for="multi">Многоразовая или нет</label>
+   
+</div>
         }
     }
     else

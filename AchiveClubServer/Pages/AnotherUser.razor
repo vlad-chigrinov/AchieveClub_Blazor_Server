@@ -28,6 +28,15 @@
 
     <main>
         <div class="generalInfo">
+
+            <div>
+                @foreach (var medal in _model.Medals)
+                {
+                    <img src=@medal.Icon class="medalIcon" />
+                }
+                <p class="sloganHint">Медали</p>
+            </div>
+
             <div>
                 <p class="sloganTitle">@_model.XPSum ХР</p>
                 <p class="sloganHint">Общее количество опыта</p>
@@ -71,6 +80,42 @@
             }
         }
         <!------------task completed------------------------->
+
+        <!------------multiple completeble task------------------------->
+        @if (_model.Achivements.Count(a => a.IsMultiple) > 0)
+        {
+            <h1 class="solidHeading">Многоразовые</h1>
+
+            @foreach (var achievement in _model.Achivements)
+            {
+                @if (achievement.IsMultiple)
+                {
+                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"completedTask")" >
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
+                        <div class="aboutTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span class="userPerscentIcon whiteText">
+                                <i class="fa-solid fa-list-check"></i>
+                            </span>
+                            <p class="whiteText">
+                                @achievement.CompletedCount
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
+        }
+        <!------------task completed------------------------->
+
+
+
         @if (_model.Achivements.Count(a => a.Completed == false) > 0)
         {
             <h1 class="solidHeading">Невыполненные </h1>
@@ -103,7 +148,7 @@
             }
         }
         <!---------------------Not completed------------------>
-</main>
+    </main>
 }
 
 @code
