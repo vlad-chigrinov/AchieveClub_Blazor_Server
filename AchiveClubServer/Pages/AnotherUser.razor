@@ -28,15 +28,17 @@
 
     <main>
         <div class="generalInfo">
-
-            <div>
-                @foreach (var medal in _model.Medals)
-                {
-                    <img src=@medal.Icon class="medalIcon" />
-                }
-                <p class="sloganHint">Достижения</p>
-            </div>
-
+            @if (_model.Medals.Count > 0)
+            {
+                <div class="medals">
+                    @foreach (var medal in _model.Medals)
+                    {
+                        <img src=@medal.Icon class="medalIcon" />
+                    }
+                    <p class="sloganHint">Достижения</p>
+                </div>
+                <hr class="UserInfoSeparetor">
+            }
             <div>
                 <p class="sloganTitle">@_model.XPSum ХР</p>
                 <p class="sloganHint">Общее количество опыта</p>
@@ -80,7 +82,6 @@
             }
         }
         <!------------task completed------------------------->
-
         <!------------multiple completeble task------------------------->
         @if (_model.Achivements.Count(a => a.IsMultiple) > 0)
         {
@@ -90,7 +91,7 @@
             {
                 @if (achievement.IsMultiple)
                 {
-                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"completedTask")" >
+                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"completedTask")">
                         <img class="logoTask" src="@achievement.LogoURL" alt="">
                         <div class="aboutTask">
                             <h3 class="taskName">
@@ -113,9 +114,6 @@
             }
         }
         <!------------task completed------------------------->
-
-
-
         @if (_model.Achivements.Count(a => a.Completed == false) > 0)
         {
             <h1 class="solidHeading">Невыполненные </h1>

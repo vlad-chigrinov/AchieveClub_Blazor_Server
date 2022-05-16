@@ -55,123 +55,126 @@
             <span>Подтвердить все</span>
         </button>
     }
-<main>
-    <div class="generalInfo">
-        <div class="medals">
-            @foreach (var medal in _model.Medals)
+    <main>
+        <div class="generalInfo">
+            @if (_model.Medals.Count > 0)
             {
-                <img src=@medal.Icon class="medalIcon" />
-            }
-            <p class="sloganHint">Достижения</p>
-        </div>
-        <hr class="UserInfoSeparetor">
-        <div>
-            <p class="sloganTitle">@_model.XPSum ХР</p>
-            <p class="sloganHint">Общее количество опыта</p>
-        </div>
-        <hr class="UserInfoSeparetor">
-        <div>
-            <p class="sloganTitle">Заданий выполнено: @_model.CompletedAchievementsCount из @_model.AchievementsCount</p>
-            <p class="sloganHint">Выполнено @_model.CompletedRatio%</p>
-        </div>
-    </div>
-
-    <!------------multiple completeble task------------------------->
-    @if (_model.Achivements.Count(a => a.IsMultiple) > 0)
-    {
-        <h1 class="solidHeading">Многоразовые</h1>
-
-        @foreach (var achievement in _model.Achivements)
-        {
-            @if (achievement.IsMultiple)
-            {
-                <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"completedTask")" @onclick=@(()=>SelectAchievement(achievement))>
-                    <img class="logoTask" src="@achievement.LogoURL" alt="">
-                    <div class="aboutTask">
-                        <h3 class="taskName">
-                            @achievement.Title | @achievement.Xp XP
-                        </h3>
-                        <p class="taskDescription">
-                            @achievement.Description
-                        </p>
-                    </div>
-                    <div class="taskXP">
-                        <span class="userPerscentIcon whiteText">
-                            <i class="fa-solid fa-list-check"></i>
-                        </span>
-                        <p class="whiteText">
-                            @achievement.CompletedCount
-                        </p>
-                    </div>
+                <div class="medals">
+                    @foreach (var medal in _model.Medals)
+                    {
+                        <img src=@medal.Icon class="medalIcon" />
+                    }
+                    <p class="sloganHint">Достижения</p>
                 </div>
+                <hr class="UserInfoSeparetor">
+            }
+            <div>
+                <p class="sloganTitle">@_model.XPSum ХР</p>
+                <p class="sloganHint">Общее количество опыта</p>
+            </div>
+            <hr class="UserInfoSeparetor">
+            <div>
+                <p class="sloganTitle">Заданий выполнено: @_model.CompletedAchievementsCount из @_model.AchievementsCount</p>
+                <p class="sloganHint">Выполнено @_model.CompletedRatio%</p>
+            </div>
+        </div>
+
+        <!------------multiple completeble task------------------------->
+        @if (_model.Achivements.Count(a => a.IsMultiple) > 0)
+        {
+            <h1 class="solidHeading">Многоразовые</h1>
+
+            @foreach (var achievement in _model.Achivements)
+            {
+                @if (achievement.IsMultiple)
+                {
+                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"completedTask")" @onclick=@(()=>SelectAchievement(achievement))>
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
+                        <div class="aboutTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span class="userPerscentIcon whiteText">
+                                <i class="fa-solid fa-list-check"></i>
+                            </span>
+                            <p class="whiteText">
+                                @achievement.CompletedCount
+                            </p>
+                        </div>
+                    </div>
+                }
             }
         }
-    }
 
-    <!---------------------Not completed------------------>
-    @if (_model.Achivements.Count(a => a.Completed == false) > 0)
-    {
-        <h1 class="solidHeading">Невыполненные </h1>
-
-        @foreach (var achievement in _model.Achivements)
+        <!---------------------Not completed------------------>
+        @if (_model.Achivements.Count(a => a.Completed == false) > 0)
         {
-            if (achievement.Completed == false && achievement.IsMultiple == false)
+            <h1 class="solidHeading">Невыполненные </h1>
+
+            @foreach (var achievement in _model.Achivements)
             {
-                <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask")" @onclick=@(()=>SelectAchievement(achievement))>
-                    <img class="logoTask" src="@achievement.LogoURL" alt="">
-                    <div class="aboutTask">
-                        <h3 class="taskName">
-                            @achievement.Title | @achievement.Xp XP
-                        </h3>
-                        <p class="taskDescription">
-                            @achievement.Description
-                        </p>
+                if (achievement.Completed == false && achievement.IsMultiple == false)
+                {
+                    <div class="task @(achievement.Selected?"notCompletedTaskHighlighted":"notCompletedTask")" @onclick=@(()=>SelectAchievement(achievement))>
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
+                        <div class="aboutTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span class="userPerscentIcon blackText">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            <p class="blackText">
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
                     </div>
-                    <div class="taskXP">
-                        <span class="userPerscentIcon blackText">
-                            <i class="fa-solid fa-users"></i>
-                        </span>
-                        <p class="blackText">
-                            @((int)achievement.UsersCompleteRatio)%
-                        </p>
-                    </div>
-                </div>
+                }
             }
         }
-    }
 
-    <!------------task completed------------------------->
-    @if (_model.Achivements.Count(a => a.Completed) > 0)
-    {
-        <h1 class="solidHeading">Выполненные </h1>
-
-        @foreach (var achievement in _model.Achivements)
+        <!------------task completed------------------------->
+        @if (_model.Achivements.Count(a => a.Completed) > 0)
         {
-            @if (achievement.Completed && achievement.IsMultiple == false)
+            <h1 class="solidHeading">Выполненные </h1>
+
+            @foreach (var achievement in _model.Achivements)
             {
-                <div class="task @(achievement.Selected?"completedTaskHighlighted":"completedTask")" @onclick=@(()=>SelectAchievement(achievement))>
-                    <img class="logoTask" src="@achievement.LogoURL" alt="">
-                    <div class="aboutTask">
-                        <h3 class="taskName">
-                            @achievement.Title | @achievement.Xp XP
-                        </h3>
-                        <p class="taskDescription">
-                            @achievement.Description
-                        </p>
+                @if (achievement.Completed && achievement.IsMultiple == false)
+                {
+                    <div class="task @(achievement.Selected?"completedTaskHighlighted":"completedTask")" @onclick=@(()=>SelectAchievement(achievement))>
+                        <img class="logoTask" src="@achievement.LogoURL" alt="">
+                        <div class="aboutTask">
+                            <h3 class="taskName">
+                                @achievement.Title | @achievement.Xp XP
+                            </h3>
+                            <p class="taskDescription">
+                                @achievement.Description
+                            </p>
+                        </div>
+                        <div class="taskXP">
+                            <span class="userPerscentIcon whiteText">
+                                <i class="fa-solid fa-users"></i>
+                            </span>
+                            <p class="whiteText">
+                                @((int)achievement.UsersCompleteRatio)%
+                            </p>
+                        </div>
                     </div>
-                    <div class="taskXP">
-                        <span class="userPerscentIcon whiteText">
-                            <i class="fa-solid fa-users"></i>
-                        </span>
-                        <p class="whiteText">
-                            @((int)achievement.UsersCompleteRatio)%
-                        </p>
-                    </div>
-                </div>
+                }
             }
         }
-    }
-</main>
+    </main>
     <!-----------------------------------main----------------------------------------->
 }
 
@@ -227,11 +230,11 @@
         {
             string adminKey = (string)result.Data;
             var completeAchiveParams = new CompleteAchiveParams()
-            {
-                UserId = _model.Id,
-                AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
-                SupervisorKey = adminKey
-            };
+                {
+                    UserId = _model.Id,
+                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
+                    SupervisorKey = adminKey
+                };
             try
             {
                 _completeAchieveService.CompleteMultiple(completeAchiveParams);
@@ -259,11 +262,11 @@
         {
             string supervisorKey = (string)result.Data;
             var completeAchiveParams = new CompleteAchiveParams()
-            {
-                UserId = _model.Id,
-                AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
-                SupervisorKey = supervisorKey
-            };
+                {
+                    UserId = _model.Id,
+                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
+                    SupervisorKey = supervisorKey
+                };
             try
             {
                 _completeAchieveService.DeleteMultiple(completeAchiveParams);

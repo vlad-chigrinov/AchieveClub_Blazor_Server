@@ -105,6 +105,7 @@
 .medalIcon {
     width: 45px;
     height: 45px;
+    margin-inline: 10px;
 }
 
 .solidHeading {
@@ -199,8 +200,7 @@
     font-weight: normal;
     margin: 0;
     color: #818181;
-    padding-top: 5px;
-    width: 98%;
+    width: 100%;
 }
 
 .sloganTitle {
