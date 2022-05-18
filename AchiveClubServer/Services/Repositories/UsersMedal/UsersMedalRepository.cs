@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AchiveClubServer.Services
 {
-    public class UsersMedalRepository : IUsersMedalRepository
+    public class UsersMedalRepository : IUserMedalRepository
     {
         private string connectionString = null;
         public UsersMedalRepository(string connection)
@@ -33,36 +33,36 @@ namespace AchiveClubServer.Services
             }
         }
 
-        public List<UsersMedal> GetAll()
+        public List<UserMedal> GetAll()
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<UsersMedal>("SELECT * FROM UsersMedals").ToList();
+                return db.Query<UserMedal>("SELECT * FROM UsersMedals").ToList();
             }
         }
 
-        public UsersMedal GetById(int id)
+        public UserMedal GetById(int id)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<UsersMedal>("SELECT * FROM UsersMedals WHERE Id = @id", new { id }).FirstOrDefault();
+                return db.Query<UserMedal>("SELECT * FROM UsersMedals WHERE Id = @id", new { id }).FirstOrDefault();
             }
         }
 
-        public int Insert(UsersMedal value)
+        public int Insert(UserMedal value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 var sqlQuery =
-                    "INSERT INTO UsersMedals(user, medal)" +
+                    "INSERT INTO UsersMedals([user], Medal) " +
                     "VALUES(@User, @Medal);" +
-                    "SELECT CAST(SCOPE_IDENTITY() as int)";
+                    "SELECT CAST(SCOPE_IDENTITY() as int);";
                 int? clubId = db.Query<int>(sqlQuery, value).FirstOrDefault();
                 return clubId.Value;
             }
         }
 
-        public bool Update(UsersMedal value)
+        public bool Update(UserMedal value)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {

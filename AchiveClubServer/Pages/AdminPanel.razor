@@ -2,13 +2,14 @@
 
 @inject AdminLoginService _login
 
-@inject IAdminRepository _adminService
-@inject ISupervisorRepository _supervisorService
-@inject IAchieveRepository _achiveService
-@inject IClubRepository _clubService
-@inject IUserRepository _userService
-@inject IMedalRepository _medalService
-@inject IUsersMedalRepository _usersMedalService
+@inject IAdminRepository _adminRepo
+@inject ISupervisorRepository _supervisorRepo
+@inject IAchieveRepository _achiveRepo
+@inject IClubRepository _clubRepo
+@inject IUserRepository _userRepo
+@inject IMedalRepository _medalRepo
+@inject IUserMedalRepository _usersMedalRepo
+@inject MedalService _medalService
 
 @inject ClubNamesService _clubNamesService
 
@@ -32,21 +33,21 @@ else
         <h3>Достижения</h3>
         @foreach (var achieve in _achieves)
         {
-<div class="rows">
-    <div class="columns">
-        <p>#@(_achieves.IndexOf(achieve)+1)</p>
-        <input placeholder="Название" type="text" @bind=achieve.Title width="450px" />
-        <button @onclick="()=>EditAchive(achieve)">Сохранить</button>
-        <button @onclick="()=>DeleteAchive(achieve)">Удалить</button>
-    </div>
-    <textarea placeholder="Описание" type="text" @bind=achieve.Description rows=2 />
-    <input placeholder="Количество опыта" type="text" @bind=achieve.XpString />
-    <input placeholder="URL иконки" type="text" @bind=achieve.LogoURL />
-    <p>
-        <input type="checkbox" id="multi" @bind=achieve.IsMultiple />
-        <label for="multi">Многоразовая или нет</label>
-    </p>
-</div>
+            <div class="rows">
+                <div class="columns">
+                    <p>#@(_achieves.IndexOf(achieve)+1)</p>
+                    <input placeholder="Название" type="text" @bind=achieve.Title width="450" />
+                    <button @onclick="()=>EditAchive(achieve)">Сохранить</button>
+                    <button @onclick="()=>DeleteAchive(achieve)">Удалить</button>
+                </div>
+                <textarea placeholder="Описание" type="text" @bind=achieve.Description rows=2 />
+                <input placeholder="Количество опыта" type="text" @bind=achieve.XpString />
+                <input placeholder="URL иконки" type="text" @bind=achieve.LogoURL />
+                <p>
+                    <input type="checkbox" id="multi" @bind=achieve.IsMultiple />
+                    <label for="multi">Многоразовая или нет</label>
+                </p>
+            </div>
         }
     }
     else
@@ -104,7 +105,7 @@ else
             <div class="rows">
                 <div class="columns">
                     <p>#@(_supervisers.IndexOf(superviser)+1)</p>
-                    <input placeholder="Имя" type="text" @bind=superviser.Name width="450px" />
+                    <input placeholder="Имя" type="text" @bind=superviser.Name width="450" />
                     <button @onclick="()=>EditSupervisor(superviser)">Сохранить</button>
                     <button @onclick="()=>DeleteSupervisor(superviser)">Удалить</button>
                 </div>
@@ -219,6 +220,8 @@ else
 @if (_medals != null)
 {
     <button @onclick=AddMedals>Добавить</button>
+    <button @onclick=DeleteAllMedals>Удалить все медали</button>
+    <button @onclick="CalculateMedals">Разрадать медали пользователям</button>
     @if (_medals.Any())
     {
         <h3>Медали</h3>
@@ -293,11 +296,21 @@ else
         _clubNames = _clubNamesService.GetAll();
     }
 
+    private void CalculateMedals()
+    {
+        _medalService.CalculateMedals();
+    }
+
+    private void DeleteAllMedals()
+    {
+        _usersMedalRepo.GetAll().ForEach(m => _usersMedalRepo.Delete(m.Id));
+    }
+
     #region AchiveCRUD
 
     private void GetAchievements()
     {
-        _achieves = _achiveService.GetAll();
+        _achieves = _achiveRepo.GetAll();
     }
 
     private void AddAchive()
@@ -309,7 +322,7 @@ else
             Xp = 0,
             LogoURL = "/image/temp.jpg" //нян-кэт
         };
-        _achiveService.Insert(newAchive);
+        _achiveRepo.Insert(newAchive);
 
         GetAchievements();
     }
@@ -324,7 +337,7 @@ else
 
     private void EditAchive(Achievement achive)
     {
-        if (_achiveService.Update(achive))
+        if (_achiveRepo.Update(achive))
         {
             UpdateAchievement(achive.Id);
         }
@@ -340,7 +353,7 @@ else
         var updatebleAchieve = _achieves.Where(a => a.Id == id).FirstOrDefault();
         if (updatebleAchieve != null)
         {
-            updatebleAchieve = _achiveService.GetById(id);
+            updatebleAchieve = _achiveRepo.GetById(id);
         }
         else
         {
@@ -350,7 +363,7 @@ else
 
     private void DeleteAchive(Achievement achive)
     {
-        _achiveService.Delete(achive.Id);
+        _achiveRepo.Delete(achive.Id);
 
         GetAchievements();
     }
@@ -360,7 +373,7 @@ else
 
     private void GetAdmins()
     {
-        _admins = _adminService.GetAll();
+        _admins = _adminRepo.GetAll();
     }
 
     private void AddAdmin()
@@ -371,21 +384,21 @@ else
             Password = "Пароль"
         };
 
-        _adminService.Insert(newAdmin);
+        _adminRepo.Insert(newAdmin);
 
         GetAdmins();
     }
 
     private void EditAdmin(Admin admin)
     {
-        _adminService.Update(admin);
+        _adminRepo.Update(admin);
 
         GetAdmins();
     }
 
     private void DeleteAdmin(Admin admin)
     {
-        _adminService.Delete(admin.Id);
+        _adminRepo.Delete(admin.Id);
 
         GetAdmins();
     }
@@ -396,7 +409,7 @@ else
 
     private void GetSupervisors()
     {
-        _supervisers = _supervisorService.GetAll();
+        _supervisers = _supervisorRepo.GetAll();
     }
 
     private void AddSupervisor()
@@ -407,7 +420,7 @@ else
             Key = "Ключ"
         };
 
-        _supervisorService.Insert(newSupervisor);
+        _supervisorRepo.Insert(newSupervisor);
 
         GetSupervisors();
     }
@@ -422,7 +435,7 @@ else
 
     private void EditSupervisor(Supervisor supervisor)
     {
-        if (_supervisorService.Update(supervisor))
+        if (_supervisorRepo.Update(supervisor))
         {
             UpdateSuperviser(supervisor.Id);
         }
@@ -438,7 +451,7 @@ else
         var updatebleSupervisor = _supervisers.Where(a => a.Id == id).FirstOrDefault();
         if (updatebleSupervisor != null)
         {
-            updatebleSupervisor = _supervisorService.GetById(id);
+            updatebleSupervisor = _supervisorRepo.GetById(id);
         }
         else
         {
@@ -448,7 +461,7 @@ else
 
     private void DeleteSupervisor(Supervisor supervisor)
     {
-        _supervisorService.Delete(supervisor.Id);
+        _supervisorRepo.Delete(supervisor.Id);
 
         GetSupervisors();
     }
@@ -459,7 +472,7 @@ else
 
     private void GetClubs()
     {
-        _clubs = _clubService.GetAll();
+        _clubs = _clubRepo.GetAll();
     }
 
     private void AddClub()
@@ -472,7 +485,7 @@ else
             LogoURL = "image/clubs/logos/palace.png"
         };
 
-        _clubService.Insert(newClub);
+        _clubRepo.Insert(newClub);
 
         GetClubs();
 
@@ -481,7 +494,7 @@ else
 
     private void EditClub(Data.DTO.Club club)
     {
-        _clubService.Update(club);
+        _clubRepo.Update(club);
 
         GetClubs();
 
@@ -490,7 +503,7 @@ else
 
     private void DeleteClub(Data.DTO.Club club)
     {
-        _clubService.Delete(club.Id);
+        _clubRepo.Delete(club.Id);
 
         GetClubs();
 
@@ -503,7 +516,7 @@ else
 
     private void GetUsers()
     {
-        _users = _userService.GetAll();
+        _users = _userRepo.GetAll();
     }
 
     private void AddUser()
@@ -518,21 +531,21 @@ else
             ClubRefId = 1,
         };
 
-        _userService.Insert(newUser);
+        _userRepo.Insert(newUser);
 
         GetUsers();
     }
 
     private void EditUser(User user)
     {
-        _userService.Update(user);
+        _userRepo.Update(user);
 
         GetUsers();
     }
 
     private void DeleteUser(User user)
     {
-        _userService.Delete(user.Id);
+        _userRepo.Delete(user.Id);
 
         GetUsers();
     }
@@ -544,7 +557,7 @@ else
 
     private void GetMedals()
     {
-        _medals = _medalService.GetAll();
+        _medals = _medalRepo.GetAll();
     }
 
     private void AddMedals()
@@ -555,20 +568,20 @@ else
             Icon = "/image/avatars/8.jpg",
         };
 
-        _medalService.Insert(newMedal);
+        _medalRepo.Insert(newMedal);
 
         GetMedals();
     }
 
     private void EditMedals(Medal medal)
     {
-        _medalService.Update(medal);
+        _medalRepo.Update(medal);
         GetMedals();
     }
 
     private void DeleteMedals(Medal medal)
     {
-        _medalService.Delete(medal.Id);
+        _medalRepo.Delete(medal.Id);
 
         GetMedals();
     }

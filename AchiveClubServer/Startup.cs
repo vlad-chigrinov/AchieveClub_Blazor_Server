@@ -59,7 +59,7 @@ namespace AchiveClubServer
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICompletedAchieveRepository, CompletedAchieveRepository>();
             services.AddTransient<IMedalRepository, MedalRepository>();
-            services.AddTransient<IUsersMedalRepository, UsersMedalRepository>();
+            services.AddTransient<IUserMedalRepository, UsersMedalRepository>();
 
             services.AddTransient<AdminLoginDataProvider>();
             services.AddScoped<AdminLoginService>();
@@ -88,6 +88,10 @@ namespace AchiveClubServer
             services.AddTransient<UserCounter>();
             services.AddTransient<AchieveCompleteCounter>();
             services.AddTransient<AchieveCompleteRatioCounter>();
+
+            services.AddTransient<ClubRatingMedals>();
+            services.AddTransient<TotalRatingMedals>();
+            services.AddTransient<MedalService>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();

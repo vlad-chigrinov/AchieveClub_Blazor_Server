@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AchiveClubServer.Data.DTO
 {
-    public class UsersMedal
+    public class UserMedal
     {
      
             public int Id { get; set; }

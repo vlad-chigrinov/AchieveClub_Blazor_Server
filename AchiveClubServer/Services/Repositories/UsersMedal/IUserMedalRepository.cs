@@ -6,7 +6,7 @@ using AchiveClubServer.Data.DTO;
 
 namespace AchiveClubServer.Services
 {
-    public interface IUsersMedalRepository:IRepository<UsersMedal>
+    public interface IUserMedalRepository:IRepository<UserMedal>
     {
     }
 }

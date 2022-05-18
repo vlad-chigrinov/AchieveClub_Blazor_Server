@@ -7,9 +7,9 @@ namespace AchiveClubServer.Services
 {
     public class UserMedalsService
     {
-        private IUsersMedalRepository _userMedalRepository;
+        private IUserMedalRepository _userMedalRepository;
         private IMedalRepository _medalRepository;
-        public UserMedalsService(IUsersMedalRepository userMedalRepository, IMedalRepository medalRepository)
+        public UserMedalsService(IUserMedalRepository userMedalRepository, IMedalRepository medalRepository)
         {
             _userMedalRepository = userMedalRepository;
             _medalRepository = medalRepository;

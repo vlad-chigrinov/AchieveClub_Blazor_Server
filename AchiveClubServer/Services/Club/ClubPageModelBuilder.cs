@@ -19,7 +19,7 @@ namespace AchiveClubServer.Services
         }
         public ClubPageModel Build(int clubId)
         {
-            var top3Users = _userRatingService
+            var topUsers = _userRatingService
                 .UserRating
                 .Where(u => u.User.ClubRefId == clubId)
                 .ToList();
@@ -30,7 +30,7 @@ namespace AchiveClubServer.Services
             {
                 Club = club,
                 RatingPosition = clubRatingNumber,
-                TopUsers = top3Users
+                TopUsers = topUsers
             };
         }
     }
