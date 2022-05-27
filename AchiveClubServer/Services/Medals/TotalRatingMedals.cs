@@ -15,7 +15,12 @@ namespace AchiveClubServer.Services
 
         public List<UserMedal> GetAllMedals()
         {
-            var medals = _userStorage.UserRating.Take(100).Select(u => new UserMedal { Medal = 10, User = u.User.Id }).ToList();
+            var medals = _userStorage.UserRating.Take(3).Select(u => new UserMedal { Medal = 21, User = u.User.Id }).ToList();
+            medals.AddRange(_userStorage.UserRating.Take(10).Select(u => new UserMedal { Medal = 22, User = u.User.Id }).ToList());
+            medals.AddRange(_userStorage.UserRating.Take(25).Select(u => new UserMedal { Medal = 23, User = u.User.Id }).ToList());
+            medals.AddRange(_userStorage.UserRating.Take(50).Select(u => new UserMedal { Medal = 24, User = u.User.Id }).ToList());
+            medals.AddRange(_userStorage.UserRating.Take(100).Select(u => new UserMedal { Medal = 25, User = u.User.Id }).ToList());
+            medals.AddRange(_userStorage.UserRating.Take(250).Select(u => new UserMedal { Medal = 26, User = u.User.Id }).ToList());
             return medals;
         }
     }

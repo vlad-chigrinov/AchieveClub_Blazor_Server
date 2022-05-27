@@ -26,8 +26,20 @@ namespace AchiveClubServer.Services
 
         public List<UserMedal> CalculateMedalsByClubId(int clubId)
         {
-            var clubUsers = _userRatingService.UserRating.Where(u=>u.User.ClubRefId == clubId).Take(10);
-            var medals = clubUsers.Select(u => new UserMedal { Medal = 8, User = u.User.Id }).ToList();
+            List<UserWithRatingAndScore> clubUsers25 = _userRatingService.UserRating.Where(u => u.User.ClubRefId == clubId).Take(25).ToList();
+            List<UserWithRatingAndScore> clubUsers10 = _userRatingService.UserRating.Where(u=>u.User.ClubRefId == clubId).Take(10).ToList();
+            var clubUsers3 = _userRatingService.UserRating.Where(u => u.User.ClubRefId == clubId).Take(3);
+            for(int i=0; i<10;i++)
+            {
+                    clubUsers25.RemoveAt(0);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                clubUsers10.RemoveAt(0);
+            }
+            var medals = clubUsers25.Select(u => new UserMedal { Medal = 20, User = u.User.Id }).ToList();
+            medals.AddRange(clubUsers10.Select(u => new UserMedal { Medal = 18, User = u.User.Id }).ToList());
+            medals.AddRange(clubUsers3.Select(u => new UserMedal { Medal = 14, User = u.User.Id }).ToList());
             return medals;
         }
     }
