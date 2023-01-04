@@ -37,7 +37,8 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<UserMedal>("SELECT * FROM UsersMedals").ToList();
+                  return db.Query<UserMedal>("SELECT * FROM UsersMedals").ToList();
+                //return null;
             }
         }
 

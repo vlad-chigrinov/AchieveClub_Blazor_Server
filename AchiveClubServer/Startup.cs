@@ -37,7 +37,8 @@ namespace AchiveClubServer
             services.AddBlazoredModal();
 
             string connection = _configuration.GetConnectionString("DefaultConnection");
-            connection = "Server=it-club.online; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
+            //Data Source=SQL5053.site4now.net;Initial Catalog=db_a927ce_itclub;User Id=db_a927ce_itclub_admin;
+            connection = "Server=SQL5053.site4now.net; Database=db_a927ce_itclub; User Id=db_a927ce_itclub_admin; Password={{password}};";
             //if (_env.IsProduction())
             //{
             //    connection = "Server=.; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
