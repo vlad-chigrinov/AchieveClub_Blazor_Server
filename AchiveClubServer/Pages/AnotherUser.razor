@@ -30,13 +30,25 @@
         <div class="generalInfo">
             @if (_model.Medals.Count > 0)
             {
-                <div class="medals">
-                    @foreach (var medal in _model.Medals)
+            <div class="medals">
+                @foreach (var medal in _model.Medals)
                     {
-                        <img src=@medal.Icon class="medalIcon" />
+                <img src=@medal.Icon class="medalIcon" />
+                @if(medal.Id==14)
+                            {
+                <p class="sloganHint">ТОП 3<br>СЕЗОНА 2022</p>
+                            }
+                @if(medal.Id==18)
+                            {
+                <p class="sloganHint">ТОП 10<br>СЕЗОНА 2022</p>
+                            }
+                @if(medal.Id==20)
+                            {
+                <p class="sloganHint">ТОП 25<br>СЕЗОНА 2022</p>
+                            }
                     }
-                    <p class="sloganHint">Достижения</p>
-                </div>
+                @* <p class="sloganHint">Достижения</p>*@
+            </div>
                 <hr class="UserInfoSeparetor">
             }
             <div>
