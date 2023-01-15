@@ -1,5 +1,9 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager _navigation
+@inject UserLoginService _login
+@inject UserPageModelBuilder _modelBuilder
+
+
 
 @Body
 
@@ -8,8 +12,8 @@
     <div class="footerSections">
         <div class="firstSection">
             <a href="@_profilePath">
-               <i class="fa-solid fa-circle-user"></i>
-               @* <img src="StaticFiles/icons/user_profile.png" alt="">*@
+                <i class="fa-solid fa-circle-user"></i>
+                @* <img src="StaticFiles/icons/user_profile.png" alt="">*@
             </a>
             @if (LocalPath == _profilePath)
             {
@@ -17,23 +21,27 @@
             }
         </div>
         <div class="secondSection">
-            <a href="@_topUsersPath">
-               <i class="fa-solid fa-list-ol"></i>
+            @*<a href="@_topUsersPath">
+                <a href="()=>RedirectToClubId(club.Club.Id)">*@
+            <a @onclick="()=>RedirectToClubId(_model.ClubId)">
+                <i class="fa-solid fa-list-ol"></i>
             </a>
             @if (LocalPath == _topUsersPath || LocalPath.Contains(_anotherUserPage))
             {
                 <hr />
             }
         </div>
-        <div class="thirdSection">
-            <a href="@_topClubsPath">
-               <i class="fa-solid fa-school-flag"></i>
-            </a>
-            @if (LocalPath == _topClubsPath || LocalPath.Contains(_clubPage))
-            {
-                <hr />
-            }
-        </div>
+        @*
+            <div class="thirdSection">
+                <a href="@_topClubsPath">
+                   <i class="fa-solid fa-school-flag"></i>
+                </a>
+                @if (LocalPath == _topClubsPath || LocalPath.Contains(_clubPage))
+                {
+                    <hr />
+                }
+            </div>
+        *@
     </div>
 </footer>
 
@@ -41,10 +49,35 @@
 {
     public string LocalPath => (new Uri(_navigation.Uri)).LocalPath;
 
+ 
+    private UserPageModel _model;
+
+
+
     private const string _profilePath = "/";
     private const string _topUsersPath = "/topusers";
     private const string _topClubsPath = "/topclubs";
 
     private const string _anotherUserPage = "/user/";
     private const string _clubPage = "/club/";
+
+
+
+    protected override void OnInitialized()
+    {
+        if (_login.IsAuthorized == true)
+        {
+            
+            int id = _login.CurrentUser.Id;
+            _model = _modelBuilder.Build(id);
+            StateHasChanged();
+        }
+    }
+
+    private void RedirectToClubId(int id)
+    {
+        _navigation.NavigateTo($"/club/{id}");
+
+    }
+
 }

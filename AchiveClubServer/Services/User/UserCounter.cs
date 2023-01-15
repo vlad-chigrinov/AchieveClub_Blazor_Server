@@ -17,11 +17,20 @@ namespace AchiveClubServer.Services
             connectionString = connection;
         }
 
+        //все ученики
         public int GetValue()
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 return db.Query<int>("select Count(*) from Users").FirstOrDefault();
+            }
+        }
+        //все ученики одного клуба
+        public int GetValue(int idClub)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<int>("select Count(*) from Users Where ClubRefId="+idClub).FirstOrDefault();
             }
         }
     }

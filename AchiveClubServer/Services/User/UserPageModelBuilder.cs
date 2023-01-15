@@ -28,7 +28,8 @@ namespace AchiveClubServer.Services
         public UserPageModel Build(int userId)
         {
             var user = _users.GetById(userId);
-            var achievements = _achievements.GetAchievementsByUserId(userId);
+            //var achievements = _achievements.GetAchievementsByUserId(userId); //для всех клубов
+            var achievements = _achievements.GetAchievementsByUserId(userId, user.ClubRefId);  //для одного клуба
             var club = _clubs.GetById(user.ClubRefId);
             return new UserPageModel
             {

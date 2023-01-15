@@ -23,7 +23,7 @@ namespace AchiveClubServer.Services
                 .UserRating
                 .Where(u => u.User.ClubRefId == clubId)
                 .ToList();
-            int clubRatingNumber = _clubRatingService.ClubRating.Where(club => club.Club.Id == clubId).Select(club=>club.RatingNumber).FirstOrDefault();
+            int clubRatingNumber = 0;// _clubRatingService.ClubRating.Where(club => club.Club.Id == clubId).Select(club=>club.RatingNumber).FirstOrDefault();
             var club = _clubs.GetById(clubId);
 
             return new ClubPageModel

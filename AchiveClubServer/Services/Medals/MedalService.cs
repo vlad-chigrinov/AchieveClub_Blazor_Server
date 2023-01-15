@@ -20,7 +20,7 @@ namespace AchiveClubServer.Services
         {
             List<IMedalsService> medalsServices = new List<IMedalsService>();
             medalsServices.Add(_clubRatingMedals);
-            medalsServices.Add(_totalRatingMedals);
+           // medalsServices.Add(_totalRatingMedals);
 
             List<UserMedal> userMedals = medalsServices.Select(s => s.GetAllMedals()).Aggregate((l1, l2) => l1.Union(l2).ToList());
             userMedals.ForEach(m => _userMedalRepository.Insert(m));

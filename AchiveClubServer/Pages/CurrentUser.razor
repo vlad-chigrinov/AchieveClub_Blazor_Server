@@ -10,6 +10,7 @@
 @inject ImageLoader _imageLoader
 @inject AvatarChanger _avatarChanger
 
+
 @inject IFileReaderService fileReaderService
 
 @if (_model != null)
@@ -185,6 +186,7 @@
     private ElementReference inputTypeFileElement;
 
     private UserPageModel _model;
+ 
 
     private bool _showAcceptButton => _model.Achivements.Any(a => a.Selected && !a.Completed);
     private bool _showDeleteButton => _model.Achivements.Any(a => a.Selected && a.Completed);
@@ -230,11 +232,11 @@
         {
             string adminKey = (string)result.Data;
             var completeAchiveParams = new CompleteAchiveParams()
-                {
-                    UserId = _model.Id,
-                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
-                    SupervisorKey = adminKey
-                };
+            {
+                UserId = _model.Id,
+                AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
+                SupervisorKey = adminKey
+            };
             try
             {
                 _completeAchieveService.CompleteMultiple(completeAchiveParams);
@@ -262,11 +264,11 @@
         {
             string supervisorKey = (string)result.Data;
             var completeAchiveParams = new CompleteAchiveParams()
-                {
-                    UserId = _model.Id,
-                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
-                    SupervisorKey = supervisorKey
-                };
+            {
+                UserId = _model.Id,
+                AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
+                SupervisorKey = supervisorKey
+            };
             try
             {
                 _completeAchieveService.DeleteMultiple(completeAchiveParams);

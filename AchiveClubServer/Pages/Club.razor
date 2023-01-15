@@ -9,16 +9,17 @@
         <div class="heading-wrapper">
             <div id="profileSlogan">
                 <div id="header-cont">
-                    <div id="arrowExit">
-                        <a href="topclubs"><img src="/image/back_icon.png" alt=""></a>
-                    </div>
+                    @*<div id="arrowExit">
+                    <a href="topclubs"><img src="/image/back_icon.png" alt=""></a>
+                </div>->*@
                     <div id="club-name-cont">
                         <span id="club"><b>@_model.Club.Title</b></span>
                     </div>
                 </div>
             </div>
+           
             <div class="clubPositionLogo">
-                <span id="clubPosition">#@(_model.RatingPosition+1)</span>
+                @* <span id="clubPosition">#@(_model.RatingPosition+1)</span>*@
                 <img src="@_model.Club.LogoURL" alt="">
             </div>
         </div>

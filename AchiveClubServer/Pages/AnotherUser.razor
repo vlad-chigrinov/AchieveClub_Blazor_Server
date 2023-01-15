@@ -4,27 +4,27 @@
 
 @if (_model != null)
 {
-    <header>
-        <a href="/topusers" class="exitLink">
+<header>
+    @* <a href="/topusers" class="exitLink">
             <i class="fa-solid fa-chevron-left"></i>
-        </a>
+        </a>*@
 
-        <div class="heading-wrapper">
-        </div>
+    <div class="heading-wrapper">
+    </div>
 
-        <div class="userProfile">
-            <div class="userImage">
-                <img src="@_model.Avatar" alt="">
-            </div>
-            <div class="userInfo">
-                <h1 class="userName">
-                    <span>@_model.FirstName</span>
-                    <span>@_model.LastName</span>
-                </h1>
-                <a class="userClub" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
-            </div>
+    <div class="userProfile">
+        <div class="userImage">
+            <img src="@_model.Avatar" alt="">
         </div>
-    </header>
+        <div class="userInfo">
+            <h1 class="userName">
+                <span>@_model.FirstName</span>
+                <span>@_model.LastName</span>
+            </h1>
+            <a class="userClub" href="/club/@_model.ClubId">Клуб @_model.ClubTitle.ToUpper()</a>
+        </div>
+    </div>
+</header>
 
     <main>
         <div class="generalInfo">
