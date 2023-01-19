@@ -200,8 +200,8 @@
     private UserPageModel _model;
  
 
-    private bool _showAcceptButton => _model.Achivements.Any(a => a.Selected && !a.Completed);
-    private bool _showDeleteButton => _model.Achivements.Any(a => a.Selected && a.Completed);
+    private bool _showAcceptButton => _model.Achivements.Any(a => a.Selected && (!a.Completed||a.IsMultiple));
+    private bool _showDeleteButton => _model.Achivements.Any(a => a.Selected &&  a.Completed && !a.IsMultiple);
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -233,7 +233,7 @@
 
     private async Task CompleteAchivementsAsync()
     {
-        var selectedAchievements = _model.Achivements.Where(a => a.Selected && a.Completed == false).ToList();
+        var selectedAchievements = _model.Achivements.Where(a => a.Selected && (a.Completed == false || a.IsMultiple==true)).ToList();
         var parameters = new ModalParameters();
         parameters.Add("UserFullName", _model.FullName);
         parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));

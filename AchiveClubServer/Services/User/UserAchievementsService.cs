@@ -82,8 +82,10 @@ namespace AchiveClubServer.Services
                 if (achieve.IsMultiple)
                 {
                     achieveItem.CompletedCount = completedAchievementsId.Count(a => a == achieve.Id);
-                    achieveItem.Completed = false;
+                   // achieveItem.Completed = false;
+                   achieveItem.Completed = completedAchievementsId.Contains(achieve.Id);
                     achieveItem.UsersCompleteRatio = 0;
+                  
                 }
                 else
                 {
