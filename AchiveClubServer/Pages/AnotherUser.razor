@@ -32,21 +32,24 @@
             {
             <div class="medals">
                 @foreach (var medal in _model.Medals)
+                {
+                    <img src=@medal.Icon class="medalIcon" />
+                    @if (medal.Id == 14)
                     {
-                <img src=@medal.Icon class="medalIcon" />
-                @if(medal.Id==14)
-                            {
-                <p class="sloganHint">ТОП 3<br>СЕЗОНА 2022</p>
-                            }
-                @if(medal.Id==18)
-                            {
-                <p class="sloganHint">ТОП 10<br>СЕЗОНА 2022</p>
-                            }
-                @if(medal.Id==20)
-                            {
-                <p class="sloganHint">ТОП 25<br>СЕЗОНА 2022</p>
-                            }
+                        <p class="sloganTitle">ТОП 3</p>
+                        <p class="sloganHint">СЕЗОНА 2022</p>
                     }
+                    @if (medal.Id == 18)
+                    {
+                        <p class="sloganTitle">ТОП 10</p>
+                        <p class="sloganHint">СЕЗОНА 2022</p>
+                    }
+                    @if (medal.Id == 20)
+                    {
+                        <p class="sloganTitle">ТОП 25</p>
+                        <p class="sloganHint">СЕЗОНА 2022</p>
+                    }
+                }
                 @* <p class="sloganHint">Достижения</p>*@
             </div>
                 <hr class="UserInfoSeparetor">
@@ -68,7 +71,7 @@
 
             @foreach (var achievement in _model.Achivements)
             {
-                @if (achievement.Completed)
+                @if (achievement.Completed && achievement.IsMultiple == false)
                 {
                     <div class="task completedTask">
                         <img class="logoTask" src="@achievement.LogoURL" alt="">
@@ -133,7 +136,7 @@
             <!---------------------Not completed------------------>
             @foreach (var achievement in _model.Achivements)
             {
-                if (!achievement.Completed)
+                if (achievement.Completed == false && achievement.IsMultiple == false)
                 {
                     <div class="task notCompletedTask">
                         <img class="logoTask" src="@achievement.LogoURL" alt="">
