@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "AchiveClubServer": {
+    "AchieveClubServer": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

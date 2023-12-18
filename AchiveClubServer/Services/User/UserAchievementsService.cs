@@ -5,9 +5,9 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UserAchievementsService
     {
@@ -26,7 +26,7 @@ namespace AchiveClubServer.Services
             List<int> completedAchievementsId;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "select AchiveId from CompletedAchivements C where C.UserId = @Id";
+                var sqlQuery = "select AchieveRefId from CompletedAchievements C where C.UserRefId = @Id";
                 completedAchievementsId = db.Query<int>(sqlQuery, new { Id = userId }).ToList();
             }
             var achievements = _achieveRepository.GetAll().OrderBy(a => a.Xp);

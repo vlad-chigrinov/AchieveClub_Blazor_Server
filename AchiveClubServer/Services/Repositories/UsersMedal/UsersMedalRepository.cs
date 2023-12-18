@@ -1,4 +1,4 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UsersMedalRepository : IUserMedalRepository
     {
@@ -20,7 +20,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "DELETE FROM UsersMedals WHERE Id = @id";
+                var sqlQuery = "DELETE FROM UserMedals WHERE Id = @id";
                 try
                 {
                     db.Execute(sqlQuery, new { id });
@@ -37,7 +37,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<UserMedal>("SELECT * FROM UsersMedals").ToList();
+                return db.Query<UserMedal>("SELECT * FROM UserMedals").ToList();
             }
         }
 
@@ -45,7 +45,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<UserMedal>("SELECT * FROM UsersMedals WHERE Id = @id", new { id }).FirstOrDefault();
+                return db.Query<UserMedal>("SELECT * FROM UserMedals WHERE Id = @id", new { id }).FirstOrDefault();
             }
         }
 
@@ -54,8 +54,8 @@ namespace AchiveClubServer.Services
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 var sqlQuery =
-                    "INSERT INTO UsersMedals([user], Medal) " +
-                    "VALUES(@User, @Medal);" +
+                    "INSERT INTO UserMedals(UserRefId, MedalRefId) " +
+                    "VALUES(@UserRefId, @MedalRefId);" +
                     "SELECT CAST(SCOPE_IDENTITY() as int);";
                 int? clubId = db.Query<int>(sqlQuery, value).FirstOrDefault();
                 return clubId.Value;
@@ -66,7 +66,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "UPDATE UsersMedals SET User = @User, Medal = @Medal WHERE Id = @Id";
+                var sqlQuery = "UPDATE UserMedals SET UserRefId = @UserRefId, MedalRefId = @MedalRefId WHERE Id = @Id";
                 try
                 {
                     db.Execute(sqlQuery, value);

@@ -1,4 +1,4 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class CompletedAchieveRepository : ICompletedAchieveRepository
     {
@@ -21,7 +21,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "DELETE FROM CompletedAchivements WHERE Id = @id";
+                var sqlQuery = "DELETE FROM CompletedAchievements WHERE Id = @id";
                 try
                 {
                     db.Execute(sqlQuery, new { id });
@@ -38,7 +38,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<CompletedAchievement>("SELECT * FROM CompletedAchivements WHERE Id = @id", new { id }).FirstOrDefault();
+                return db.Query<CompletedAchievement>("SELECT * FROM CompletedAchievements WHERE Id = @id", new { id }).FirstOrDefault();
             }
         }
 
@@ -46,7 +46,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<CompletedAchievement>("SELECT * FROM CompletedAchivements").ToList();
+                return db.Query<CompletedAchievement>("SELECT * FROM CompletedAchievements").ToList();
             }
         }
 
@@ -55,8 +55,8 @@ namespace AchiveClubServer.Services
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 var sqlQuery =
-                    "INSERT INTO CompletedAchivements(SupervisorId, UserId, AchiveId, DateOfCompletion) " +
-                    "VALUES(@SupervisorId, @UserId, @AchiveId, @DateOfCompletion); " +
+                    "INSERT INTO CompletedAchievements(SupervisorRefId, UserRefId, AchieveRefId, DateOfCompletion) " +
+                    "VALUES(@SupervisorId, @UserId, @AchieveId, @DateOfCompletion); " +
                     "SELECT CAST(SCOPE_IDENTITY() as int)";
                 int? completedAchieveId = db.Query<int>(sqlQuery, completedAchieve).FirstOrDefault();
                 return completedAchieveId.Value;
@@ -67,8 +67,8 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "UPDATE CompletedAchivements " +
-                    "SET SupervisorId = @SupervisorId, UserId = @UserId, AchiveId = @AchiveId, DateOfCompletion = @DateOfCompletion " +
+                var sqlQuery = "UPDATE CompletedAchievements " +
+                    "SET SupervisorRefId = @SupervisorId, UserRefId = @UserId, AchieveRefId = @AchieveId, DateOfCompletion = @DateOfCompletion " +
                     "WHERE Id = @Id";
                 try
                 {

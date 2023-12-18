@@ -5,10 +5,10 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 using System;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UserPageModelBuilder
     {
@@ -38,7 +38,7 @@ namespace AchiveClubServer.Services
                 Avatar = user.Avatar,
                 ClubTitle = club.Title,
                 ClubId = club.Id,
-                Achivements = achievements,
+                Achievements = achievements,
                 XPSum = _userScore.GetUserXP(userId),
                 Medals = _userMedalsService.GetMedalsByUserId(userId)
             };

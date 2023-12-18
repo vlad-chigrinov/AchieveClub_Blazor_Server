@@ -50,11 +50,11 @@
             </div>
         </div>
         <!------------task completed------------------------->
-        @if (_model.Achivements.Count(a => a.Completed) > 0)
+        @if (_model.Achievements.Count(a => a.Completed) > 0)
         {
             <h1 class="solidHeading">Выполненные </h1>
 
-            @foreach (var achievement in _model.Achivements)
+            @foreach (var achievement in _model.Achievements)
             {
                 @if (achievement.Completed)
                 {
@@ -83,11 +83,11 @@
         }
         <!------------task completed------------------------->
         <!------------multiple completeble task------------------------->
-        @if (_model.Achivements.Count(a => a.IsMultiple) > 0)
+        @if (_model.Achievements.Count(a => a.IsMultiple) > 0)
         {
             <h1 class="solidHeading">Многоразовые</h1>
 
-            @foreach (var achievement in _model.Achivements)
+            @foreach (var achievement in _model.Achievements)
             {
                 @if (achievement.IsMultiple)
                 {
@@ -114,12 +114,12 @@
             }
         }
         <!------------task completed------------------------->
-        @if (_model.Achivements.Count(a => a.Completed == false) > 0)
+        @if (_model.Achievements.Count(a => a.Completed == false) > 0)
         {
             <h1 class="solidHeading">Невыполненные </h1>
 
             <!---------------------Not completed------------------>
-            @foreach (var achievement in _model.Achivements)
+            @foreach (var achievement in _model.Achievements)
             {
                 if (!achievement.Completed)
                 {
@@ -154,10 +154,10 @@
     [Parameter]
     public string UserIdParam { get; set; }
 
-    public int AchievementsCount => _model.Achivements.Count;
-    public int CompletedAchievementsCount => _model.Achivements.Count(a => a.Completed);
+    public int AchievementsCount => _model.Achievements.Count;
+    public int CompletedAchievementsCount => _model.Achievements.Count(a => a.Completed);
     public int CompletedRatio => (int)(((float)CompletedAchievementsCount / (float)AchievementsCount) * 100);
-    public int XPSum => _model.Achivements.Where(a => a.Completed).Sum(a => a.Xp);
+    public int XPSum => _model.Achievements.Where(a => a.Completed).Sum(a => a.Xp);
 
     private UserPageModel _model;
 

@@ -44,14 +44,14 @@
     <!--Detete selected button-->
     @if (_showDeleteButton)
     {
-        <button id="deleteList" class="overlayButton" @onclick=DeleteAchivementsAsync>
+        <button id="deleteList" class="overlayButton" @onclick=DeleteAchievementsAsync>
             <span>Отменить все</span>
         </button>
     }
     <!--Complete selected button-->
     @if (_showAcceptButton)
     {
-        <button id="acceptList" class="overlayButton" @onclick=CompleteAchivementsAsync>
+        <button id="acceptList" class="overlayButton" @onclick=CompleteAchievementsAsync>
             <span>Подтвердить все</span>
         </button>
     }
@@ -62,7 +62,7 @@
                 <div class="medals">
                     @foreach (var medal in _model.Medals)
                     {
-                        <img src=@medal.Icon class="medalIcon" />
+                        <img src=@medal.Icon class="medalIcon" alt="@medal.Title" title="@medal.Title"/>
                     }
                     <p class="sloganHint">Достижения</p>
                 </div>
@@ -80,11 +80,11 @@
         </div>
 
         <!------------multiple completeble task------------------------->
-        @if (_model.Achivements.Count(a => a.IsMultiple) > 0)
+        @if (_model.Achievements.Count(a => a.IsMultiple) > 0)
         {
             <h1 class="solidHeading">Многоразовые</h1>
 
-            @foreach (var achievement in _model.Achivements)
+            @foreach (var achievement in _model.Achievements)
             {
                 @if (achievement.IsMultiple)
                 {
@@ -112,11 +112,11 @@
         }
 
         <!---------------------Not completed------------------>
-        @if (_model.Achivements.Count(a => a.Completed == false) > 0)
+        @if (_model.Achievements.Count(a => a.Completed == false) > 0)
         {
             <h1 class="solidHeading">Невыполненные </h1>
 
-            @foreach (var achievement in _model.Achivements)
+            @foreach (var achievement in _model.Achievements)
             {
                 if (achievement.Completed == false && achievement.IsMultiple == false)
                 {
@@ -144,11 +144,11 @@
         }
 
         <!------------task completed------------------------->
-        @if (_model.Achivements.Count(a => a.Completed) > 0)
+        @if (_model.Achievements.Count(a => a.Completed) > 0)
         {
             <h1 class="solidHeading">Выполненные </h1>
 
-            @foreach (var achievement in _model.Achivements)
+            @foreach (var achievement in _model.Achievements)
             {
                 @if (achievement.Completed && achievement.IsMultiple == false)
                 {
@@ -186,8 +186,8 @@
 
     private UserPageModel _model;
 
-    private bool _showAcceptButton => _model.Achivements.Any(a => a.Selected && !a.Completed);
-    private bool _showDeleteButton => _model.Achivements.Any(a => a.Selected && a.Completed);
+    private bool _showAcceptButton => _model.Achievements.Any(a => a.Selected && !a.Completed);
+    private bool _showDeleteButton => _model.Achievements.Any(a => a.Selected && a.Completed);
 
     protected override void OnAfterRender(bool firstRender)
     {
@@ -212,14 +212,14 @@
         }
     }
 
-    private void SelectAchievement(UserPageAchieveItem achivement)
+    private void SelectAchievement(UserPageAchieveItem Achievement)
     {
-        achivement.Selected = !achivement.Selected;
+        Achievement.Selected = !Achievement.Selected;
     }
 
-    private async Task CompleteAchivementsAsync()
+    private async Task CompleteAchievementsAsync()
     {
-        var selectedAchievements = _model.Achivements.Where(a => a.Selected && a.Completed == false).ToList();
+        var selectedAchievements = _model.Achievements.Where(a => a.Selected && a.Completed == false).ToList();
         var parameters = new ModalParameters();
         parameters.Add("UserFullName", _model.FullName);
         parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
@@ -229,7 +229,7 @@
         if (!result.Cancelled)
         {
             string adminKey = (string)result.Data;
-            var completeAchiveParams = new CompleteAchiveParams()
+            var completeAchieveParams = new CompleteAchieveParams()
                 {
                     UserId = _model.Id,
                     AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
@@ -237,7 +237,7 @@
                 };
             try
             {
-                _completeAchieveService.CompleteMultiple(completeAchiveParams);
+                _completeAchieveService.CompleteMultiple(completeAchieveParams);
             }
             catch (Exception ex)
             {
@@ -249,9 +249,9 @@
         }
     }
 
-    private async Task DeleteAchivementsAsync()
+    private async Task DeleteAchievementsAsync()
     {
-        var selectedAchievements = _model.Achivements.Where(a => a.Selected && a.Completed == true).ToList();
+        var selectedAchievements = _model.Achievements.Where(a => a.Selected && a.Completed == true).ToList();
         var parameters = new ModalParameters();
         parameters.Add("UserFullName", _model.FullName);
         parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
@@ -261,7 +261,7 @@
         if (!result.Cancelled)
         {
             string supervisorKey = (string)result.Data;
-            var completeAchiveParams = new CompleteAchiveParams()
+            var completeAchieveParams = new CompleteAchieveParams()
                 {
                     UserId = _model.Id,
                     AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
@@ -269,7 +269,7 @@
                 };
             try
             {
-                _completeAchieveService.DeleteMultiple(completeAchiveParams);
+                _completeAchieveService.DeleteMultiple(completeAchieveParams);
             }
             catch (Exception ex)
             {

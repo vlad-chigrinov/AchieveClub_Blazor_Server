@@ -5,9 +5,9 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UserScoreService
     {
@@ -23,8 +23,8 @@ namespace AchiveClubServer.Services
             {
                 var sqlQuery = "select SUM(A.Xp) " +
                     "from Users U " +
-                    "join CompletedAchivements C on C.UserId = U.Id " +
-                    "join Achivements A on C.AchiveId = A.Id " +
+                    "join CompletedAchievements C on C.UserRefId = U.Id " +
+                    "join Achievements A on C.AchieveRefId = A.Id " +
                     "where U.Id = @Id";
                 var argument = new { Id = userId };
                 int? result =  db.Query<int?>(sqlQuery, argument).FirstOrDefault();

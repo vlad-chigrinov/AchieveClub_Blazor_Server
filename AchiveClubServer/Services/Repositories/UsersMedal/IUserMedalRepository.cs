@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public interface IUserMedalRepository:IRepository<UserMedal>
     {

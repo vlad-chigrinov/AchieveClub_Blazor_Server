@@ -1,11 +1,11 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 using Dapper;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UniqEmailQuery
     {

@@ -1,10 +1,10 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class ChangeUserPasswordService
     {

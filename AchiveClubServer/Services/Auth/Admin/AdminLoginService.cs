@@ -1,9 +1,9 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class AdminLoginService
     {

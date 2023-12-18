@@ -1,9 +1,9 @@
-using AchiveClubServer.Data.DTO;
-using AchiveClubServer.Services;
+using AchieveClubServer.Data.DTO;
+using AchieveClubServer.Services;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UserMedalsService
     {
@@ -17,7 +17,7 @@ namespace AchiveClubServer.Services
         public List<Medal> GetMedalsByUserId(int userId)
         {
             var allUserMedals = _userMedalRepository.GetAll();
-            var currentUserMedalIds = allUserMedals.Where(m => m.User == userId).Select(m=>m.Medal).ToList();
+            var currentUserMedalIds = allUserMedals.Where(m => m.UserRefId == userId).Select(m=>m.MedalRefId).ToList();
             var allMedals = _medalRepository.GetAll();
             var currentUserMedals = allMedals.Where(m => currentUserMedalIds.Contains(m.Id)).ToList();
             return currentUserMedals;

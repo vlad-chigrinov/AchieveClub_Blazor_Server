@@ -1,4 +1,4 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class AdminRepository : IAdminRepository
     {

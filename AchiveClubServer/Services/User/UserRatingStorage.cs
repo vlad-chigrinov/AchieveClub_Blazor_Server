@@ -1,7 +1,7 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 using System.Collections.Generic;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UserRatingStorage
     {

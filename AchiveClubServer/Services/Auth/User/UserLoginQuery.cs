@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System;
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UserLoginQuery
     {

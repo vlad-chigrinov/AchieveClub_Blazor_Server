@@ -1,4 +1,4 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 
 using System.Collections.Generic;
 
@@ -8,7 +8,7 @@ using Dapper;
 using System.Linq;
 using System;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class AchieveRepository : IAchieveRepository
     {
@@ -22,7 +22,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "DELETE FROM Achivements WHERE Id = @id";
+                var sqlQuery = "DELETE FROM Achievements WHERE Id = @id";
                 try
                 {
                     db.Execute(sqlQuery, new { id });
@@ -39,7 +39,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<Achievement>("SELECT * FROM Achivements WHERE Id = @id", new { id }).FirstOrDefault();
+                return db.Query<Achievement>("SELECT * FROM Achievements WHERE Id = @id", new { id }).FirstOrDefault();
             }
         }
 
@@ -47,7 +47,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return db.Query<Achievement>("SELECT * FROM Achivements").ToList();
+                return db.Query<Achievement>("SELECT * FROM Achievements").ToList();
             }
         }
 
@@ -56,7 +56,7 @@ namespace AchiveClubServer.Services
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 var sqlQuery =
-                    "INSERT INTO Achivements(Xp, Title, Description, LogoURL, IsMultiple)" +
+                    "INSERT INTO Achievements(Xp, Title, Description, LogoURL, IsMultiple)" +
                     "VALUES(@Xp, @Title, @Description, @LogoURL, @IsMultiple);" +
                     "SELECT CAST(SCOPE_IDENTITY() as int)";
                 int? achieveId = db.Query<int>(sqlQuery, achieve).FirstOrDefault();
@@ -68,7 +68,7 @@ namespace AchiveClubServer.Services
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                var sqlQuery = "UPDATE Achivements SET Xp = @Xp, Title = @Title, Description = @Description, LogoURL = @LogoURL, IsMultiple = @IsMultiple WHERE Id = @Id";
+                var sqlQuery = "UPDATE Achievements SET Xp = @Xp, Title = @Title, Description = @Description, LogoURL = @LogoURL, IsMultiple = @IsMultiple WHERE Id = @Id";
                 try
                 {
                     db.Execute(sqlQuery, achieve);

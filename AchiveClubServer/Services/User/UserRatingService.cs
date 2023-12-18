@@ -4,9 +4,9 @@ using System.Linq;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class UserRatingService
     {

@@ -7,7 +7,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using Tewr.Blazor.FileReader;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class ImageLoader
     {

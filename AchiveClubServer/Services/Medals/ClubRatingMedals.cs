@@ -1,9 +1,9 @@
 
 using System.Linq;
 using System.Collections.Generic;
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class ClubRatingMedals : IMedalsService
     {
@@ -27,7 +27,7 @@ namespace AchiveClubServer.Services
         public List<UserMedal> CalculateMedalsByClubId(int clubId)
         {
             var clubUsers = _userRatingService.UserRating.Where(u=>u.User.ClubRefId == clubId).Take(10);
-            var medals = clubUsers.Select(u => new UserMedal { Medal = 8, User = u.User.Id }).ToList();
+            var medals = clubUsers.Select(u => new UserMedal { MedalRefId = 2, UserRefId = u.User.Id }).ToList();
             return medals;
         }
     }

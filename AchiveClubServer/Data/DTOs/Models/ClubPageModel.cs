@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AchiveClubServer.Data.DTO
+namespace AchieveClubServer.Data.DTO
 {
     public class ClubPageModel
     {

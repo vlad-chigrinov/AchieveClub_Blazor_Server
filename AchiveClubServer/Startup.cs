@@ -1,7 +1,7 @@
 using System.IO;
 
-using AchiveClubServer.Data;
-using AchiveClubServer.Services;
+using AchieveClubServer.Data;
+using AchieveClubServer.Services;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +14,7 @@ using Blazored.Modal;
 using Blazored.LocalStorage;
 using Tewr.Blazor.FileReader;
 
-namespace AchiveClubServer
+namespace AchieveClubServer
 {
     public class Startup
     {
@@ -37,16 +37,6 @@ namespace AchiveClubServer
             services.AddBlazoredModal();
 
             string connection = _configuration.GetConnectionString("DefaultConnection");
-            connection = "Server=it-club.online; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
-            //if (_env.IsProduction())
-            //{
-            //    connection = "Server=.; Database=itclubon_achieve_club; User Id=itclubon_user; Password={{password}};";
-            //}
-
-            if (connection.Contains("{{password}}"))
-            {
-                connection = connection.Replace("{{password}}", _configuration["Password"]);
-            }
 
             services.AddSingleton<string>(_ => connection);
             services.AddSingleton<ImageLoader>();

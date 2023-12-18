@@ -5,10 +5,10 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 using System;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class CompleteAchieveService
     {
@@ -19,7 +19,7 @@ namespace AchiveClubServer.Services
             _completedAchieveRepository = completedAchieveRepository;
             connectionString = connection;
         }
-        public List<CompletedAchievement> CompleteMultiple(CompleteAchiveParams completeParams)
+        public List<CompletedAchievement> CompleteMultiple(CompleteAchieveParams completeParams)
         {
             int supervisorKey = GetSupervisorIdByKey(completeParams.SupervisorKey);
             var currentDate = DateTime.Now;
@@ -30,7 +30,7 @@ namespace AchiveClubServer.Services
                 var nextAchievement = new CompletedAchievement
                 {
                     UserId = completeParams.UserId,
-                    AchiveId = achieveId,
+                    AchieveId = achieveId,
                     DateOfCompletion = currentDate,
                     SupervisorId = supervisorKey
                 };
@@ -48,7 +48,7 @@ namespace AchiveClubServer.Services
             return completedAchievements;
         }
 
-        public void DeleteMultiple(CompleteAchiveParams completeParams)
+        public void DeleteMultiple(CompleteAchieveParams completeParams)
         {
             GetSupervisorIdByKey(completeParams.SupervisorKey);
 
@@ -56,7 +56,7 @@ namespace AchiveClubServer.Services
             {
                 using (IDbConnection db = new SqlConnection(connectionString))
                 {
-                    var sqlQuery = "DELETE FROM CompletedAchivements WHERE AchiveId = @AchieveId and UserId = @UserId";
+                    var sqlQuery = "DELETE FROM CompletedAchievements WHERE AchieveRefId = @AchieveId and UserRefId = @UserId";
                         db.Execute(sqlQuery, new { AchieveId = achieveId, UserId = completeParams.UserId });
                 }
             }

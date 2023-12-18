@@ -1,4 +1,4 @@
-﻿namespace AchiveClubServer.Services
+﻿namespace AchieveClubServer.Services
 {
     public class AchieveCompleteRatioCounter
     {

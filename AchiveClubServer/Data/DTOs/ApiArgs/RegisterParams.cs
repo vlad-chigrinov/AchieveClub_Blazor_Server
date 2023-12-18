@@ -1,4 +1,4 @@
-﻿namespace AchiveClubServer.Data.DTO
+﻿namespace AchieveClubServer.Data.DTO
 {
     public class RegisterParams
     {

@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class HashService
     {

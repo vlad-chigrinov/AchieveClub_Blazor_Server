@@ -1,4 +1,4 @@
-﻿using AchiveClubServer.Data.DTO;
+﻿using AchieveClubServer.Data.DTO;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class MedalRepository : IMedalRepository
     {

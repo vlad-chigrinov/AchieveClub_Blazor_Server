@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AchiveClubServer.Data.DTO;
+using AchieveClubServer.Data.DTO;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public interface IMedalsService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public interface IRepository<TValue>
     {

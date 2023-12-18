@@ -4,7 +4,7 @@
 
 @inject IAdminRepository _adminRepo
 @inject ISupervisorRepository _supervisorRepo
-@inject IAchieveRepository _achiveRepo
+@inject IAchieveRepository _AchieveRepo
 @inject IClubRepository _clubRepo
 @inject IUserRepository _userRepo
 @inject IMedalRepository _medalRepo
@@ -37,8 +37,8 @@ else
                 <div class="columns">
                     <p>#@(_achieves.IndexOf(achieve)+1)</p>
                     <input placeholder="Название" type="text" @bind=achieve.Title width="450" />
-                    <button @onclick="()=>EditAchive(achieve)">Сохранить</button>
-                    <button @onclick="()=>DeleteAchive(achieve)">Удалить</button>
+                    <button @onclick="()=>EditAchieve(achieve)">Сохранить</button>
+                    <button @onclick="()=>DeleteAchieve(achieve)">Удалить</button>
                 </div>
                 <textarea placeholder="Описание" type="text" @bind=achieve.Description rows=2 />
                 <input placeholder="Количество опыта" type="text" @bind=achieve.XpString />
@@ -54,7 +54,7 @@ else
     {
         <h3>Список достижений пуст!</h3>
     }
-    <button @onclick=AddAchive>Добавить</button>
+    <button @onclick=AddAchieve>Добавить</button>
     <button @onclick=EditAllAchievements>Сохранить все</button>
     <hr />
 }
@@ -306,23 +306,23 @@ else
         _usersMedalRepo.GetAll().ForEach(m => _usersMedalRepo.Delete(m.Id));
     }
 
-    #region AchiveCRUD
+    #region AchieveCRUD
 
     private void GetAchievements()
     {
-        _achieves = _achiveRepo.GetAll();
+        _achieves = _AchieveRepo.GetAll();
     }
 
-    private void AddAchive()
+    private void AddAchieve()
     {
-        var newAchive = new Achievement
+        var newAchieve = new Achievement
         {
             Title = "Название",
             Description = "Описание",
             Xp = 0,
             LogoURL = "/image/temp.jpg" //нян-кэт
         };
-        _achiveRepo.Insert(newAchive);
+        _AchieveRepo.Insert(newAchieve);
 
         GetAchievements();
     }
@@ -331,15 +331,15 @@ else
     {
         foreach (var achieve in _achieves)
         {
-            EditAchive(achieve);
+            EditAchieve(achieve);
         }
     }
 
-    private void EditAchive(Achievement achive)
+    private void EditAchieve(Achievement Achieve)
     {
-        if (_achiveRepo.Update(achive))
+        if (_AchieveRepo.Update(Achieve))
         {
-            UpdateAchievement(achive.Id);
+            UpdateAchievement(Achieve.Id);
         }
         else
         {
@@ -353,7 +353,7 @@ else
         var updatebleAchieve = _achieves.Where(a => a.Id == id).FirstOrDefault();
         if (updatebleAchieve != null)
         {
-            updatebleAchieve = _achiveRepo.GetById(id);
+            updatebleAchieve = _AchieveRepo.GetById(id);
         }
         else
         {
@@ -361,13 +361,13 @@ else
         }
     }
 
-    private void DeleteAchive(Achievement achive)
+    private void DeleteAchieve(Achievement Achieve)
     {
-        _achiveRepo.Delete(achive.Id);
+        _AchieveRepo.Delete(Achieve.Id);
 
         GetAchievements();
     }
-    #endregion AchiveCRUD
+    #endregion AchieveCRUD
 
     #region AdminCRUD
 

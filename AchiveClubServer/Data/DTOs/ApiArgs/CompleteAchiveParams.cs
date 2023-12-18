@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AchiveClubServer.Data.DTO
+namespace AchieveClubServer.Data.DTO
 {
-    public class CompleteAchiveParams
+    public class CompleteAchieveParams
     {
         public List<int> AchievementsId { get; set; }
         public int UserId { get; set; }

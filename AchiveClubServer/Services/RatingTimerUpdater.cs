@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class RatingTimerUpdater : IHostedService, IDisposable
     {
@@ -14,7 +14,7 @@ namespace AchiveClubServer.Services
         private ClubRatingService _clubRatingService;
         private UserRatingService _userRatingService;
         private Timer _timer = null!;
-        private double _delay = 480;
+        private double _delay = 60;
 
         public RatingTimerUpdater(
             ILogger<RatingTimerUpdater> logger,

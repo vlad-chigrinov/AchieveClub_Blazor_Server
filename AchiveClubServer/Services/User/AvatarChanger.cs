@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using Dapper;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class AvatarChanger
     {

@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 
-namespace AchiveClubServer.Services
+namespace AchieveClubServer.Services
 {
     public class AchieveCompleteCounter
     {
@@ -20,10 +20,10 @@ namespace AchiveClubServer.Services
             using (IDbConnection db = new SqlConnection(connectionString))
             {
                 return db.Query<int>("select Count(*) " +
-                    "from CompletedAchivements as C " +
+                    "from CompletedAchievements as C " +
                     "join Users as U " +
-                    "on C.UserId = U.Id " +
-                    "where C.AchiveId = @Id ",
+                    "on C.UserRefId = U.Id " +
+                    "where C.AchieveRefId = @Id ",
                     new {Id = id})
                     .FirstOrDefault();
             }
