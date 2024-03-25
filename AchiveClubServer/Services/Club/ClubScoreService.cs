@@ -10,25 +10,18 @@ namespace AchieveClubServer.Services
 {
     public class ClubScoreService
     {
-        private UserRatingService _userRatingService;
-        public ClubScoreService(UserRatingService userRatingService)
+        private UserRatingStorage _userRatingStorage;
+        public ClubScoreService(UserRatingStorage userRatingStorage)
         {
-            _userRatingService = userRatingService;
+            _userRatingStorage = userRatingStorage;
         }
-        public int GetClubAvgXP(int clubId, int usersCount)
+        public int GetClubAvgXP(int clubId)
         {
-            var users = _userRatingService
-                .GetUserRating()
+                var clubUsers = _userRatingStorage
+                .UserRating
                 .Where(u => u.User.ClubRefId == clubId);
-            if(usersCount != 0)
-            {
-                double avgXp = users.Sum(u=>u.Score) / usersCount;
+                double avgXp = clubUsers.Sum(u=>u.Score) / clubUsers.Count();
                 return Convert.ToInt32(avgXp);
-            }
-            else
-            {
-                return 0;
-            }
         }
     }
 }
