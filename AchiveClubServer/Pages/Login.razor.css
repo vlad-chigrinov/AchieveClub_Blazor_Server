@@ -42,9 +42,9 @@ main {
     justify-content: center;
     text-align: left;
     flex-direction: column;
-    width: 300px;
-    height: 300px;
-    padding: 5%;
+    width: 350px;
+    height: 350px;
+    padding: 2.5%;
 }
 
 .registerForm p {
@@ -114,4 +114,10 @@ main {
 
 .registerForm{
     margin: 0;
+}
+
+.custom-password-icon {
+    color: rgba(0,0,0,.45);
+    cursor: pointer;
+    transition: all .3s;
 }
