@@ -28,12 +28,14 @@
             <p @onclick="ToRegistration">Зарегистрироваться</p>
         </div>
         <div class="emailForm">
-            <span>Email</span>
-            <input type="email" name="" id="emailInput" @bind-value="loginParams.Email">
+            @*<span>Email</span>*@
+            <MudTextField id="emailInput" @bind-Value="loginParams.Email" Label="Email" Variant="Variant.Filled" Adornment="Adornment.None" AdornmentIcon="@Icons.Material.Filled.Email" />
+            @* <input type="email" name="" id="emailInput" @bind-value="loginParams.Email"> *@
         </div>
         <div class="passwordForm">
-            <span>Пароль</span>
-            <input type="password" name="" id="passwordInput" @bind-value="loginParams.Password">
+            @*<span>Пароль</span>*@
+            <MudTextField @bind-Value="loginParams.Password" Label="Пароль" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonPassClick" AdornmentAriaLabel="Show Password" />
+            @* <input type="password" name="" id="passwordInput" @bind-value="loginParams.Password"> *@
         </div>
         <div class="submitButton">
             <button type="submit" @onclick="LoginUser">Войти</button>
@@ -69,5 +71,25 @@
     public void ToRegistration()
     {
         _navigation.NavigateTo("/registration");
+    }
+
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonPassClick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
     }
 }

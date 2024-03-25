@@ -96,8 +96,8 @@ main {
     justify-content: center;
     text-align: left;
     flex-direction: column;
-    width: 300px;
-    padding: 5%;
+    width: 350px;
+    padding: 2.5%;
 }
 
 .registerForm p {
@@ -121,12 +121,19 @@ main {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
-    width: 300px;
+    width: 100%;
     background: white;
 }
 
     .emailForm select option {
         background: white;
+    }
+
+    .emailForm select:hover {
+        cursor:pointer;
+    }
+    .emailForm select option:hover {
+        cursor: pointer;
     }
 
 .emailForm {
@@ -139,7 +146,7 @@ main {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #8F8F8F;
-    width: 278px;
+    width: 100%;
 }
 
 .passwordForm {

@@ -49,7 +49,7 @@ namespace AchieveClubServer.Services
                 return db.Query<User>("SELECT *, ClubRefId as ClubId FROM Users").ToList();
             }
         }
-
+        
         public int Insert(User user)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
