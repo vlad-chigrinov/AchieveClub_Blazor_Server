@@ -35,6 +35,7 @@ namespace AchieveClubServer
 
             services.AddBlazoredLocalStorage();
             services.AddBlazoredModal();
+            services.AddAntDesign();
 
             string connection = _configuration.GetConnectionString("DefaultConnection");
 
