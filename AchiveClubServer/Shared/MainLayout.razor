@@ -37,6 +37,10 @@
     </div>
 </footer>
 
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
 @code
 {
     public string LocalPath => (new Uri(_navigation.Uri)).LocalPath;
