@@ -26,7 +26,7 @@ namespace AchieveClubServer.Services
             clubs.ForEach(club => clubsWithScore.Add(new ClubWithScoreAndRating
             {
                 Club = club,
-                AvgXP = _scoreService.GetClubAvgXP(club.Id, club.UsersCount)
+                AvgXP = _scoreService.GetClubAvgXP(club.Id)
             }));
             var sortedClubsWithScore = clubsWithScore.OrderBy(club => club.AvgXP).Reverse().ToList();
             sortedClubsWithScore.ForEach(club => club.RatingNumber = sortedClubsWithScore.IndexOf(club));
