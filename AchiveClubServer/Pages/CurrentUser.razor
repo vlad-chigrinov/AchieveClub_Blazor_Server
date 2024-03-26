@@ -12,6 +12,7 @@
 
 @inject IFileReaderService fileReaderService
 @inject IDialogService DialogService
+@inject IJSRuntime jsRuntime
 
 @if (_model != null)
 {
@@ -328,6 +329,7 @@
     {
         await _login.Logout();
         _navigation.NavigateTo("/login");
+        await jsRuntime.InvokeVoidAsync("removeAllStorageKeys");
     }
 
     private async Task UploadFile(IBrowserFile file)
