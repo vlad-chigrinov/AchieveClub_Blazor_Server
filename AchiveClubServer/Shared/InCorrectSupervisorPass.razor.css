@@ -1,0 +1,13 @@
+﻿#buttonSubmit {
+    width: 100%;
+    background: #4E9BDA;
+    border-radius: 5px;
+    border: 1px solid #4E9BDA;
+    color: white;
+    font-family: 'Play', sans-serif;
+    height: 45px;
+    font-size: large;
+    font-weight: bold;
+    padding: 0;
+    cursor: pointer;
+}

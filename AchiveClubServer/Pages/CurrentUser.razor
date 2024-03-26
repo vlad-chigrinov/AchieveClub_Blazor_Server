@@ -285,6 +285,7 @@
             }
             catch (Exception ex)
             {
+                ErrorSupevisorPass(ex);
                 Console.WriteLine(ex.Message);
             }
 
@@ -317,9 +318,24 @@
             }
             catch (Exception ex)
             {
+                ErrorSupevisorPass(ex);
                 Console.WriteLine(ex.Message);
             }
 
+            _model = _modelBuilder.Build(_model.Id);
+            StateHasChanged();
+        }
+    }
+
+    private async Task ErrorSupevisorPass(Exception ex)
+    {
+        var parameters = new DialogParameters<InCorrectSupervisorPass>();
+        parameters.Add("Exception", ex.Message);
+        var modalInstance = DialogService.Show<InCorrectSupervisorPass>("Неверный пароль тренера!", parameters);
+        var result = await modalInstance.Result;
+
+        if (!result.Cancelled)
+        {
             _model = _modelBuilder.Build(_model.Id);
             StateHasChanged();
         }
