@@ -81,7 +81,7 @@
     .userInfo .userClub {
         color: mediumaquamarine !important;
         text-decoration: none;
-        font-family: 'Play', sans-serif;
+        font-family: 'Play', sans-serif !important;
         font-style: normal;
         font-weight: normal;
         font-size: 19px;
@@ -218,7 +218,7 @@
     }
 
     #acceptList {
-        right: 3%;
+        right: 3%!important;
     }
 
     #deleteList {
@@ -232,7 +232,7 @@
     }
 
     #acceptList {
-        right: 5%;
+        right: 5% !important;
     }
 
     #deleteList {
@@ -246,7 +246,7 @@
     }
 
     #acceptList {
-        right: 10%;
+        right: 10% !important;
     }
 
     #deleteList {
@@ -260,7 +260,7 @@
     }
 
     #acceptList {
-        right: 22%;
+        right: 22% !important;
     }
 
     #deleteList {
@@ -269,7 +269,7 @@
 }
 
 #acceptList {
-    background-color: #98ffdf;
+    background-color: #98ffdf !important;
 }
 
 #deleteList {
