@@ -1,4 +1,6 @@
-﻿namespace AchieveClubServer.Data.DTO
+﻿using Microsoft.AspNetCore.Components.Forms;
+
+namespace AchieveClubServer.Data.DTO
 {
     public class RegisterParams
     {

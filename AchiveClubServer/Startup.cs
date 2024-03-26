@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.FileProviders;
 
-using Blazored.Modal;
 using Blazored.LocalStorage;
 using Tewr.Blazor.FileReader;
 using MudBlazor.Services;
@@ -35,7 +34,6 @@ namespace AchieveClubServer
             services.AddFileReaderService();
 
             services.AddBlazoredLocalStorage();
-            services.AddBlazoredModal();
             services.AddMudServices();
 
             string connection = _configuration.GetConnectionString("DefaultConnection");

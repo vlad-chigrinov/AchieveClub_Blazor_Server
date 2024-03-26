@@ -9,6 +9,8 @@
 
 @inject IFileReaderService fileReaderService
 
+@inject IDialogService Dialog
+
 <!-----------------------------------nav----------------------------------------->
 <header>
     <div class="header-wrapper">
@@ -23,40 +25,44 @@
         </div>
     </div>
 </header>
+
+
 <!-----------------------------------main----------------------------------------->
 <main>
     <div class="content-wrapper">
         <div class="headingWrapper">
-            <h3>Зарегистрироваться</h3>
+            <h3 style="margin-top:0 !important;">Зарегистрироваться</h3>
+            <MudDivider Style="color:black;border: 1px solid black" />
         </div>
         <div class="registerForm">
-            <hr />
             <p><a @onclick="ToLogin">Войти в систему</a></p>
         </div>
         <div class="emailForm">
-            <span>Имя</span>
-            <input type="text" name="" @bind-value="_registrationParams.FirstName">
+            <MudTextField @bind-Value="_registrationParams.FirstName" Label="Имя" Variant="Variant.Outlined" Adornment="Adornment.None" AdornmentIcon="@Icons.Material.Filled.Person" />
         </div>
         <div class="emailForm">
-            <span>Фамилия</span>
-            <input type="text" name="" @bind-value="_registrationParams.LastName">
+            <MudTextField @bind-Value="_registrationParams.LastName" Label="Фамилия" Variant="Variant.Outlined" Adornment="Adornment.None" AdornmentIcon="@Icons.Material.Filled.Person" />
         </div>
         <div class="emailForm">
-            <span>Email</span>
-            <input type="email" name="" @bind-value="_registrationParams.Email">
+            <MudTextField @bind-Value="_registrationParams.Email" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.None" AdornmentIcon="@Icons.Material.Filled.Email" />
         </div>
         <div class="emailForm">
-            <span>Фотография</span>
-            <div class="input__file-cont">
-                <input @ref=inputTypeFileElement @onchange=@LoadFiles type="file" class="input__file" id="input__file" accept="image/jpeg,image/png,image/webp" />
-                <label for="input__file" class="input__file-button">
-                    <span class="input__file-icon-wrapper">
-                        @*<img class="input__file-icon" src="\image\upload.png" alt="Выбрать файл">*@
-                        <i class="fa-solid fa-file-image"></i>
-                    </span>
-                    <span class="input__file-button-text">Выберите файл</span>
-                </label>
-            </div>
+            <MudFileUpload T="IBrowserFile" Accept=".png, .jpg, .jpeg" FilesChanged="UploadFile" MaximumFileCount="1">
+                <ButtonTemplate>
+                    <MudButton HtmlTag="label"
+                               FullWidth="true"
+                               Variant="Variant.Filled"
+                               Style="background: #4E9BDA !important;
+                                color: white !important;
+                                height: 45px !important;
+                                font-weight: bold;
+                                font-family: 'Play', sans-serif;"
+                               StartIcon="@Icons.Material.Filled.CloudUpload"
+                               for="@context.Id">
+                        Загрузить изображение
+                    </MudButton>
+                </ButtonTemplate>
+            </MudFileUpload>
             @if (_avatarImageProcessed)
             {
                 <div id="inputFileImg-cont">
@@ -65,27 +71,28 @@
             }
         </div>
         <div class="emailForm">
-            <span>Место обучения</span>
-            <select @bind="_registrationParams.ClubId">
-                @if (_clubNames != null)
-                {
-                    @foreach (var clubName in _clubNames)
-                    {
-                        <option value="@clubName.Id">@clubName.Title</option>
-                    }
+            <MudSelect Margin="Margin.Dense" T="string" Label="Место обучения" Variant="Variant.Outlined" @bind-Value="_selectedClubTitle">
+                @foreach (var clubName in _clubNames) {
+                    <MudSelectItem Value="@clubName.Title"/>
                 }
-            </select>
+            </MudSelect>
         </div>
         <div class="passwordForm">
-            <span>Пароль</span>
-            <input type="password" name="" @bind-value="_registrationParams.Password">
+            <MudTextField Style="height:55px;" @bind-Value="_registrationParams.Password" Label="Пароль" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonPassClick" AdornmentAriaLabel="Show Password" />
         </div>
         <div class="passwordForm">
-            <span>Подтверждение пароля</span>
-            <input type="password" name="" @bind-value="_passwordSubmit">
+            <MudTextField Style="height:55px;" @bind-Value="_passwordSubmit" Label="Подтверждение пароля" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonPassClick" AdornmentAriaLabel="Show Password" />
         </div>
         <div class="submitButton">
-            <button type="submit" @onclick="Registrate">Регистрация</button>
+            <MudButton Variant="Variant.Outlined"
+                       Style="background: #4E9BDA !important;
+                        color: white !important;
+                        font-family: 'Play', sans-serif !important;
+                        height: 45px !important;
+                        font-size: large !important;
+                        font-weight: bold !important;
+                        border:none !important;"
+                        FullWidth="true" ButtonType="ButtonType.Submit" @onclick="Registrate">Зарегистрироваться</MudButton>
         </div>
         <p style="color:red;">@_resultMessage</p>
     </div>
@@ -93,6 +100,8 @@
 
 @code
 {
+
+    private string _selectedClubTitle = "";
     private ElementReference inputTypeFileElement;
 
     private bool _avatarImageProcessed = false;
@@ -100,7 +109,7 @@
     private string _resultMessage = "";
     private string _passwordSubmit = "";
 
-    private RegisterParams _registrationParams = new RegisterParams();
+    private RegisterParams _registrationParams = new RegisterParams() { ClubId = 1};
 
     private List<ClubNameInfo> _clubNames;
 
@@ -114,8 +123,16 @@
         _clubNames = _clubNamesService.GetAll();
     }
 
+    private void ChangeSelectItem(ChangeEventArgs value)
+    {
+        string title = (string)value.Value;
+        int id = _clubNames.First(it => it.Title == title).Id;
+        _registrationParams.ClubId = id;
+    }
+
     private async Task Registrate()
     {
+        _registrationParams.ClubId = _clubNames.First(it => it.Title == _selectedClubTitle).Id;
         if (string.IsNullOrWhiteSpace(_registrationParams.FirstName))
         {
             _resultMessage = "Введите имя!";
@@ -159,19 +176,30 @@
 
     }
 
-    private async Task LoadFiles()
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonPassClick()
     {
-        _avatarImageProcessed = false;
-        try
+        @if (isShow)
         {
-            var file = await fileReaderService.CreateReference(inputTypeFileElement).EnumerateFilesAsync();
-            _registrationParams.Avatar = await _imageLoader.CreateImage(file.First(), "avatars");
-            _avatarImageProcessed = true;
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine(ex.Message);
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
         }
+    }
+
+    private async Task UploadFile(IBrowserFile file)
+    {
+        _registrationParams.Avatar = await _imageLoader.CreateImage(file, "avatars");
+        _avatarImageProcessed = true;
     }
 
     private void ToLogin()

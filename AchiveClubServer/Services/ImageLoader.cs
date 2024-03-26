@@ -20,10 +20,8 @@ namespace AchieveClubServer.Services
             _environment = environment;
         }
 
-        public async Task<string> CreateImage(IFileReference file, string folder)
+        public async Task<string> CreateImage(IBrowserFile file, string folder)
         {
-            bool _fileLoaded = false;
-
             string _fileName = Guid.NewGuid() + ".jpeg";
             string _fullDestFolder = Path.Combine(_environment.ContentRootPath, _destFolder, folder);
             string _path = Path.Combine(_fullDestFolder, _fileName);
@@ -31,19 +29,21 @@ namespace AchieveClubServer.Services
 
             try
             {
-                await using FileStream fs = new(_path, FileMode.Create);
-                var stream = await file.OpenReadAsync();
-                await stream.CopyToAsync(fs);
-                //await _file.OpenReadStream(1024 * 1024 * 5).CopyToAsync(fs);
-                _fileLoaded = true;
+                
+                await using (FileStream fs = new(_path, FileMode.Create))
+                {
+                    await file.OpenReadStream(maxAllowedSize: 1024*1024*10).CopyToAsync(fs);
+                    Task.WaitAll();
+                }
+
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"File: {_fileName} Error: {ex.Message}");
             }
 
-            if (_fileLoaded)
-            {
+            
                 try
                 {
                     using (Image image = Image.Load(_path))
@@ -60,7 +60,7 @@ namespace AchieveClubServer.Services
                 {
                     Console.WriteLine("Image mutation error!");
                 }
-            }
+            
             return _relativePath;
         }
     }

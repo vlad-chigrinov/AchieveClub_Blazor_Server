@@ -43,7 +43,7 @@ main {
     text-align: left;
     flex-direction: column;
     width: 350px;
-    height: 350px;
+    height: 300px;
     padding: 2.5%;
 }
 
@@ -92,14 +92,14 @@ main {
 
     .submitButton button {
         width: 100%;
-        background: #4E9BDA;
         border-radius: 5px;
         border: 1px solid #4E9BDA;
-        color: white;
-        font-family: 'Play', sans-serif;
-        height: 45px;
-        font-size: large;
-        font-weight: bold;
+        background: #4E9BDA !important;
+        color: white !important;
+        font-family: 'Play', sans-serif !important;
+        height: 45px !important;
+        font-size: large !important;
+        font-weight: bold !important;
         padding: 0;
         cursor: pointer;
     }

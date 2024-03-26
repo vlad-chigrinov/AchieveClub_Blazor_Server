@@ -1,5 +1,4 @@
-﻿<CascadingBlazoredModal>
-    <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+﻿<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
         <Found Context="routeData">
             <RedirectToLogin>
                 <RouteView RouteData="@routeData" DefaultLayout="@typeof(DefaultLayout)" />
@@ -10,6 +9,14 @@
                 <p>Sorry, there's nothing at this address.</p>
             </LayoutView>   
         </NotFound>
-    </Router>
-    <AntContainer />
-</CascadingBlazoredModal>
+</Router>
+
+<MudThemeProvider />
+<MudDialogProvider FullWidth="true"
+                   MaxWidth="MaxWidth.ExtraSmall"
+                   CloseButton="true"
+                   DisableBackdropClick="true"
+                   NoHeader="true"
+                   Position="DialogPosition.Center"
+                   CloseOnEscapeKey="true" />
+<MudSnackbarProvider />

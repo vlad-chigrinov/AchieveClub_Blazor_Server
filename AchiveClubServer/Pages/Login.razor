@@ -22,23 +22,31 @@
     <div class="content-wrapper">
         <div class="headingWrapper">
             <h3>Войти в систему</h3>
+            <MudDivider Style="color:black;border: 1px solid black" />
         </div>
         <div class="registerForm">
-            <hr />
             <p @onclick="ToRegistration">Зарегистрироваться</p>
         </div>
         <div class="emailForm">
             @*<span>Email</span>*@
-            <MudTextField id="emailInput" @bind-Value="loginParams.Email" Label="Email" Variant="Variant.Filled" Adornment="Adornment.None" AdornmentIcon="@Icons.Material.Filled.Email" />
+            <MudTextField @bind-Value="loginParams.Email" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.None" AdornmentIcon="@Icons.Material.Filled.Email" />
             @* <input type="email" name="" id="emailInput" @bind-value="loginParams.Email"> *@
         </div>
         <div class="passwordForm">
             @*<span>Пароль</span>*@
-            <MudTextField @bind-Value="loginParams.Password" Label="Пароль" Variant="Variant.Filled" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonPassClick" AdornmentAriaLabel="Show Password" />
+            <MudTextField @bind-Value="loginParams.Password" Label="Пароль" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonPassClick" AdornmentAriaLabel="Show Password" />
             @* <input type="password" name="" id="passwordInput" @bind-value="loginParams.Password"> *@
         </div>
         <div class="submitButton">
-            <button type="submit" @onclick="LoginUser">Войти</button>
+            <MudButton Variant="Variant.Outlined" 
+            Style="background: #4E9BDA !important;
+            color: white !important;
+            font-family: 'Play', sans-serif !important;
+            height: 45px !important;
+            font-size: large !important;
+            font-weight: bold !important;
+            border:none !important;"
+            FullWidth="true" ButtonType="ButtonType.Submit" @onclick="LoginUser">Войти</MudButton>
         </div>
         <p>@result</p>
     </div>

@@ -36,3 +36,9 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 /StaticFiles/avatars
+AchiveClubServer/appsettings.Development.json
+AchiveClubServer/appsettings.Development.json
+*.json
+/AchiveClubServer/appsettings.json
+/AchiveClubServer/appsettings.Development.json
+/AchiveClubServer/appsettings.Production.json

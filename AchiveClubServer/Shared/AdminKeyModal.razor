@@ -1,4 +1,4 @@
-﻿<div class="adminKeyinput">
+﻿@* <div class="adminKeyinput">
     <p class="modalInfo"><b>Пользователь:</b>&nbsp;@UserFullName</p>
     <p class="modalInfo"><b>Достижение:</b>&nbsp;@AchieveTitle</p>
     <input type="password" autocomplete="off" placeholder="...ключ тренера..." @bind-value="_message" />
@@ -9,7 +9,7 @@
 
 @code {
 
-    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
+    // [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
     [Parameter] public string UserFullName { get; set; }
     [Parameter] public string AchieveTitle { get; set; }
 
@@ -17,4 +17,4 @@
     private string _message;
 
     void SubmitForm() => BlazoredModal.CloseAsync(ModalResult.Ok(_message));
-}
+} *@
