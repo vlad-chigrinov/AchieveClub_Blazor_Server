@@ -1,17 +1,18 @@
 ﻿<MudDialog>
     <DialogContent>
-        Dialog Content
+        <h2>Неверный пароль тренера!</h2>
+        <p>Ошибка: @Exception</p>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+        <button id="buttonSubmit" @onclick=@Submit>Понятно</button>
     </DialogActions>
 </MudDialog>
 
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
+    [Parameter] public string Exception { get; set; }
+
     void Submit() => MudDialog.Close(DialogResult.Ok(true));
-    void Cancel() => MudDialog.Cancel();
 }
 

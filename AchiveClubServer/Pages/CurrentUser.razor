@@ -11,6 +11,8 @@
 @inject AvatarChanger _avatarChanger
 
 @inject IFileReaderService fileReaderService
+@inject IDialogService DialogService
+@inject IJSRuntime jsRuntime
 
 @if (_model != null)
 {
@@ -31,10 +33,14 @@
                     <ButtonTemplate>
                         <MudButton HtmlTag="label"
                                    Variant="Variant.Filled"
-                                   Color="Color.Primary"
-                                   StartIcon="@Icons.Material.Filled.CloudUpload"
-                                   for="@context.Id">
-                            Only image files
+                                   StartIcon="@Icons.Material.Filled.Image"
+                                   Size="Size.Small"
+                                   for="@context.Id"
+                                   Style="
+                                    background: mediumaquamarine !important;
+                                    color:white !important;
+                                   ">
+                            Изменить аватарку
                         </MudButton>
                     </ButtonTemplate>
                 </MudFileUpload>
@@ -51,16 +57,47 @@
     <!--Detete selected button-->
     @if (_showDeleteButton)
     {
-        <button id="deleteList" class="overlayButton" @onclick=DeleteAchievementsAsync>
+        @* <button id="deleteList" class="overlayButton" @onclick=DeleteAchievementsAsync>
             <span>Отменить все</span>
-        </button>
+        </button> *@
+
+        <MudButton HtmlTag="button" id="deleteList" Variant="Variant.Filled" @onclick=DeleteAchievementsAsync
+                   Style="
+                background-color: indianred;
+                color:white;
+                bottom: 11%;
+                z-index: 1;
+                text-align: center;
+                position: fixed;
+                border-radius: 20px;
+                padding: 15px;
+                border: 0;
+                font-weight: bold;
+                    ">
+            Отменить все
+        </MudButton>
     }
     <!--Complete selected button-->
     @if (_showAcceptButton)
     {
-        <button id="acceptList" class="overlayButton" @onclick=CompleteAchievementsAsync>
+        @* <button id="acceptList" class="overlayButton" @onclick=CompleteAchievementsAsync>
             <span>Подтвердить все</span>
-        </button>
+        </button> *@
+
+        <MudButton HtmlTag="button" id="acceptList" Variant="Variant.Filled" @onclick=CompleteAchievementsAsync
+            Style="
+                background-color: #98ffdf;
+                bottom: 11%;
+                z-index: 1;
+                text-align: center;
+                position: fixed;
+                border-radius: 20px;
+                padding: 15px;
+                border: 0;
+                font-weight: bold;
+            ">
+            Подтвердить все
+        </MudButton>
     }
     <main>
         <div class="generalInfo">
@@ -226,100 +263,101 @@
 
     private async Task CompleteAchievementsAsync()
     {
-        // var selectedAchievements = _model.Achievements.Where(a => a.Selected && a.Completed == false).ToList();
-        // var parameters = new ModalParameters();
-        // parameters.Add("UserFullName", _model.FullName);
-        // parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
-        // var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для подтверждения выполнения!", parameters);
-        // var result = await modalInstance.Result;
+        var selectedAchievements = _model.Achievements.Where(a => a.Selected && a.Completed == false).ToList();
+        var parameters = new DialogParameters<AdminKeyModal>();
+        parameters.Add("UserFullName", _model.FullName);
+        parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
+        var modalInstance = DialogService.Show<AdminKeyModal>("Передайте устройство тренеру для подтверждения выполнения!", parameters);
+        var result = await modalInstance.Result;
 
-        // if (!result.Cancelled)
-        // {
-        //     string adminKey = (string)result.Data;
-        //     var completeAchieveParams = new CompleteAchieveParams()
-        //         {
-        //             UserId = _model.Id,
-        //             AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
-        //             SupervisorKey = adminKey
-        //         };
-        //     try
-        //     {
-        //         _completeAchieveService.CompleteMultiple(completeAchieveParams);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Console.WriteLine(ex.Message);
-        //     }
+        if (!result.Cancelled)
+        {
+            string supervisorKey = (string)result.Data;
+            var completeAchieveParams = new CompleteAchieveParams()
+                {
+                    UserId = _model.Id,
+                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
+                    SupervisorKey = supervisorKey
+                };
+            try
+            {
+                _completeAchieveService.CompleteMultiple(completeAchieveParams);
+            }
+            catch (Exception ex)
+            {
+                ErrorSupevisorPass(ex);
+                Console.WriteLine(ex.Message);
+            }
 
-        //     _model = _modelBuilder.Build(_model.Id);
-        //     StateHasChanged();
-        // }
+            _model = _modelBuilder.Build(_model.Id);
+            StateHasChanged();
+        }
     }
 
     private async Task DeleteAchievementsAsync()
     {
-        // var selectedAchievements = _model.Achievements.Where(a => a.Selected && a.Completed == true).ToList();
-        // var parameters = new ModalParameters();
-        // parameters.Add("UserFullName", _model.FullName);
-        // parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
-        // var modalInstance = Modal.Show<AdminKeyModal>("Передайте устройство тренеру для отмены выполнения!", parameters);
-        // var result = await modalInstance.Result;
+        var selectedAchievements = _model.Achievements.Where(a => a.Selected && a.Completed == true).ToList();
+        var parameters = new DialogParameters<AdminKeyModal>();
+        parameters.Add("UserFullName", _model.FullName);
+        parameters.Add("AchieveTitle", selectedAchievements.Select(a => a.Title).Aggregate((a1, a2) => a1 + ", " + a2));
+        var modalInstance = DialogService.Show<AdminKeyModal>("Передайте устройство тренеру для отмены выполнения!", parameters);
+        var result = await modalInstance.Result;
 
-        // if (!result.Cancelled)
-        // {
-        //     string supervisorKey = (string)result.Data;
-        //     var completeAchieveParams = new CompleteAchieveParams()
-        //         {
-        //             UserId = _model.Id,
-        //             AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
-        //             SupervisorKey = supervisorKey
-        //         };
-        //     try
-        //     {
-        //         _completeAchieveService.DeleteMultiple(completeAchieveParams);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Console.WriteLine(ex.Message);
-        //     }
+        if (!result.Cancelled)
+        {
+            string supervisorKey = (string)result.Data;
+            var completeAchieveParams = new CompleteAchieveParams()
+                {
+                    UserId = _model.Id,
+                    AchievementsId = selectedAchievements.Select(a => a.Id).ToList(),
+                    SupervisorKey = supervisorKey
+                };
+            try
+            {
+                _completeAchieveService.DeleteMultiple(completeAchieveParams);
+            }
+            catch (Exception ex)
+            {
+                ErrorSupevisorPass(ex);
+                Console.WriteLine(ex.Message);
+            }
 
-        //     _model = _modelBuilder.Build(_model.Id);
-        //     StateHasChanged();
-        // }
+            _model = _modelBuilder.Build(_model.Id);
+            StateHasChanged();
+        }
+    }
+
+    private async Task ErrorSupevisorPass(Exception ex)
+    {
+        var parameters = new DialogParameters<InCorrectSupervisorPass>();
+        parameters.Add("Exception", ex.Message);
+        var modalInstance = DialogService.Show<InCorrectSupervisorPass>("Неверный пароль тренера!", parameters);
+        var result = await modalInstance.Result;
+
+        if (!result.Cancelled)
+        {
+            _model = _modelBuilder.Build(_model.Id);
+            StateHasChanged();
+        }
     }
 
     private async Task Logout()
     {
         await _login.Logout();
         _navigation.NavigateTo("/login");
+        await jsRuntime.InvokeVoidAsync("removeAllStorageKeys");
     }
 
     private async Task UploadFile(IBrowserFile file)
     {
-        _model.Avatar = await _imageLoader.CreateImage(file, "avatars");
+        string avatarPath = await _imageLoader.CreateImage(file, "avatars");
+        if (_avatarChanger.ChangeAvatarById(_model.Id, avatarPath))
+        {
+            _model.Avatar = avatarPath;
+        }
+        else
+        {
+            _model.Avatar = @"https://icon-library.com/images/error-icon-png/error-icon-png-15.jpg";
+        }
     }
-
-    // private async Task LoadFiles()
-    // {
-    //     try
-    //     {
-    //         var files = await fileReaderService.CreateReference(inputTypeFileElement).EnumerateFilesAsync();
-    //         var file = files.First();
-    //         string avatarPath = await _imageLoader.CreateImage(file, "avatars");
-
-    //         if (_avatarChanger.ChangeAvatarById(_model.Id, avatarPath))
-    //         {
-    //             _model.Avatar = avatarPath;
-    //         }
-    //         else
-    //         {
-    //             _model.Avatar = @"https://icon-library.com/images/error-icon-png/error-icon-png-15.jpg";
-    //         }
-    //         StateHasChanged();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         Console.WriteLine(ex.Message);
-    //     }
-    // }
 }
