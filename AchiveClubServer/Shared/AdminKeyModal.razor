@@ -1,36 +1,45 @@
-﻿@* <div class="adminKeyinput">
-    <p class="modalInfo"><b>Пользователь:</b>&nbsp;@UserFullName</p>
-    <p class="modalInfo"><b>Достижение:</b>&nbsp;@AchieveTitle</p>
-    <input type="password" autocomplete="off" placeholder="...ключ тренера..." @bind-value="_message" />
-    <div class="buttons">
-        <button id="buttonSubmit" @onclick="SubmitForm">Подтвердить</button>
-    </div>
-</div>
-
-@code {
-
-    // [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
-    [Parameter] public string UserFullName { get; set; }
-    [Parameter] public string AchieveTitle { get; set; }
-
-
-    private string _message;
-
-    void SubmitForm() => BlazoredModal.CloseAsync(ModalResult.Ok(_message));
-} *@
-
-<MudDialog>
+﻿<MudDialog>
     <DialogContent>
-        <div class="adminKeyinput">
             <p class="modalInfo"><b>Пользователь:</b>&nbsp;@UserFullName</p>
             <p class="modalInfo"><b>Достижение:</b>&nbsp;@AchieveTitle</p>
             <MudTextField Style="height:55px;" @bind-Value="_message" Label="Ключ тренера" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonPassClick" AdornmentAriaLabel="Show Password" />
             
             <div class="buttons">
-                <button id="buttonCancel" @onclick="Cancel">Отменить</button>
-                <button id="buttonSubmit" @onclick="Submit">Подтвердить</button>
+                <MudButton @onclick="Cancel" Variant="Variant.Filled"
+                    Style="
+                        width: 48%;
+                        margin-right: 2%;
+                        background: indianred;
+                        border-radius: 5px;
+                        border: 1px solid indianred;
+                        color: white;
+                        font-family: 'Play', sans-serif;
+                        height: 45px;
+                        font-size: large;
+                        font-weight: bold;
+                        padding: 0;
+                        cursor: pointer;
+                    ">
+                    Отменить
+                </MudButton>
+                <MudButton @onclick="Submit" Variant="Variant.Filled"
+                           Style="
+                            width: 48%;
+                            margin-right: 2%;
+                            background: #4E9BDA;
+                            border-radius: 5px;
+                            border: 1px solid #4E9BDA;
+                            color: white;
+                            font-family: 'Play', sans-serif;
+                            height: 45px;
+                            font-size: large;
+                            font-weight: bold;
+                            padding: 0;
+                            cursor: pointer;
+                        ">
+                    Отменить
+                </MudButton>
             </div>
-        </div>
     </DialogContent>
 </MudDialog>
 
