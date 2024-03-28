@@ -30,32 +30,41 @@ else
 {
     @if (_achieves.Any())
     {
-        <h3>Достижения</h3>
+        <h2>Достижения</h2>
         @foreach (var achieve in _achieves)
         {
             <div class="rows">
                 <div class="columns">
-                    <p>#@(_achieves.IndexOf(achieve)+1)</p>
-                    <input placeholder="Название" type="text" @bind=achieve.Title width="450" />
-                    <button @onclick="()=>EditAchieve(achieve)">Сохранить</button>
-                    <button @onclick="()=>DeleteAchieve(achieve)">Удалить</button>
+                    <h2>#@(_achieves.IndexOf(achieve)+1)</h2>
+                    <MudTextField Label="Название" @bind-Value="@achieve.Title" T="string" Variant="Variant.Outlined"/>
                 </div>
-                <textarea placeholder="Описание" type="text" @bind=achieve.Description rows=2 />
-                <input placeholder="Количество опыта" type="text" @bind=achieve.XpString />
-                <input placeholder="URL иконки" type="text" @bind=achieve.LogoURL />
-                <p>
-                    <input type="checkbox" id="multi" @bind=achieve.IsMultiple />
-                    <label for="multi">Многоразовая или нет</label>
-                </p>
+                <MudTextField Lines="2" Label="Описание" @bind-Value="@achieve.Description" T="string" Variant="Variant.Outlined" />
+                <MudTextField Label="Количество опыта" @bind-Value="@achieve.XpString" T="string" Variant="Variant.Outlined" />
+                <MudTextField Label="URL иконки" @bind-Value="@achieve.LogoURL" T="string" Variant="Variant.Outlined" />
+                <MudSwitch @bind-Checked="achieve.IsMultiple" Class="mud-width-full" Color="Color.Primary">Многоразовая или нет</MudSwitch>
+                <div class="columns">
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>EditAchieve(achieve)">
+                        Сохранить
+                    </MudButton>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>DeleteAchieve(achieve)">
+                        Удалить
+                    </MudButton>
+                </div>
             </div>
         }
     }
     else
     {
-        <h3>Список достижений пуст!</h3>
+        <h2>Список достижений пуст!</h2>
     }
-    <button @onclick=AddAchieve>Добавить</button>
-    <button @onclick=EditAllAchievements>Сохранить все</button>
+    <div class="buttons">
+        <MudButton Style="width:49.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="AddAchieve">
+            Добавить
+        </MudButton>
+        <MudButton Style="width:49.5%;margin-left:0.5%;" Variant="Variant.Filled" @onclick="EditAllAchievements">
+            Сохранить все
+        </MudButton>
+    </div>
     <hr />
 }
 else
@@ -65,21 +74,26 @@ else
 
 @if (_admins != null)
 {
-    <button @onclick=AddAdmin>Добавить</button>
     @if (_admins.Any())
     {
-        <h3>Администраторы</h3>
+        <h2>Администраторы</h2>
         @foreach (var admin in _admins)
         {
             <div class="rows">
                 <div class="columns">
-                    <p>#@admin.Id</p>
-                    <input placeholder="Полное имя" type="text" @bind=admin.Name />
-                    <input placeholder="Пароль" type="text" @bind=admin.Password />
+                    <h2>#@admin.Id</h2>
+                    <div class="inputs">
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;" Label="Полное имя" @bind-Value="@admin.Name" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Style="margin-left:0.5%;margin-right:0.5%;" Label="Пароль" @bind-Value="@admin.Password" T="string" Variant="Variant.Outlined" />
+                    </div>
                 </div>
                 <div class="columns">
-                    <button @onclick="()=>EditAdmin(admin)">Сохранить</button>
-                    <button @onclick="()=>DeleteAdmin(admin)">Удалить</button>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>EditAdmin(admin)">
+                        Сохранить
+                    </MudButton>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>DeleteAdmin(admin)">
+                        Удалить
+                    </MudButton>
                 </div>
                 <hr />
             </div>
@@ -94,22 +108,33 @@ else
 {
     <h3>Загрузка списка администраторов...</h3>
 }
+<div class="buttons">
+    <MudButton FullWidth="true" Variant="Variant.Filled" @onclick=AddAdmin>Добавить нового админа</MudButton>
+</div>
 
 @if (_supervisers != null)
 {
     @if (_supervisers.Any())
     {
-        <h3>Тренера</h3>
+        <h2>Тренера</h2>
         @foreach (var superviser in _supervisers)
         {
             <div class="rows">
                 <div class="columns">
-                    <p>#@(_supervisers.IndexOf(superviser)+1)</p>
-                    <input placeholder="Имя" type="text" @bind=superviser.Name width="450" />
-                    <button @onclick="()=>EditSupervisor(superviser)">Сохранить</button>
-                    <button @onclick="()=>DeleteSupervisor(superviser)">Удалить</button>
+                    <h2>#@(_supervisers.IndexOf(superviser)+1)</h2>
+                    <div class="inputs">
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;" Label="Имя" @bind-Value="@superviser.Name" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;" Label="Ключ" @bind-Value="@superviser.Key" T="string" Variant="Variant.Outlined" />
+                    </div>
                 </div>
-                <input placeholder="Ключ" type="text" @bind=superviser.Key />
+                <div class="columns">
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>EditSupervisor(superviser)">
+                        Сохранить
+                    </MudButton>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>DeleteSupervisor(superviser)">
+                        Удалить
+                    </MudButton>
+                </div>
             </div>
         }
     }
@@ -117,8 +142,14 @@ else
     {
         <h3>Список тренеров пуст!</h3>
     }
-    <button @onclick=AddSupervisor>Добавить</button>
-    <button @onclick=EditAllSupervisers>Сохранить все</button>
+    <div class="buttons">
+        <MudButton Style="width:49.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="AddSupervisor">
+            Добавить
+        </MudButton>
+        <MudButton Style="width:49.5%;margin-left:0.5%;" Variant="Variant.Filled" @onclick="EditAllSupervisers">
+            Сохранить все
+        </MudButton>
+    </div>
     <hr />
 }
 else
@@ -128,32 +159,42 @@ else
 
 @if (_clubs != null)
 {
-    <button @onclick=AddClub>Добавить</button>
     @if (_admins.Any())
     {
-        <h3>Клубы</h3>
+        <h2>Клубы</h2>
         @foreach (var club in _clubs)
         {
             <div class="rows">
                 <div class="columns">
-                    <p>#@club.Id</p>
-                    <input placeholder="Название" type="text" @bind=club.Title />
-                    <input placeholder="Описание" type="text" @bind=club.Description />
-                    <input placeholder="Адрес" type="text" @bind=club.Address />
-                    <input placeholder="Логотип" type="url" @bind=club.LogoURL />
+                    <h3 style="z-index:0;position:absolute;">#@club.Id</h3>
+                    <div class="clubInputs">
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;" Label="Имя" @bind-Value="@club.Title" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Lines="5" Style="margin-right:0.5%;margin-left:0.5%;" Label="Описание" @bind-Value="@club.Description" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;" Label="Адрес" @bind-Value="@club.Address" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;" Label="URL логотипа" @bind-Value="@club.LogoURL" T="string" Variant="Variant.Outlined" />
+                    </div>
                 </div>
                 <div class="columns">
-                    <button @onclick="()=>EditClub(club)">Сохранить</button>
-                    <button @onclick="()=>DeleteClub(club)">Удалить</button>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>EditClub(club)">
+                        Сохранить
+                    </MudButton>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>DeleteClub(club)">
+                        Удалить
+                    </MudButton>
                 </div>
                 <hr />
             </div>
         }
     }
     else
-    {
+    {   
         <h3>Список клубов пуст!</h3>
     }
+    <div class="buttons">
+        <MudButton FullWidth="true" Variant="Variant.Filled" @onclick="AddClub">
+            Добавить
+        </MudButton>
+    </div>
 }
 else
 {
@@ -162,40 +203,46 @@ else
 
 @if (_users != null)
 {
-    <button @onclick=AddUser>Добавить</button>
     @if (_users.Any())
     {
         <h3>Пользователи</h3>
         @foreach (var user in _users)
         {
             <div class="rows">
-                <div class="columns">
-                    <p>#@user.Id</p>
-                    <input placeholder="Имя" type="text" @bind=user.FirstName />
-                    <input placeholder="Фамилия" type="text" @bind=user.LastName />
-                    <input placeholder="Email" type="text" @bind=user.Email />
-                    <input placeholder="Аватар" type="text" @bind=user.Avatar />
-                    <select @bind="user.ClubRefId">
-                        @if (_clubNames != null)
-                        {
+                <div class="columns" style="flex-direction:column">
+                    <h3 style="z-index:0;position:absolute;">#@user.Id</h3>
+                    <div class="clubInputs">
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Label="Имя" @bind-Value="@user.FirstName" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Lines="5" Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Label="Фамилия" @bind-Value="@user.LastName" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Label="Email" @bind-Value="@user.Email" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Label="Аватар" @bind-Value="@user.Avatar" T="string" Variant="Variant.Outlined" />
+                        <MudSelect Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Margin="Margin.Dense" T="int" Label="Место обучения" Variant="Variant.Outlined" @bind-Value="user.ClubRefId">
                             @foreach (var clubName in _clubNames)
                             {
-                                <option value="@clubName.Id">@clubName.Title</option>
+                                <MudSelectItem T="int" Value="@clubName.Id">@clubName.Title</MudSelectItem>
                             }
-                        }
-                    </select>
+                        </MudSelect>
+                    </div>
                     <br>
-                    <div class="columns">
-                        <div style="background-color:lightgray;padding:10px">
-                            <input placeholder="Новый пароль" type="text" @bind=_newPassword />
-                            <button @onclick="()=>ChangeUserPassword(user.Id)">Установить</button>
-                            <button @onclick="ClearNewPassword">Отменить</button>
+                    <div class="userPass">
+                        <MudTextField FullWidth="true" Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Label="Новый пароль" @bind-Value="@_newPassword" T="string" Variant="Variant.Outlined" />
+                        <div class="userPassButtons">
+                            <MudButton Style="width:49%;margin-right:0.5%;margin-left:0.5%;" Variant="Variant.Filled" @onclick="()=>ChangeUserPassword(user.Id)">
+                                Установить
+                            </MudButton>
+                            <MudButton Style="width:49%;margin-right:0.5%;margin-left:0.5%;" Variant="Variant.Filled" @onclick="ClearNewPassword">
+                                Очистить
+                            </MudButton>
                         </div>
                     </div>
                 </div>
                 <div class="columns">
-                    <button @onclick="()=>EditUser(user)">Сохранить</button>
-                    <button @onclick="()=>DeleteUser(user)">Удалить</button>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>EditUser(user)">
+                        Сохранить пользователя
+                    </MudButton>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>EditUser(user)">
+                        Удалить пользователя
+                    </MudButton>
                 </div>
                 <hr />
             </div>
@@ -205,6 +252,11 @@ else
     {
         <h3>Список пользователей пуст!</h3>
     }
+    <div class="buttons">
+        <MudButton FullWidth="true" Variant="Variant.Filled" @onclick="AddUser">
+            Добавить
+        </MudButton>
+    </div>
 }
 else
 {
@@ -218,23 +270,26 @@ else
 
 @if (_medals != null)
 {
-    <button @onclick=AddMedals>Добавить</button>
-    <button @onclick=DeleteAllMedals>Удалить все медали</button>
-    <button @onclick="CalculateMedals">Разрадать медали пользователям</button>
     @if (_medals.Any())
     {
-        <h3>Медали</h3>
+        <h2>Медали</h2>
         @foreach (var medal in _medals)
         {
             <div class="rows">
-                <div class="columns">
-                    <p>#@medal.Id</p>
-                    <input placeholder="Название" type="text" @bind=medal.Title />
-                    <input placeholder="Картинка" type="text" @bind=medal.Icon />
+                <div class="columns" style="flex-direction:column">
+                    <h3 style="z-index:0;position:absolute;">#@medal.Id</h3>
+                    <div class="clubInputs">
+                        <MudTextField Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Label="Название" @bind-Value="@medal.Title" T="string" Variant="Variant.Outlined" />
+                        <MudTextField Lines="5" Style="margin-right:0.5%;margin-left:0.5%;margin-bottom:1%;" Label="Картинка" @bind-Value="@medal.Icon" T="string" Variant="Variant.Outlined" />
+                    </div>
                 </div>
                 <div class="columns">
-                    <button @onclick="()=>EditMedals(medal)">Сохранить</button>
-                    <button @onclick="()=>DeleteMedals(medal)">Удалить</button>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>EditMedals(medal)">
+                        Сохранить
+                    </MudButton>
+                    <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="()=>DeleteMedals(medal)">
+                        Удалить
+                    </MudButton>
                 </div>
                 <hr />
             </div>
@@ -250,7 +305,19 @@ else
     <h3>Загрузка списка медалей...</h3>
 }
 
-
+<div class="medalButtons">
+    <div style="display:flex;margin:0;">
+        <MudButton Style="width:49%;margin-right:0.5%;margin-left:0.5%;" Variant="Variant.Filled" @onclick="AddMedals">
+            Добавить
+        </MudButton>
+        <MudButton Style="width:49%;margin-left:0.5%;margin-right:0.5%;" Variant="Variant.Filled" @onclick="DeleteAllMedals">
+            Удалить все медали
+        </MudButton>
+    </div>
+    <MudButton Style="width:99%;margin:1% 0.5% 0% 0.5%" Variant="Variant.Filled" @onclick="CalculateMedals">
+        Раздать всем медали
+    </MudButton>
+</div>
 
 
 
