@@ -29,8 +29,7 @@ namespace AchieveClubServer.Services
 
         public async Task Clear()
         {
-            await _localStorage.SetItemAsync("password", "1");
-            await _localStorage.SetItemAsync("email", "1");
+            await _localStorage.ClearAsync();
         }
     }
 }
