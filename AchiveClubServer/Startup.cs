@@ -13,6 +13,7 @@ using Microsoft.Extensions.FileProviders;
 using Blazored.LocalStorage;
 using Tewr.Blazor.FileReader;
 using MudBlazor.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace AchieveClubServer
 {
@@ -101,7 +102,13 @@ namespace AchieveClubServer
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler(exceptionHandlerApp =>
+                {
+                    exceptionHandlerApp.Run(async context =>
+                    {
+                        context.Response.StatusCode = StatusCodes.Status418ImATeapot;
+                    });
+                });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -122,7 +129,6 @@ namespace AchieveClubServer
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
                 endpoints.MapControllers();
-                
             });
         }
     }
