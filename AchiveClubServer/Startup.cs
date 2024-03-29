@@ -121,6 +121,8 @@ namespace AchieveClubServer
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapControllers();
+                
             });
         }
     }
