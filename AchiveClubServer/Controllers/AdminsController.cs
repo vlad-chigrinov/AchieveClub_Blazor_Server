@@ -24,11 +24,11 @@ namespace AchieveClubServer.Controllers
         }
 
         // GET api/<AchievementsController>/5
-        ////[HttpGet("{id}")]
-        ////public string Get(int id)
-        ////{
-        ////    return "value";
-        ////}
+        [HttpGet("{id}")]
+        public Admin Get(int id)
+        {
+            return _adminRepo.GetById(id);
+        }
 
         ////POST api/<AchievementsController>
         ////[HttpPost]

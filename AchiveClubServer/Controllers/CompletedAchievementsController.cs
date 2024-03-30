@@ -11,24 +11,24 @@ namespace AchieveClubServer.Controllers
     [ApiController]
     public class CompletedAchievementsController : ControllerBase
     {
-        private ICompletedAchieveRepository _achieveRepo;
-        public CompletedAchievementsController(ICompletedAchieveRepository achieveRepository)
+        private ICompletedAchieveRepository _completedAchieveRepo;
+        public CompletedAchievementsController(ICompletedAchieveRepository completedAchieveRepository)
         {
-            _achieveRepo = achieveRepository;
+            _completedAchieveRepo = completedAchieveRepository;
         }
         ////// GET: api/<AchievementsController>
         [HttpGet]
         public IEnumerable<CompletedAchievement> Get()
         {
-            return _achieveRepo.GetAll();
+            return _completedAchieveRepo.GetAll();
         }
 
         // GET api/<AchievementsController>/5
-        ////[HttpGet("{id}")]
-        ////public string Get(int id)
-        ////{
-        ////    return "value";
-        ////}
+        [HttpGet("{id}")]
+        public CompletedAchievement Get(int id)
+        {
+            return _completedAchieveRepo.GetById(id);
+        }
 
         ////POST api/<AchievementsController>
         ////[HttpPost]

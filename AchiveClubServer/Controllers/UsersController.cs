@@ -12,6 +12,7 @@ namespace AchieveClubServer.Controllers
     public class UsersController : ControllerBase
     {
         private IUserRepository _userRepo;
+        private ChangeUserPasswordService _changePassword;
         public UsersController(IUserRepository userRepository)
         {
             _userRepo = userRepository;
@@ -24,11 +25,11 @@ namespace AchieveClubServer.Controllers
         }
 
         // GET api/<AchievementsController>/5
-        ////[HttpGet("{id}")]
-        ////public string Get(int id)
-        ////{
-        ////    return "value";
-        ////}
+        [HttpGet("{id}")]
+        public User Get(int id)
+        {
+            return _userRepo.GetById(id);
+        }
 
         ////POST api/<AchievementsController>
         ////[HttpPost]
@@ -37,10 +38,12 @@ namespace AchieveClubServer.Controllers
         ////}
 
         ////PUT api/<AchievementsController>/5
-        ////[HttpPut("{id}")]
-        ////public void Put(int id, [FromBody] string value)
-        ////{
-        ////}
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+            
+
+        }
 
         ////DELETE api/<AchievementsController>/5
         ////[HttpDelete("{id}")]

@@ -2,6 +2,7 @@
 using AchieveClubServer.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,11 +25,8 @@ namespace AchieveClubServer.Controllers
         }
 
         // GET api/<AchievementsController>/5
-        ////[HttpGet("{id}")]
-        ////public string Get(int id)
-        ////{
-        ////    return "value";
-        ////}
+        [HttpGet("{id}")]
+        public Achievement Get(int id) { return _achieveRepo.GetById(id); }
 
         ////POST api/<AchievementsController>
         ////[HttpPost]
