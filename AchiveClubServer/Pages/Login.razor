@@ -28,14 +28,11 @@
             <p @onclick="ToRegistration">Зарегистрироваться</p>
         </div>
         <div class="emailForm">
-            @*<span>Email</span>*@
             <MudTextField @bind-Value="loginParams.Email" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.None" AdornmentIcon="@Icons.Material.Filled.Email" />
-            @* <input type="email" name="" id="emailInput" @bind-value="loginParams.Email"> *@
         </div>
         <div class="passwordForm">
-            @*<span>Пароль</span>*@
             <MudTextField @bind-Value="loginParams.Password" Label="Пароль" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonPassClick" AdornmentAriaLabel="Show Password" />
-            @* <input type="password" name="" id="passwordInput" @bind-value="loginParams.Password"> *@
+     
         </div>
         <div class="submitButton">
             <MudButton Variant="Variant.Outlined" 

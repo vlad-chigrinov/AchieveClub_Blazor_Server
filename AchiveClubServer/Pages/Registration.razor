@@ -109,7 +109,7 @@
     private string _resultMessage = "";
     private string _passwordSubmit = "";
 
-    private RegisterParams _registrationParams = new RegisterParams() { ClubId = 1};
+    private RegisterParams _registrationParams = new RegisterParams() { ClubRefId = 1};
 
     private List<ClubNameInfo> _clubNames;
 
@@ -127,12 +127,12 @@
     {
         string title = (string)value.Value;
         int id = _clubNames.First(it => it.Title == title).Id;
-        _registrationParams.ClubId = id;
+        _registrationParams.ClubRefId = id;
     }
 
     private async Task Registrate()
     {
-        _registrationParams.ClubId = _clubNames.First(it => it.Title == _selectedClubTitle).Id;
+        _registrationParams.ClubRefId = _clubNames.First(it => it.Title == _selectedClubTitle).Id;
         if (string.IsNullOrWhiteSpace(_registrationParams.FirstName))
         {
             _resultMessage = "Введите имя!";
@@ -149,7 +149,7 @@
         {
             _resultMessage = "Загрузите свою фотографию!";
         }
-        else if (_registrationParams.ClubId < 1)
+        else if (_registrationParams.ClubRefId < 1)
         {
             _resultMessage = "Выберите клуб!";
         }

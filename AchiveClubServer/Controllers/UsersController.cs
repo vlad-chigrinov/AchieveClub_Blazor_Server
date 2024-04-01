@@ -31,21 +31,24 @@ namespace AchieveClubServer.Controllers
             return _userRepo.GetById(id);
         }
 
-        ////POST api/<AchievementsController>
-        ////[HttpPost]
-        ////public void Post([FromBody] string value)
-        ////{
-        ////}
-
-        ////PUT api/<AchievementsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //POST api/<AchievementsController>
+        [HttpPost]
+        public ActionResult<int> Post([FromBody] RegisterParams registrationParams)
         {
-            
+            int result = _userRepo.Insert(registrationParams.ToUser());
+            return Ok(result);
 
         }
 
-        ////DELETE api/<AchievementsController>/5
+        ////PUT api/<AchievementsController>/5
+        ////[HttpPut("{id}")]
+        ////public void Put(int id, [FromBody] string value)
+        ////{
+
+
+        ////}
+
+        //DELETE api/<AchievementsController>/5
         ////[HttpDelete("{id}")]
         ////public void Delete(int id)
         ////{

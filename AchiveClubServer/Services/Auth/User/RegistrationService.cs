@@ -34,7 +34,7 @@ namespace AchieveClubServer.Services
                     Email = registerParams.Email,
                     Password = _hashService.HashPassword(registerParams.Password).ToString(),
                     Avatar = registerParams.Avatar,
-                    ClubRefId = registerParams.ClubId
+                    ClubRefId = registerParams.ClubRefId
                 });
             }
             catch

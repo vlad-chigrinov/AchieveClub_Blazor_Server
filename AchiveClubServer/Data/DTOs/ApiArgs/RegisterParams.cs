@@ -9,6 +9,20 @@ namespace AchieveClubServer.Data.DTO
         public string Email { get; set; }
         public string Password { get; set; }
         public string Avatar { get; set; }
-        public int ClubId { get; set; }
+        public int ClubRefId { get; set; }
+
+        public User ToUser()
+        {
+            return new User
+            {
+                Id = 0,
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                Avatar = Avatar,
+                ClubRefId = ClubRefId,
+                Password = Password
+            };
+        }
     }
 }
