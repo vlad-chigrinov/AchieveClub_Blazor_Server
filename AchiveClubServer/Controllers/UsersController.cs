@@ -1,7 +1,10 @@
 ﻿using AchieveClubServer.Data.DTO;
 using AchieveClubServer.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,17 +44,37 @@ namespace AchieveClubServer.Controllers
         }
 
         ////PUT api/<AchievementsController>/5
-        ////[HttpPut("{id}")]
-        ////public void Put(int id, [FromBody] string value)
-        ////{
+        [HttpPut("{id}")]
+        public ActionResult<User> UpdateUser(int id, User user)
+        {
+            bool result = _userRepo.Update(user);
+            try
+            {
+                if (id != user.Id)
+                {
+                    return BadRequest("User ID is not found!");
+                }
 
+                var userToUpdate = _userRepo.GetById(id);
 
-        ////}
+                if (userToUpdate == null)
+                {
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return Ok(result);
+        }
 
-        //DELETE api/<AchievementsController>/5
-        ////[HttpDelete("{id}")]
-        ////public void Delete(int id)
-        ////{
-        ////}
-    }
+            ////}
+
+            //DELETE api/<AchievementsController>/5
+            ////[HttpDelete("{id}")]
+            ////public void Delete(int id)
+            ////{
+            ////}
+        }
 }

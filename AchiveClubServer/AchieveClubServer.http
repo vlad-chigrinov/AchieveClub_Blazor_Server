@@ -1,18 +1,10 @@
 ﻿@AchieveClubServer_HostAddress = https://localhost:5001
 
-
-POST {{AchieveClubServer_HostAddress}}/api/users
+PUT {{AchieveClubServer_HostAddress}}/api/users/{id:int}?id=0
 Content-Type: application/json
 
 {
-  RegisrationParams: {
-    FirstName : "Test",
-                LastName : "Test",
-                Email : "test@email.com",
-                Avatar : "32234324.png",
-                ClubRefId : 1,
-                Password : "3453453245345436dfgrefgwef"
-  }
+
 }
 
 ###
