@@ -66,15 +66,16 @@ namespace AchieveClubServer.Controllers
             {
                 Console.WriteLine(ex.Message);
             }
+            return Ok(result);        }
+
+        ////}
+
+        //DELETE api/<AchievementsController>/5
+        [HttpDelete("{id}")]
+        public ActionResult<bool> Delete(int id)
+        {
+            bool result = _userRepo.Delete(id);
             return Ok(result);
         }
-
-            ////}
-
-            //DELETE api/<AchievementsController>/5
-            ////[HttpDelete("{id}")]
-            ////public void Delete(int id)
-            ////{
-            ////}
-        }
+    }
 }
