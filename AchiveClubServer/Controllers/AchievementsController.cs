@@ -26,13 +26,18 @@ namespace AchieveClubServer.Controllers
 
         // GET api/<AchievementsController>/5
         [HttpGet("{id}")]
-        public Achievement Get(int id) { return _achieveRepo.GetById(id); }
+        public Achievement Get(int id) 
+        { 
+            return _achieveRepo.GetById(id); 
+        }
 
         ////POST api/<AchievementsController>
-        ////[HttpPost]
-        ////public void Post([FromBody] string value)
-        ////{
-        ////}
+        [HttpPost]
+        public ActionResult<Achievement> Post([FromBody] Achievement achievement)
+        {
+            int result = _achieveRepo.Insert(achievement);
+            return Ok(result);
+        }
 
         ////PUT api/<AchievementsController>/5
         ////[HttpPut("{id}")]
